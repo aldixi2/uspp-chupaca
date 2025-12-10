@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>USPP - Red de Salud Chupaca</title>
+
+    <style>
+        :root {
+            --bg-body: #020617;
+            --bg-elevated: #020617;
+            --bg-soft: #0b1120;
+            --card-bg: #020617;
+            --card-border: rgba(148, 163, 184, 0.35);
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --accent-primary: #4f46e5;  /* morado */
+            --accent-secondary: #06b6d4; /* teal */
+            --accent-warm: #f97316;      /* naranja suave */
+            --chip-bg: rgba(148, 163, 184, 0.08);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+            --radius-card: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.45), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.42), transparent 55%),
+                linear-gradient(145deg, #020617, #020617 55%, #020617);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ================= LOADER ================= */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #020617;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            gap: 1.2rem;
+            transition: opacity 0.4s ease;
+        }
+
+        .loader-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            padding: 1.2rem 1.6rem;
+            background: conic-gradient(from 210deg, #4f46e5, #06b6d4, #f97316, #4f46e5);
+            border-radius: 16px;
+            color: #fff;
+        }
+
+        .loader-circle {
+            width: 55px;
+            height: 55px;
+            border: 5px solid rgba(255,255,255,0.2);
+            border-top-color: #06b6d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* =============== HEADER / NAVBAR =============== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 40%)
+                        ,rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: conic-gradient(from 210deg,
+                #4f46e5,
+                #06b6d4,
+                #f97316,
+                #4f46e5);
+            padding: 2px;
+        }
+
+        .logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 20%, #0b1120, #020617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e5e7eb;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+        }
+
+        .logo-title {
+            font-size: 0.98rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            font-size: 0.86rem;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: #d1d5db;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.25rem;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            transition: width 0.18s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), rgba(15, 23, 42, 1));
+            color: #e5e7eb;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.75);
+            transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.9);
+            border-color: rgba(79, 70, 229, 0.8);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            padding: 2.6rem 0 2.2rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.3), rgba(15, 23, 42, 0.95));
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-kicker-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 3.3vw, 2.6rem);
+            letter-spacing: -0.03em;
+            color: #f9fafb;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, #4f46e5, #06b6d4, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            max-width: 34rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .btn-primary {
+            padding: 0.7rem 1.4rem;
+            border-radius: 999px;
+            border: none;
+            background: radial-gradient(circle at top left, #4f46e5, #06b6d4);
+            color: #f9fafb;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+        }
+
+        .btn-ghost {
+            padding: 0.68rem 1.2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.8);
+            color: #e5e7eb;
+            font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: background 0.14s ease, transform 0.14s ease, box-shadow 0.14s ease;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 1);
+            transform: translateY(-1px);
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.9);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.4rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .hero-meta strong {
+            display: block;
+            font-size: 0.95rem;
+            color: #e5e7eb;
+        }
+
+        /* HERO PANEL DERECHO */
+
+        .hero-panel {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.35), rgba(15, 23, 42, 0.95));
+            border-radius: 26px;
+            padding: 1.3rem 1.4rem;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-panel::before {
+            content: "";
+            position: absolute;
+            right: -40px;
+            top: -40px;
+            width: 160px;
+            height: 160px;
+            border-radius: 999px;
+            border: 32px solid rgba(6, 182, 212, 0.3);
+            opacity: 0.6;
+        }
+
+        .hero-panel-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-panel-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #c7d2fe;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-panel-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-panel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.7rem;
+            font-size: 0.78rem;
+        }
+
+        .hero-panel-item {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 16px;
+            padding: 0.6rem 0.7rem;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+        }
+
+        .hero-panel-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .hero-panel-value {
+            font-weight: 600;
+        }
+
+        .hero-panel-footer {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px dashed rgba(148, 163, 184, 0.8);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .firma-nombre {
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        /* =============== SECCIONES GENERALES =============== */
+
+        .section {
+            padding: 2.2rem 0 2.1rem;
+        }
+
+        .section-header {
+            margin-bottom: 1.4rem;
+        }
+
+        .section-kicker {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            color: #f9fafb;
+            margin-bottom: 0.35rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 40rem;
+        }
+
+        /* =============== NOSOTROS =============== */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 1.8rem;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+
+        .pill {
+            padding: 0.2rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.9);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .about-card {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), rgba(15, 23, 42, 0.95));
+            border-radius: var(--radius-card);
+            padding: 1.1rem 1.2rem;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            box-shadow: var(--shadow-soft);
+            font-size: 0.85rem;
+        }
+
+        .about-card h3 {
+            font-size: 0.96rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .about-card + .about-card {
+            margin-top: 0.6rem;
+        }
+
+        /* =============== DOCUMENTOS: SLIDER =============== */
+
+        .doc-slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+
+        .doc-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 0.5rem;
+        }
+
+        .doc-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .doc-slide {
+            min-width: 240px;
+            max-width: 260px;
+            background: #0b1120;
+            border: 1px solid rgba(148,163,184,0.35);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .doc-slide img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 0.2rem;
+        }
+
+        .doc-title {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .doc-resumen {
+            color: #9ca3af;
+            font-size: 0.8rem;
+            flex: 1;
+        }
+
+        .doc-btn {
+            display: inline-block;
+            padding: 0.45rem 1rem;
+            border-radius: 10px;
+            background: #4f46e5;
+            color: #fff;
+            font-size: 0.78rem;
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.55);
+            border: none;
+            padding: 0.6rem 0.8rem;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .slider-btn.left { left: -5px; }
+        .slider-btn.right { right: -5px; }
+
+        /* =============== CONTACTO =============== */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: 1.6rem;
+        }
+
+        .contact-card {
+            background: var(--bg-soft);
+            border-radius: var(--radius-card);
+            padding: 1.1rem 1.2rem;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            box-shadow: var(--shadow-soft);
+            font-size: 0.85rem;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .contact-list strong {
+            display: block;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 0.18rem;
+        }
+
+        .contact-form {
+            font-size: 0.82rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        input,
+        textarea,
+        select {
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 0.45rem 0.6rem;
+            font-size: 0.82rem;
+            font-family: inherit;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.7);
+            background: #020617;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 0.4rem;
+        }
+
+        /* =============== FOOTER =============== */
+
+        footer {
+            padding: 1.2rem 0 1.7rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.65);
+            margin-top: 1.4rem;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+        }
+
+        /* =============== RESPONSIVE =============== */
+
+        @media (max-width: 960px) {
+            .hero-grid,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-panel {
+                margin-top: 0.8rem;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .doc-slide {
+                min-width: 220px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 1.8rem;
+            }
+
+            .form-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .container {
+                padding: 0 1.1rem;
+            }
+
+            .slider-btn.left { left: 4px; }
+            .slider-btn.right { right: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-logo">US</div>
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container navbar">
+            <div class="logo">
+                <div class="logo-mark">
+                    <div class="logo-inner">US</div>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">Unidad de Seguros Públicos y Privados</span>
+                    <span class="logo-subtitle">Red de Salud Chupaca</span>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <!-- Módulos como página aparte -->
+                <a href="modulos.html">Módulos</a>
+                <a href="#documentos">Documentos</a>
+                <a href="#contacto">Contacto</a>
+                <button class="nav-cta" onclick="window.location.href='modulos.html'">
+                    Ver módulos
+                    <span>↗</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section id="inicio" class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div class="hero-kicker">
+                        <span class="hero-kicker-dot"></span>
+                        <span>Gestión de seguros, producción e información</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Gestión moderna y transparente<br />
+                        para una <span class="hero-highlight">USPP fortalecida</span>.
+                    </h1>
+
+                    <p class="hero-text">
+                        La Unidad de Seguros Públicos y Privados de la Red de Salud Chupaca articula la gestión de
+                        afiliaciones, la producción de servicios de salud y el monitoreo de indicadores claves
+                        para garantizar una atención oportuna y de calidad a la población asegurada.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="btn-primary" type="button"
+                                onclick="window.location.href='modulos.html'">
+                            Ver módulos
+                            <span>↗</span>
+                        </button>
+                        <button class="btn-ghost" type="button"
+                                onclick="document.getElementById('documentos').scrollIntoView({behavior:'smooth'})">
+                            Ver documentos
+                        </button>
+                    </div>
+
+                    <div class="hero-meta">
+                        <div>
+                            <strong>Soporte a puntos de digitación</strong>
+                            Producción, consistencias y monitoreo continuo.
+                        </div>
+                        <div>
+                            <strong>Enfoque en calidad de datos</strong>
+                            Información alineada a normativa SIS y MINSA.
+                        </div>
+                        <div>
+                            <strong>Trabajo articulado</strong>
+                            IPRESS, digitadores y personal de salud.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel lateral tipo ficha -->
+                <aside class="hero-panel" aria-label="Ficha institucional USPP">
+                    <div class="hero-panel-inner">
+                        <div class="hero-panel-tag">Ficha resumida</div>
+                        <h2 class="hero-panel-title">Unidad de Seguros Públicos y Privados</h2>
+
+                        <div class="hero-panel-grid">
+                            <div class="hero-panel-item">
+                                <div class="hero-panel-label">Red de Salud</div>
+                                <div class="hero-panel-value">Chupaca</div>
+                            </div>
+                            <div class="hero-panel-item">
+                                <div class="hero-panel-label">Ámbito</div>
+                                <div class="hero-panel-value">Seguros, producción y consistencias</div>
+                            </div>
+                            <div class="hero-panel-item">
+                                <div class="hero-panel-label">Horario de atención</div>
+                                <div class="hero-panel-value">Lunes a viernes, 8:00 a 17:30 h</div>
+                            </div>
+                            <div class="hero-panel-item">
+                                <div class="hero-panel-label">Canal de consultas</div>
+                                <div class="hero-panel-value">uspp.chupaca@redsalud.gob.pe</div>
+                            </div>
+                        </div>
+
+                        <div class="hero-panel-footer">
+                            <div class="firma-nombre">Responsable de la USPP - Chupaca</div>
+                            <div>Cargo institucional · Coordinación de Seguros Públicos y Privados</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- NOSOTROS -->
+        <section id="nosotros" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-kicker">Nosotros</div>
+                    <h2 class="section-title">Misión, visión y enfoque de trabajo</h2>
+                    <p class="section-subtitle">
+                        La USPP articula procesos técnicos y administrativos relacionados al aseguramiento,
+                        la producción y la gestión de la información, buscando siempre decisiones basadas en datos
+                        y servicios centrados en las personas.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+                    <div>
+                        <h3 style="font-size:0.98rem; margin-bottom:0.3rem;">Misión</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">
+                            Garantizar una gestión eficiente, transparente y oportuna de los seguros públicos y
+                            privados en la Red de Salud Chupaca, asegurando que las atenciones registradas se
+                            reflejen adecuadamente en los sistemas informáticos, contribuyendo a la sostenibilidad
+                            financiera y a la mejora continua de la atención a la población.
+                        </p>
+
+                        <h3 style="font-size:0.98rem; margin:0.9rem 0 0.3rem;">Visión</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">
+                            Ser una unidad de referencia en la gestión del aseguramiento en salud, reconocida por
+                            su manejo técnico de la información, el uso de herramientas analíticas y el soporte
+                            oportuno a los establecimientos y puntos de digitación de la Red.
+                        </p>
+
+                        <h3 style="font-size:0.98rem; margin:0.9rem 0 0.3rem;">Enfoque de trabajo</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">
+                            La USPP trabaja en estrecha coordinación con los puntos de digitación, personal de salud,
+                            direcciones de red y otras unidades, promoviendo el uso responsable de los sistemas,
+                            el resguardo de la información y la mejora de los indicadores de aseguramiento.
+                        </p>
+
+                        <div class="pill-list">
+                            <span class="pill">Digitación oportuna (30 días)</span>
+                            <span class="pill">Calidad de datos</span>
+                            <span class="pill">Aseguramiento SIS</span>
+                            <span class="pill">Soporte a IPRESS</span>
+                            <span class="pill">Indicadores y reportes</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="about-card">
+                            <h3>Funciones principales</h3>
+                            <p>
+                                • Coordinación y supervisión de la digitación de FUAs y registros de producción.<br />
+                                • Gestión de afiliaciones SIS y verificación de estado de aseguramiento.<br />
+                                • Monitoreo de consistencias SIS y apoyo en el levantamiento de observaciones.<br />
+                                • Generación de reportes e indicadores para la toma de decisiones.<br />
+                                • Asistencia técnica a puntos de digitación y establecimientos de salud.
+                            </p>
+                        </div>
+
+                        <div class="about-card">
+                            <h3>Articulación y soporte</h3>
+                            <p>
+                                La unidad consolida información de múltiples fuentes (ARFSIS WEB, SIS, tableros
+                                Power BI, reportes de producción) y la pone al servicio de la gestión de la Red,
+                                impulsando mejoras en cobertura, calidad y oportunidad de la información.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOCUMENTOS CON SLIDER -->
+        <section id="documentos" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-kicker">Documentos</div>
+                    <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
+                    <p class="section-subtitle">
+                        Deslice para visualizar los documentos disponibles. Cada tarjeta incluye una miniatura,
+                        una breve descripción y un enlace directo al archivo correspondiente.
+                    </p>
+                </div>
+
+                <div class="doc-slider-wrapper">
+                    <button class="slider-btn left" type="button">❮</button>
+                    <div class="doc-slider">
+                        <!-- EJEMPLOS: reemplaza imagenes, títulos, resúmenes y href con tus links reales -->
+
+                        <article class="doc-slide">
+                            <img src="https://via.placeholder.com/260x140?text=Doc+1" alt="Documento 1">
+                            <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
+                            <p class="doc-resumen">
+                                Lineamientos para la afiliación y gestión del aseguramiento SIS en la Red de Salud.
+                            </p>
+                            <a class="doc-btn" href="#" target="_blank">Ver documento</a>
+                        </article>
+
+                        <article class="doc-slide">
+                            <img src="https://via.placeholder.com/260x140?text=Doc+2" alt="Documento 2">
+                            <h3 class="doc-title">Manual de registro FUA</h3>
+                            <p class="doc-resumen">
+                                Guía operativa para la correcta elaboración y digitación del Formato Único de Atención.
+                            </p>
+                            <a class="doc-btn" href="#" target="_blank">Abrir PDF</a>
+                        </article>
+
+                        <article class="doc-slide">
+                            <img src="https://via.placeholder.com/260x140?text=Doc+3" alt="Documento 3">
+                            <h3 class="doc-title">Flujograma de consistencias SIS</h3>
+                            <p class="doc-resumen">
+                                Procedimiento para la revisión, corrección y cierre de observaciones en SIS.
+                            </p>
+                            <a class="doc-btn" href="#" target="_blank">Ver flujograma</a>
+                        </article>
+
+                        <!-- Copia y pega más <article class="doc-slide"> ... </article> hasta tus ~20 documentos -->
+
+                    </div>
+                    <button class="slider-btn right" type="button">❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-kicker">Contacto</div>
+                    <h2 class="section-title">Canales de atención de la USPP Chupaca</h2>
+                    <p class="section-subtitle">
+                        Para consultas, coordinaciones o requerimientos relacionados con seguros y producción,
+                        puede utilizar los canales de contacto institucionales.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3 style="font-size:0.96rem; margin-bottom:0.4rem;">Información institucional</h3>
+                        <ul class="contact-list">
+                            <li>
+                                <strong>Dirección</strong>
+                                Jr. Petrona Apolaya N° 955 -, Chupaca – Junín
+                            </li>
+                            <li>
+                                <strong>Teléfono</strong>
+                                982009770
+                            </li>
+                            <li>
+                                <strong>Correo institucional</strong>
+                                uspp.chupaca@redsalud.gob.pe
+                            </li>
+                            <li>
+                                <strong>Horario de atención</strong>
+                                Lunes a viernes, 8:00 a 17:30 h
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-card contact-form">
+                        <form>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre completo</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Nombres y apellidos" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo">Correo electrónico</label>
+                                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" />
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="Número de contacto" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="tipo">Tipo de consulta</label>
+                                    <select id="tipo" name="tipo">
+                                        <option value="" disabled selected>Seleccione una opción</option>
+                                        <option value="produccion">Producción / digitación</option>
+                                        <option value="afiliaciones">Afiliaciones SIS</option>
+                                        <option value="indicadores">Indicadores / reportes</option>
+                                        <option value="soporte">Soporte a puntos de digitación</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mensaje">Detalle de la consulta</label>
+                                <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente su solicitud o consulta..."></textarea>
+                            </div>
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn-primary">Enviar consulta</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <span>
+                &copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.
+            </span>
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="modulos.html">Módulos</a>
+                <a href="#documentos">Documentos</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // año en footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // loader
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            if (loader) {
+                loader.style.opacity = "0";
+                setTimeout(() => loader.style.display = "none", 500);
+            }
+        });
+
+        // slider documentos
+        document.addEventListener("DOMContentLoaded", () => {
+            const slider = document.querySelector(".doc-slider");
+            const btnLeft = document.querySelector(".slider-btn.left");
+            const btnRight = document.querySelector(".slider-btn.right");
+
+            if (slider && btnLeft && btnRight) {
+                btnLeft.addEventListener("click", () => {
+                    slider.scrollBy({ left: -260, behavior: "smooth" });
+                });
+                btnRight.addEventListener("click", () => {
+                    slider.scrollBy({ left: 260, behavior: "smooth" });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

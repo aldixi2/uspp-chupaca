@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulos USPP - Red de Salud Chupaca</title>
+
+    <style>
+        :root {
+            --bg-body: #020617;
+            --card-bg: #020617;
+            --card-border: rgba(148, 163, 184, 0.35);
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --accent-primary: #4f46e5;
+            --accent-secondary: #06b6d4;
+            --chip-bg: rgba(148, 163, 184, 0.08);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+            --radius-card: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.45), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.42), transparent 55%),
+                linear-gradient(145deg, #020617, #020617 55%, #020617);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* HEADER SIMPLE */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: conic-gradient(from 210deg,
+                #4f46e5,
+                #06b6d4,
+                #f97316,
+                #4f46e5);
+            padding: 2px;
+        }
+
+        .logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 20%, #0b1120, #020617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e5e7eb;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+        }
+
+        .logo-title {
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: #e5e7eb;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.25rem;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            transition: width 0.18s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.2), rgba(15, 23, 42, 1));
+            color: #e5e7eb;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        /* CABECERA DE PAGINA */
+
+        .page-hero {
+            padding: 2.2rem 0 1.6rem;
+        }
+
+        .page-kicker {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            color: #f9fafb;
+            margin-bottom: 0.4rem;
+        }
+
+        .page-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 40rem;
+        }
+
+        .page-meta {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .page-meta strong {
+            display: block;
+            color: #e5e7eb;
+        }
+
+        /* MODULOS */
+
+        .section {
+            padding: 0 0 2.4rem;
+        }
+
+        .section-header {
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            max-width: 42rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: 1rem 1.05rem;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .module-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left,
+                rgba(79, 70, 229, 0.25),
+                rgba(6, 182, 212, 0.18),
+                transparent 70%);
+            opacity: 0;
+            transition: opacity 0.17s ease;
+        }
+
+        .module-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .module-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.7);
+        }
+
+        .module-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .module-title {
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        .module-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .module-chips {
+            font-size: 0.76rem;
+            margin-top: 0.2rem;
+        }
+
+        .module-chips span {
+            display: inline-block;
+            padding: 0.16rem 0.6rem;
+            border-radius: 999px;
+            background: var(--chip-bg);
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            margin-right: 0.25rem;
+            margin-bottom: 0.18rem;
+        }
+
+        .module-footer {
+            margin-top: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .module-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+        }
+
+        .btn-link {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            padding: 0.34rem 0.8rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-card:hover .btn-link {
+            background: radial-gradient(circle at top left, #4f46e5, #06b6d4);
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.95);
+            transform: translateY(-1px);
+        }
+
+        /* NOTAS */
+
+        .notes {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 16px;
+            border: 1px dashed rgba(148, 163, 184, 0.7);
+            padding: 0.9rem 1rem;
+        }
+
+        .notes strong {
+            color: #e5e7eb;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 1.2rem 0 1.7rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.65);
+            margin-top: 1.4rem;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 960px) {
+            .modules-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav-links { display: none; }
+            .container { padding: 0 1.1rem; }
+            .modules-grid { grid-template-columns: minmax(0, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container navbar">
+            <div class="logo">
+                <div class="logo-mark">
+                    <div class="logo-inner">US</div>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">USPP - Red de Salud Chupaca</span>
+                    <span class="logo-subtitle">Módulos informativos</span>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="uspp_chupaca.html">Inicio</a>
+                <a href="modulos.html" class="active">Módulos</a>
+                <button class="nav-cta" onclick="window.location.href='uspp_chupaca.html'">
+                    Volver a la página principal
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO DE LA PAGINA -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-kicker">USPP Chupaca</div>
+            <h1 class="page-title">Módulos informativos y de seguimiento</h1>
+            <p class="page-subtitle">
+                En esta sección se organizan los módulos de producción, aseguramiento, consistencias y soporte
+                vinculados a la Unidad de Seguros Públicos y Privados de la Red de Salud Chupaca.
+            </p>
+
+            <div class="page-meta">
+                <div>
+                    <strong>Ámbito</strong>
+                    Gestión de seguros, producción e información
+                </div>
+                <div>
+                    <strong>Actualización</strong>
+                    Según cierre mensual de producción
+                </div>
+                <div>
+                    <strong>Responsable</strong>
+                    Unidad de Seguros Públicos y Privados
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULOS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Listado de módulos</h2>
+                <p class="section-subtitle">
+                    Cada módulo puede apuntar a un tablero Power BI, reporte Excel, sistema web o carpeta de trabajo.
+                    Solo necesita reemplazar los enlaces por las rutas reales cuando estén disponibles.
+                </p>
+            </div>
+
+            <div class="modules-grid">
+                <!-- 1. Producción por digitador -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">👨‍💻</div>
+                        <div class="module-tag">Producción</div>
+                        <h3 class="module-title">Producción por digitador</h3>
+                        <p class="module-text">
+                            Detalle de FUAs digitadas por cada digitador, punto de digitación, oportunidad
+                            de registro y cumplimiento de metas mensuales.
+                        </p>
+                        <div class="module-chips">
+                            <span>Digitadores</span>
+                            <span>Producción mensual</span>
+                            <span>Indicador 30 días</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. Producción del personal de salud -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🩺</div>
+                        <div class="module-tag">Producción</div>
+                        <h3 class="module-title">Producción del personal de salud</h3>
+                        <p class="module-text">
+                            Consolidado por profesional, establecimiento y tipo de prestación,
+                            para analizar metas y desempeño del personal de salud.
+                        </p>
+                        <div class="module-chips">
+                            <span>Profesionales</span>
+                            <span>IPRESS</span>
+                            <span>Producción</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Indicadores USPP – Power BI -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">📊</div>
+                        <div class="module-tag">Indicadores</div>
+                        <h3 class="module-title">Indicadores USPP – Power BI</h3>
+                        <p class="module-text">
+                            Tablero con los principales indicadores de aseguramiento, digitación oportuna
+                            y consistencias SIS de la Red de Salud Chupaca.
+                        </p>
+                        <div class="module-chips">
+                            <span>Power BI</span>
+                            <span>Indicadores</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Abrir tablero</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Control de FUAs y consistencias SIS -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🧾</div>
+                        <div class="module-tag">Gestión</div>
+                        <h3 class="module-title">Control de FUAs y consistencias SIS</h3>
+                        <p class="module-text">
+                            Gestión de entrega y recepción de FUAs, estados de consistencias, reglas críticas
+                            y seguimiento al levantamiento de observaciones.
+                        </p>
+                        <div class="module-chips">
+                            <span>FUAs</span>
+                            <span>Consistencias</span>
+                            <span>SIS</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>En implementación</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. Afiliaciones y padrón -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🧬</div>
+                        <div class="module-tag">Afiliaciones</div>
+                        <h3 class="module-title">Afiliaciones y padrón de asegurados</h3>
+                        <p class="module-text">
+                            Monitoreo del estado de afiliaciones, tipo de plan, vigencia y alertas relacionadas
+                            con el padrón de asegurados de la Red.
+                        </p>
+                        <div class="module-chips">
+                            <span>Afiliaciones</span>
+                            <span>Padrones</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. Documentos y normativa -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">📁</div>
+                        <div class="module-tag">Documentos</div>
+                        <h3 class="module-title">Documentos y normativa USPP</h3>
+                        <p class="module-text">
+                            Acceso ordenado a resoluciones, lineamientos, manuales, flujogramas y otros documentos
+                            relacionados a la gestión de seguros y producción.
+                        </p>
+                        <div class="module-chips">
+                            <span>Resoluciones</span>
+                            <span>Manuales</span>
+                            <span>Procesos</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver documentos</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. Referencia y contrarreferencia -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🔁</div>
+                        <div class="module-tag">Red de servicios</div>
+                        <h3 class="module-title">Referencia y contrarreferencia</h3>
+                        <p class="module-text">
+                            Monitoreo de las referencias y contrarreferencias relacionadas con asegurados,
+                            tiempos de respuesta y cumplimiento de flujos.
+                        </p>
+                        <div class="module-chips">
+                            <span>Referencias</span>
+                            <span>Contrarreferencias</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>En desarrollo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8. Soporte a puntos de digitación -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🖥️</div>
+                        <div class="module-tag">Soporte</div>
+                        <h3 class="module-title">Soporte a puntos de digitación</h3>
+                        <p class="module-text">
+                            Información sobre puntos de digitación, infraestructura, backups ARFSIS WEB,
+                            incidencias técnicas y acciones de soporte.
+                        </p>
+                        <div class="module-chips">
+                            <span>Puntos de digitación</span>
+                            <span>Backups</span>
+                            <span>ARFSIS WEB</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="notes">
+                <strong>Notas:</strong>
+                <ul style="margin:0.3rem 0 0 1rem; padding:0;">
+                    <li>Reemplace cada <code>href="#</code> por el enlace real de su tablero, archivo o sistema.</li>
+                    <li>Puede agregar más módulos copiando cualquier tarjeta <code>&lt;article class="module-card"&gt;</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca.</span>
+            <span>Página de módulos informativos.</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
