@@ -22,11 +22,7 @@
             --radius-card: 22px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -38,15 +34,8 @@
             line-height: 1.6;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
 
         .container {
             width: 100%;
@@ -56,7 +45,6 @@
         }
 
         /* ================= LOADER ================= */
-
         #loader {
             position: fixed;
             inset: 0;
@@ -88,18 +76,15 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* =============== HEADER / NAVBAR =============== */
-
         header {
             position: sticky;
             top: 0;
             z-index: 40;
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 40%)
-                        ,rgba(15, 23, 42, 0.96);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 40%),
+                        rgba(15, 23, 42, 0.96);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(148, 163, 184, 0.4);
         }
@@ -111,21 +96,13 @@
             padding: 0.6rem 0;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
+        .logo { display: flex; align-items: center; gap: 0.7rem; }
 
         .logo-mark {
             width: 40px;
             height: 40px;
             border-radius: 999px;
-            background: conic-gradient(from 210deg,
-                #4f46e5,
-                #06b6d4,
-                #f97316,
-                #4f46e5);
+            background: conic-gradient(from 210deg, #4f46e5, #06b6d4, #f97316, #4f46e5);
             padding: 2px;
         }
 
@@ -143,11 +120,7 @@
             letter-spacing: 0.08em;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.05rem;
-        }
+        .logo-text { display: flex; flex-direction: column; gap: 0.05rem; }
 
         .logo-title {
             font-size: 0.98rem;
@@ -156,10 +129,7 @@
             font-weight: 700;
         }
 
-        .logo-subtitle {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
+        .logo-subtitle { font-size: 0.75rem; color: var(--text-muted); }
 
         .nav-links {
             display: flex;
@@ -168,10 +138,7 @@
             font-size: 0.86rem;
         }
 
-        .nav-links a {
-            position: relative;
-            color: #d1d5db;
-        }
+        .nav-links a { position: relative; color: #d1d5db; }
 
         .nav-links a::after {
             content: "";
@@ -185,9 +152,7 @@
             transition: width 0.18s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover::after { width: 100%; }
 
         .nav-cta {
             padding: 0.45rem 1rem;
@@ -212,10 +177,7 @@
         }
 
         /* ================= HERO ================= */
-
-        .hero {
-            padding: 2.6rem 0 2.2rem;
-        }
+        .hero { padding: 2.6rem 0 2.2rem; }
 
         .hero-grid {
             display: grid;
@@ -329,7 +291,6 @@
         }
 
         /* HERO PANEL DERECHO */
-
         .hero-panel {
             background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.35), rgba(15, 23, 42, 0.95));
             border-radius: 26px;
@@ -352,10 +313,7 @@
             opacity: 0.6;
         }
 
-        .hero-panel-inner {
-            position: relative;
-            z-index: 1;
-        }
+        .hero-panel-inner { position: relative; z-index: 1; }
 
         .hero-panel-tag {
             font-size: 0.7rem;
@@ -365,11 +323,7 @@
             margin-bottom: 0.3rem;
         }
 
-        .hero-panel-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-        }
+        .hero-panel-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
 
         .hero-panel-grid {
             display: grid;
@@ -385,14 +339,8 @@
             border: 1px solid rgba(148, 163, 184, 0.6);
         }
 
-        .hero-panel-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .hero-panel-value {
-            font-weight: 600;
-        }
+        .hero-panel-label { font-size: 0.7rem; color: var(--text-muted); }
+        .hero-panel-value { font-weight: 600; }
 
         .hero-panel-footer {
             margin-top: 0.8rem;
@@ -402,20 +350,12 @@
             color: var(--text-muted);
         }
 
-        .firma-nombre {
-            font-weight: 600;
-            color: #e5e7eb;
-        }
+        .firma-nombre { font-weight: 600; color: #e5e7eb; }
 
         /* =============== SECCIONES GENERALES =============== */
+        .section { padding: 2.2rem 0 2.1rem; }
 
-        .section {
-            padding: 2.2rem 0 2.1rem;
-        }
-
-        .section-header {
-            margin-bottom: 1.4rem;
-        }
+        .section-header { margin-bottom: 1.4rem; }
 
         .section-kicker {
             font-size: 0.78rem;
@@ -425,11 +365,7 @@
             margin-bottom: 0.25rem;
         }
 
-        .section-title {
-            font-size: 1.35rem;
-            color: #f9fafb;
-            margin-bottom: 0.35rem;
-        }
+        .section-title { font-size: 1.35rem; color: #f9fafb; margin-bottom: 0.35rem; }
 
         .section-subtitle {
             font-size: 0.9rem;
@@ -438,7 +374,6 @@
         }
 
         /* =============== NOSOTROS =============== */
-
         .about-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -470,22 +405,11 @@
             font-size: 0.85rem;
         }
 
-        .about-card h3 {
-            font-size: 0.96rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .about-card + .about-card {
-            margin-top: 0.6rem;
-        }
+        .about-card h3 { font-size: 0.96rem; margin-bottom: 0.4rem; }
+        .about-card + .about-card { margin-top: 0.6rem; }
 
         /* =============== DOCUMENTOS: SLIDER =============== */
-
-        .doc-slider-wrapper {
-            position: relative;
-            overflow: hidden;
-            padding: 1rem 0;
-        }
+        .doc-slider-wrapper { position: relative; overflow: hidden; padding: 1rem 0; }
 
         .doc-slider {
             display: flex;
@@ -495,9 +419,7 @@
             padding-bottom: 0.5rem;
         }
 
-        .doc-slider::-webkit-scrollbar {
-            display: none;
-        }
+        .doc-slider::-webkit-scrollbar { display: none; }
 
         .doc-slide {
             min-width: 240px;
@@ -512,17 +434,7 @@
             gap: 0.5rem;
         }
 
-        .doc-slide img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 0.2rem;
-        }
-
-        .doc-title {
-            color: #fff;
-            font-size: 0.95rem;
-            margin-bottom: 0.1rem;
-        }
+        .doc-title { color: #fff; font-size: 0.95rem; margin-bottom: 0.1rem; }
 
         .doc-resumen {
             color: #9ca3af;
@@ -559,7 +471,6 @@
         .slider-btn.right { right: -5px; }
 
         /* =============== CONTACTO =============== */
-
         .contact-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -575,11 +486,7 @@
             font-size: 0.85rem;
         }
 
-        .contact-list {
-            list-style: none;
-            display: grid;
-            gap: 0.55rem;
-        }
+        .contact-list { list-style: none; display: grid; gap: 0.55rem; }
 
         .contact-list strong {
             display: block;
@@ -590,9 +497,7 @@
             margin-bottom: 0.18rem;
         }
 
-        .contact-form {
-            font-size: 0.82rem;
-        }
+        .contact-form { font-size: 0.82rem; }
 
         .form-grid {
             display: grid;
@@ -601,20 +506,11 @@
             margin-bottom: 0.85rem;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
+        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
 
-        label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
+        label { font-size: 0.78rem; color: var(--text-muted); }
 
-        input,
-        textarea,
-        select {
+        input, textarea, select {
             border-radius: 12px;
             border: 1px solid rgba(148, 163, 184, 0.9);
             background: rgba(15, 23, 42, 0.9);
@@ -626,27 +522,17 @@
             transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
         }
 
-        input:focus,
-        textarea:focus,
-        select:focus {
+        input:focus, textarea:focus, select:focus {
             border-color: #06b6d4;
             box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.7);
             background: #020617;
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
+        textarea { resize: vertical; min-height: 90px; }
 
-        .form-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 0.4rem;
-        }
+        .form-footer { display: flex; justify-content: flex-end; margin-top: 0.4rem; }
 
         /* =============== FOOTER =============== */
-
         footer {
             padding: 1.2rem 0 1.7rem;
             border-top: 1px solid rgba(148, 163, 184, 0.65);
@@ -664,54 +550,98 @@
             color: var(--text-muted);
         }
 
-        .footer-links {
+        .footer-links { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+        /* =============== SEGUROS + ACCESOS RÁPIDOS =============== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .info-card {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.22), rgba(15, 23, 42, 0.95));
+            border-radius: var(--radius-card);
+            padding: 1.05rem 1.1rem;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .info-card h3 { font-size: 0.98rem; margin-bottom: 0.35rem; color: #f9fafb; }
+        .info-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.9);
+            color: #d1d5db;
+            margin-bottom: 0.55rem;
+        }
+
+        .quick-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.9rem;
+            gap: 0.7rem;
+            margin-top: 0.8rem;
+        }
+
+        .quick-btn {
+            padding: 0.65rem 1.05rem;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: rgba(15, 23, 42, 0.85);
+            color: #e5e7eb;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-1px);
+            border-color: rgba(6, 182, 212, 0.85);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+        }
+
+        .quick-btn .mini {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-muted);
         }
 
         /* =============== RESPONSIVE =============== */
-
         @media (max-width: 960px) {
-            .hero-grid,
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .hero-panel {
-                margin-top: 0.8rem;
-            }
+            .hero-grid, .about-grid, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+            .hero-panel { margin-top: 0.8rem; }
+            .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 960px) {
-            .doc-slide {
-                min-width: 220px;
-            }
+            .doc-slide { min-width: 220px; }
         }
 
         @media (max-width: 720px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding-top: 1.8rem;
-            }
-
-            .form-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .container {
-                padding: 0 1.1rem;
-            }
-
+            .nav-links { display: none; }
+            .hero { padding-top: 1.8rem; }
+            .form-grid { grid-template-columns: minmax(0, 1fr); }
+            .container { padding: 0 1.1rem; }
             .slider-btn.left { left: 4px; }
             .slider-btn.right { right: 4px; }
         }
+
+        @media (max-width: 640px) {
+            .cards-grid { grid-template-columns: minmax(0, 1fr); }
+        }
     </style>
 </head>
+
 <body>
     <!-- LOADER -->
     <div id="loader">
@@ -731,16 +661,21 @@
                     <span class="logo-subtitle">Red de Salud Chupaca</span>
                 </div>
             </div>
+
             <nav class="nav-links">
                 <a href="#inicio">Inicio</a>
                 <a href="#nosotros">Nosotros</a>
-                <!-- Módulos como página aparte -->
+
+                <!-- NUEVO -->
+                <a href="#seguros">Seguros SIS</a>
+                <a href="#accesos">Accesos</a>
+
                 <a href="modulos.html">Módulos</a>
                 <a href="#documentos">Documentos</a>
                 <a href="#contacto">Contacto</a>
+
                 <button class="nav-cta" onclick="window.location.href='modulos.html'">
-                    Ver módulos
-                    <span>↗</span>
+                    Ver módulos <span>↗</span>
                 </button>
             </nav>
         </div>
@@ -768,11 +703,10 @@
                     </p>
 
                     <div class="hero-actions">
-                        <button class="btn-primary" type="button"
-                                onclick="window.location.href='modulos.html'">
-                            Ver módulos
-                            <span>↗</span>
+                        <button class="btn-primary" type="button" onclick="window.location.href='modulos.html'">
+                            Ver módulos <span>↗</span>
                         </button>
+
                         <button class="btn-ghost" type="button"
                                 onclick="document.getElementById('documentos').scrollIntoView({behavior:'smooth'})">
                             Ver documentos
@@ -900,6 +834,85 @@
             </div>
         </section>
 
+        <!-- SEGUROS SIS -->
+        <section id="seguros" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-kicker">Seguros</div>
+                    <h2 class="section-title">Tipos de Seguros del SIS</h2>
+                    <p class="section-subtitle">
+                        Información referencial para orientar y derivar consultas según el tipo de seguro.
+                    </p>
+                </div>
+
+                <div class="cards-grid">
+                    <article class="info-card">
+                        <div class="badge">🟢 SIS Gratuito</div>
+                        <h3>SIS Gratuito</h3>
+                        <p>Cobertura para población en situación de vulnerabilidad, según criterios de elegibilidad SIS.</p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="badge">🔵 SIS Para Todos</div>
+                        <h3>SIS Para Todos</h3>
+                        <p>Orientado a ampliar el acceso a aseguramiento en salud para población no asegurada.</p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="badge">🟣 SIS Independiente</div>
+                        <h3>SIS Independiente</h3>
+                        <p>Modalidad contributiva para personas que desean afiliarse de forma individual.</p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="badge">🟠 SIS Microempresas</div>
+                        <h3>SIS Microempresas</h3>
+                        <p>Alternativa para asegurar a trabajadores vinculados a microempresas, según normativa vigente.</p>
+                    </article>
+
+                    <article class="info-card">
+                        <div class="badge">🟡 SIS Emprendedor</div>
+                        <h3>SIS Emprendedor</h3>
+                        <p>Modalidad enfocada a trabajadores independientes/emprendedores, de acuerdo a condiciones SIS.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCESOS RÁPIDOS -->
+        <section id="accesos" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-kicker">Accesos</div>
+                    <h2 class="section-title">Accesos rápidos a plataformas</h2>
+                    <p class="section-subtitle">
+                        Ingrese a los aplicativos oficiales para consultas, gestión y validaciones.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3 style="margin-bottom:0.2rem;">Plataformas</h3>
+                    <p style="margin-bottom:0.8rem;">
+                        Seleccione un acceso. Se abrirá en una nueva pestaña.
+                    </p>
+
+                    <div class="quick-links">
+                        <a class="quick-btn" href="http://app.sis.gob.pe/sisERP/SisMenu/frmLogin.aspx" target="_blank" rel="noopener">
+                            ↗ SIASIS <span class="mini">(App SIS ERP)</span>
+                        </a>
+
+                        <a class="quick-btn" href="https://sigeps.sis.gob.pe/sisAcceso/" target="_blank" rel="noopener">
+                            ↗ SIGEPS <span class="mini">(Acceso SIS)</span>
+                        </a>
+
+                        <a class="quick-btn" href="https://app1.susalud.gob.pe/registro/Account/LogOn" target="_blank" rel="noopener">
+                            ↗ SUSALUD <span class="mini">(Consulta)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- DOCUMENTOS CON SLIDER -->
         <section id="documentos" class="section">
             <div class="container">
@@ -907,15 +920,13 @@
                     <div class="section-kicker">Documentos</div>
                     <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
                     <p class="section-subtitle">
-                        Deslice para visualizar los documentos disponibles. Cada tarjeta incluye una miniatura,
-                        una breve descripción y un enlace directo al archivo correspondiente.
+                        Deslice para visualizar los documentos disponibles. Cada tarjeta incluye una breve descripción y un enlace directo.
                     </p>
                 </div>
 
                 <div class="doc-slider-wrapper">
                     <button class="slider-btn left" type="button">❮</button>
                     <div class="doc-slider">
-                        <!-- EJEMPLOS: reemplaza imagenes, títulos, resúmenes y href con tus links reales -->
 
                         <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
@@ -928,68 +939,58 @@
                         <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 199-2022-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Guía de operativización de los convenios suscritos entre el SIS, FISSAL, IPRESS, GORES y DIRIS para el financiamiento de las prestaciones de salud y prestaciones administrativas de los asegurados”, que como anexo forma parte integrante de la presente resolución.
+                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 sobre operativización de convenios SIS, FISSAL, IPRESS, GORES y DIRIS.
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-" target="_blank">Ver documento</a>
                         </article>
-			
-			<article class="doc-slide">
+
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000051-2024-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Aprobar la creación del código de servicio 300 “Telemedicina” y su definición operacional que obran en los Anexos N° 01 y 02 que forman parte integrante de la presente resolución, el cual entra en vigencia a partir del 01 de junio de 2024..
+                                Creación del código de servicio 300 “Telemedicina” (vigente desde 01/06/2024).
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/5489729-000051-2024-sis-j" target="_blank">Ver documento</a>
                         </article>
 
-			<article class="doc-slide">
-                            <h3 class="doc-title">Resolución Jefatural N.° 000051-2024-SIS/J</h3>
-                            <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Aprobar la creación del código de servicio 300 “Telemedicina” y su definición operacional que obran en los Anexos N° 01 y 02 que forman parte integrante de la presente resolución, el cual entra en vigencia a partir del 01 de junio de 2024..
-                            </p>
-                            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/5489729-000051-2024-sis-j" target="_blank">Ver documento</a>
-                        </article>
-
-			<article class="doc-slide">
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000139-2024-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Aprobar la “Directiva N° 008-2024-SIS/GNF-V.04 Directiva para el Monitoreo, Supervisión y Seguimiento a las Transferencias Financieras del Seguro Integral de Salud” y sus Anexos, que forman parte integrante de la presente resolución.
+                                Directiva para el Monitoreo, Supervisión y Seguimiento a las Transferencias Financieras del SIS.
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6048776-000139-2024-sis-j" target="_blank">Ver documento</a>
                         </article>
-                        
-			<article class="doc-slide">
+
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000178-2024-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Aprobar la ““Directiva para el registro de la información de las prestaciones otorgadas a los asegurados del Seguro Integral de Salud (SIS) en el Formato Único de Atención (FUA)” y sus anexos.
+                                Directiva para el registro de prestaciones SIS en el Formato Único de Atención (FUA).
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank">Ver documento</a>
                         </article>
 
-			<article class="doc-slide">
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000046-2025-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Directiva que regula la Prestación Económica de Sepelio del Seguro Integral de Salud y su Aplicativo Digital denominado “Estamos para ti” y sus anexos.
+                                Directiva de Prestación Económica de Sepelio “Estamos para ti”.
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6626326-000046-2025-sis-j" target="_blank">Ver documento</a>
                         </article>
 
-			<article class="doc-slide">
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000115-2025-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “A partir del 1 de octubre de 2025 quedara sin efecto las directivas anteriores del SIS relacionadas con el control presencial posterior, el levantamiento de observaciones de FUAs y el control prestacional electrónico, siendo reemplazadas por la DIRECTIVA N° 001-2025-SIS/GREP-V.01, que regula la auditoria de seguros de las prestaciones de salud brindadas por las IPRESS con convenio o contrato con el SIS.
+                                Directiva N° 001-2025-SIS/GREP-V.01 (auditoría de seguros en IPRESS con SIS).
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6626326-000046-2025-sis-j" target="_blank">Ver documento</a>
                         </article>
 
-			<article class="doc-slide">
+                        <article class="doc-slide">
                             <h3 class="doc-title">Resolución Jefatural N.° 000124-2025-SIS/J</h3>
                             <p class="doc-resumen">
-                                Aprobar la Guía N° 001-2022-SIS/GNF-V.01 “Aprobar el documento técnico denominado “Anexo N° 01 Tarifario de Procedimientos Médicos y Sanitarios del Seguro Integral de Salud 2025”, que como anexo forma parte integrante de la presente Resolución.
+                                Anexo N° 01 Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.
                             </p>
                             <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank">Ver documento</a>
                         </article>
-
-                        <!-- Copia y pega más <article class="doc-slide"> ... </article> hasta tus ~20 documentos -->
 
                     </div>
                     <button class="slider-btn right" type="button">❯</button>
@@ -1087,6 +1088,8 @@
             <div class="footer-links">
                 <a href="#inicio">Inicio</a>
                 <a href="#nosotros">Nosotros</a>
+                <a href="#seguros">Seguros SIS</a>
+                <a href="#accesos">Accesos</a>
                 <a href="modulos.html">Módulos</a>
                 <a href="#documentos">Documentos</a>
                 <a href="#contacto">Contacto</a>
@@ -1126,5 +1129,4 @@
 </body>
 </html>
 
-</html>
 
