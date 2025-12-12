@@ -195,27 +195,135 @@
     .quick-btn:hover{transform:translateY(-1px);border-color:rgba(6,182,212,.85);box-shadow:0 16px 40px rgba(15,23,42,.9)}
     .quick-btn .mini{font-size:.72rem;font-weight:700;color:var(--muted)}
 
-    /* DOC SLIDER */
-    .doc-slider-wrapper{position:relative;overflow:hidden;padding:1rem 0}
-    .doc-slider{display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;padding-bottom:.5rem}
-    .doc-slider::-webkit-scrollbar{display:none}
+    /* DOC SLIDER (FIXED + MEJORADO) */
+    .doc-slider-wrapper{
+      position:relative;
+      overflow:hidden; /* mantiene bonito el recorte */
+      padding:1rem 0 1.2rem;
+    }
+
+    .doc-slider{
+      display:flex;
+      gap:1rem;
+      overflow-x:auto;
+      scroll-behavior:smooth;
+      padding: .2rem .25rem .7rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+    .doc-slider::-webkit-scrollbar{height:10px}
+    .doc-slider::-webkit-scrollbar-thumb{background:rgba(148,163,184,.25);border-radius:999px}
+    .doc-slider::-webkit-scrollbar-track{background:rgba(148,163,184,.08);border-radius:999px}
+
     .doc-slide{
-      min-width:240px;max-width:260px;background:#0b1120;border:1px solid rgba(148,163,184,.35);
-      border-radius:16px;padding:1rem;box-shadow:0 14px 30px rgba(0,0,0,.4);
-      display:flex;flex-direction:column;gap:.5rem;
+      min-width:260px;
+      max-width:280px;
+      background:linear-gradient(180deg, rgba(11,17,32,1), rgba(2,6,23,.96));
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:16px;
+      padding:1rem;
+      box-shadow:0 14px 30px rgba(0,0,0,.4);
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+      scroll-snap-align:start;
+      position:relative;
+      overflow:hidden;
     }
-    .doc-title{color:#fff;font-size:.95rem;margin-bottom:.1rem}
-    .doc-resumen{color:#9ca3af;font-size:.8rem;flex:1}
+
+    .doc-slide::before{
+      content:"";
+      position:absolute;inset:-80px auto auto -80px;
+      width:180px;height:180px;border-radius:999px;
+      background:radial-gradient(circle at 30% 30%, rgba(6,182,212,.22), transparent 60%);
+      pointer-events:none;
+    }
+
+    .doc-top{
+      display:flex;align-items:center;gap:.75rem;
+    }
+    .doc-thumb{
+      width:46px;height:46px;border-radius:14px;
+      background:conic-gradient(from 210deg,var(--p),var(--s),var(--w),var(--p));
+      padding:2px;flex:0 0 auto;
+      box-shadow:0 14px 28px rgba(0,0,0,.35);
+    }
+    .doc-thumb-inner{
+      width:100%;height:100%;border-radius:12px;
+      background:rgba(15,23,42,.95);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:1000;color:#fff;font-size:.95rem;
+    }
+
+    .doc-title{color:#fff;font-size:.95rem;line-height:1.25}
+    .doc-meta{font-size:.72rem;color:rgba(203,213,225,.85)}
+    .doc-resumen{color:#9ca3af;font-size:.82rem;flex:1}
+
+    .doc-actions{
+      display:flex;gap:.6rem;align-items:center;margin-top:.1rem;
+    }
     .doc-btn{
-      display:inline-block;padding:.45rem 1rem;border-radius:10px;background:var(--p);color:#fff;font-size:.78rem;text-align:center;margin-top:.2rem
+      flex:1;
+      display:inline-block;
+      padding:.5rem 1rem;
+      border-radius:12px;
+      background:radial-gradient(circle at top left,var(--p),var(--s));
+      color:#fff;
+      font-size:.78rem;
+      text-align:center;
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.12);
     }
+    .doc-btn:hover{filter:brightness(1.05)}
+    .doc-chip{
+      padding:.38rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.35);
+      background:rgba(15,23,42,.85);
+      font-size:.72rem;
+      color:#cbd5e1;
+      white-space:nowrap;
+    }
+
     .slider-btn{
-      position:absolute;top:45%;transform:translateY(-50%);
-      background:rgba(0,0,0,.55);border:none;padding:.6rem .8rem;border-radius:50%;
-      color:#fff;font-size:1.3rem;cursor:pointer;z-index:10;
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px;height:44px;
+      background:rgba(2,6,23,.75);
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:#fff;
+      font-size:1.25rem;
+      cursor:pointer;
+      z-index:20;
+      display:flex;align-items:center;justify-content:center;
+      user-select:none;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .slider-btn.left{left:-5px}
-    .slider-btn.right{right:-5px}
+    .slider-btn:hover{
+      background:rgba(15,23,42,.92);
+      border-color:rgba(6,182,212,.65);
+      transform:translateY(-50%) scale(1.03);
+    }
+    /* IMPORTANTE: dentro del wrapper, para que NO queden fuera y no se puedan clickear */
+    .slider-btn.left{left:10px}
+    .slider-btn.right{right:10px}
+
+    .slider-dots{
+      display:flex;justify-content:center;gap:.45rem;margin-top:.6rem;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      border:1px solid rgba(148,163,184,.4);
+      background:rgba(148,163,184,.12);
+      cursor:pointer;
+    }
+    .dot.active{
+      background:linear-gradient(135deg,var(--p),var(--s));
+      border-color:rgba(255,255,255,.22);
+      box-shadow:0 0 0 4px rgba(79,70,229,.18);
+    }
 
     /* HORARIO */
     .schedule-card{
@@ -234,11 +342,11 @@
     .schedule-date{color:#cbd5e1;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
     .schedule-subline{color:#9ca3af;font-size:.85rem;margin-top:.4rem}
 
-    /* UBICACIÓN: SOLO MAPA (ancho completo y alto grande) */
+    /* UBICACIÓN */
     .map-card{padding:0;overflow:hidden}
     .map-iframe{
       width:100%;
-      height:420px; /* más grande */
+      height:460px;
       border:0;
       display:block;
     }
@@ -281,9 +389,9 @@
     @media (max-width:720px){
       .container{padding:0 1.1rem}
       .form-grid{grid-template-columns:minmax(0,1fr)}
-      .slider-btn.left{left:4px}
-      .slider-btn.right{right:4px}
-      .map-iframe{height:320px}
+      .map-iframe{height:360px}
+      .slider-btn.left{left:8px}
+      .slider-btn.right{right:8px}
     }
     @media (max-width:640px){
       .cards-grid{grid-template-columns:minmax(0,1fr)}
@@ -299,7 +407,7 @@
     <div class="loader-circle"></div>
   </div>
 
-  <!-- NAVBAR: SOLO INICIO + VER MÓDULOS -->
+  <!-- NAVBAR -->
   <header>
     <div class="container navbar">
       <div class="logo">
@@ -491,8 +599,7 @@
             <h3>SIS Emprendedor</h3>
             <p>Modalidad para trabajadores independientes y emprendedores, aplicable según criterios SIS.</p>
           </article>
-
-                 </div>
+        </div>
       </div>
     </section>
 
@@ -530,37 +637,130 @@
         <div class="section-header">
           <div class="section-kicker">Documentos</div>
           <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
-          <p class="section-subtitle">Deslice para ver documentos disponibles (slider).</p>
-        </div>
+          
+        <div class="doc-slider-wrapper" id="docRepo">
+          <button class="slider-btn left" type="button" aria-label="Anterior">❮</button>
 
-        <div class="doc-slider-wrapper">
-          <button class="slider-btn left" type="button">❮</button>
-          <div class="doc-slider">
+          <div class="doc-slider" aria-label="Slider de documentos">
+            <!-- 1 -->
             <article class="doc-slide">
-              <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
+                  <div class="doc-meta">Normativa • Afiliación</div>
+                </div>
+              </div>
               <p class="doc-resumen">Lineamientos para afiliación y gestión del aseguramiento SIS.</p>
-              <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank">Ver documento</a>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">SIS</span>
+              </div>
             </article>
 
+            <!-- 2 -->
             <article class="doc-slide">
-              <h3 class="doc-title">RJ N.° 199-2022-SIS/J</h3>
-              <p class="doc-resumen">Guía sobre operativización de convenios SIS y actores involucrados.</p>
-              <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-" target="_blank">Ver documento</a>
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 199-2022-SIS/J</h3>
+                  <div class="doc-meta">Normativa • Convenios</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Operativización de convenios SIS y actores involucrados.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Convenios</span>
+              </div>
             </article>
 
+            <!-- 3 -->
             <article class="doc-slide">
-              <h3 class="doc-title">RJ N.° 000178-2024-SIS/J</h3>
-              <p class="doc-resumen">Directiva para el registro de prestaciones SIS en el FUA.</p>
-              <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank">Ver documento</a>
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000178-2024-SIS/J</h3>
+                  <div class="doc-meta">Directiva • FUA</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Directiva para registro de prestaciones SIS en el FUA.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">FUA</span>
+              </div>
             </article>
 
+            <!-- 4 -->
             <article class="doc-slide">
-              <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
+                  <div class="doc-meta">Tarifario • 2025</div>
+                </div>
+              </div>
               <p class="doc-resumen">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</p>
-              <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank">Ver documento</a>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Tarifario</span>
+              </div>
             </article>
+
+            <!-- 5 (ejemplo extra: cambia link) -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">PDF</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000046-2025-SIS/J</h3>
+                  <div class="doc-meta">PES</div>
+                </div>
+              </div>
+              <p class="doc-resumen"> Directiva que regula la Prestación Económica de Sepelio del Seguro Integral de Salud y su Aplicativo Digital denominado “Estamos para ti” y sus anexos.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6626326-000046-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">PES</span>
+              </div>
+            </article>
+
+            <!-- 6 (ejemplo extra) -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000115-2025-SIS/J</h3>
+                  <div class="doc-meta">PCPP • Auditoria</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Directiva que regula la auditoría de seguros de las prestaciones de salud brindadas por las Instituciones Prestadoras de Servicios de Salud que cuentan con convenio o contrato con el Seguro Integral de Salud (SIS)” y sus anexos, la cual entrará en vigencia a partir del 1 de octubre de 2025.
+.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Red</span>
+              </div>
+            </article>
+
+  <!-- 6 (ejemplo extra) -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
+                  <div class="doc-meta">Tarifario • Procedimientos</div>
+                </div>
+              </div>
+              <p class="doc-resumen">arifario de Procedimientos Médicos y Sanitarios del Seguro Integral de Salud 2025”, que como anexo forma parte integrante de la presente Resolución.
+.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Red</span>
+              </div>
+            </article>
+
           </div>
-          <button class="slider-btn right" type="button">❯</button>
+
+          <button class="slider-btn right" type="button" aria-label="Siguiente">❯</button>
+
+          <div class="slider-dots" id="docDots" aria-label="Indicadores"></div>
         </div>
       </div>
     </section>
@@ -587,7 +787,7 @@
       </div>
     </section>
 
-    <!-- UBICACIÓN: SOLO MAPA (SIN CUADROS LATERALES) -->
+    <!-- UBICACIÓN -->
     <section id="ubicacion" class="section">
       <div class="container">
         <div class="section-header">
@@ -596,7 +796,6 @@
           <p class="section-subtitle">Dirección referencial y mapa.</p>
         </div>
 
-        <!-- SOLO MAPA ancho completo -->
         <div class="info-card map-card" style="grid-column: 1 / -1;">
           <iframe
             class="map-iframe"
@@ -628,7 +827,7 @@
           </div>
 
           <div class="contact-card">
-            <form>
+            <form onsubmit="event.preventDefault(); alert('Formulario demo (puedes conectarlo a correo/Google Forms).');">
               <div class="form-grid">
                 <div class="form-group">
                   <label for="nombre">Nombre completo</label>
@@ -698,15 +897,80 @@
       setTimeout(() => loader.style.display = "none", 500);
     });
 
-    // slider documentos
+    // --- SLIDER DOCUMENTOS: robusto + auto ---
     document.addEventListener("DOMContentLoaded", () => {
       const slider = document.querySelector(".doc-slider");
       const btnLeft = document.querySelector(".slider-btn.left");
       const btnRight = document.querySelector(".slider-btn.right");
-      if (slider && btnLeft && btnRight) {
-        btnLeft.addEventListener("click", () => slider.scrollBy({ left: -260, behavior: "smooth" }));
-        btnRight.addEventListener("click", () => slider.scrollBy({ left: 260, behavior: "smooth" }));
+      const dotsWrap = document.getElementById("docDots");
+      const slides = slider ? Array.from(slider.querySelectorAll(".doc-slide")) : [];
+      if (!slider || !btnLeft || !btnRight || slides.length === 0) return;
+
+      // calcula “paso” real (ancho card + gap)
+      function getStep(){
+        const first = slides[0];
+        const gap = parseFloat(getComputedStyle(slider).gap || "16");
+        return first.getBoundingClientRect().width + gap;
       }
+
+      // fallback por si smooth falla
+      function goBy(px){
+        try{
+          slider.scrollBy({ left: px, behavior: "smooth" });
+        }catch(e){
+          slider.scrollLeft += px;
+        }
+      }
+
+      btnLeft.addEventListener("click", () => goBy(-getStep()));
+      btnRight.addEventListener("click", () => goBy(getStep()));
+
+      // DOTS
+      function buildDots(){
+        dotsWrap.innerHTML = "";
+        slides.forEach((_, i) => {
+          const d = document.createElement("button");
+          d.className = "dot" + (i === 0 ? " active" : "");
+          d.type = "button";
+          d.setAttribute("aria-label", "Ir a documento " + (i+1));
+          d.addEventListener("click", () => {
+            slider.scrollTo({ left: i * getStep(), behavior: "smooth" });
+            setActiveDot(i);
+          });
+          dotsWrap.appendChild(d);
+        });
+      }
+      function setActiveDot(index){
+        const dots = Array.from(dotsWrap.querySelectorAll(".dot"));
+        dots.forEach((d,i)=> d.classList.toggle("active", i===index));
+      }
+
+      buildDots();
+
+      // Actualiza dot según scroll
+      let ticking = false;
+      slider.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const idx = Math.round(slider.scrollLeft / getStep());
+          setActiveDot(Math.max(0, Math.min(idx, slides.length-1)));
+          ticking = false;
+        });
+      });
+
+      // Auto-slide (pausa al pasar mouse)
+      let auto = setInterval(() => goBy(getStep()), 5000);
+
+      function pause(){ clearInterval(auto); auto = null; }
+      function resume(){
+        if (auto) return;
+        auto = setInterval(() => goBy(getStep()), 5000);
+      }
+      slider.addEventListener("mouseenter", pause);
+      slider.addEventListener("mouseleave", resume);
+      slider.addEventListener("touchstart", pause, {passive:true});
+      slider.addEventListener("touchend", resume, {passive:true});
     });
 
     // reloj en vivo
@@ -728,6 +992,7 @@
   </script>
 </body>
 </html>
+
 
 
 
