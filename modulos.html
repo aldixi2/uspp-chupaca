@@ -305,8 +305,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 0.4rem;
             font-size: 0.78rem;
             color: var(--text-muted);
+            flex-wrap: wrap;
         }
 
         .module-status {
@@ -319,7 +321,10 @@
             width: 8px;
             height: 8px;
             border-radius: 999px;
-            background: #22c55e;
+            background: #22c55e; /* activo */
+        }
+        .status-dot.process {
+            background: #facc15; /* en proceso */
         }
 
         .btn-link {
@@ -332,6 +337,9 @@
             color: #e5e7eb;
             cursor: pointer;
             transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
         .module-card:hover::before {
@@ -342,22 +350,6 @@
             background: radial-gradient(circle at top left, #4f46e5, #06b6d4);
             box-shadow: 0 14px 34px rgba(15, 23, 42, 0.95);
             transform: translateY(-1px);
-        }
-
-        /* NOTAS */
-
-        .notes {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: rgba(15, 23, 42, 0.9);
-            border-radius: 16px;
-            border: 1px dashed rgba(148, 163, 184, 0.7);
-            padding: 0.9rem 1rem;
-        }
-
-        .notes strong {
-            color: #e5e7eb;
         }
 
         /* FOOTER */
@@ -456,7 +448,7 @@
             </div>
 
             <div class="modules-grid">
-                <!-- 1. Producción por digitador -->
+                <!-- 1. Producción por digitador (EN PROCESO) -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">👨‍💻</div>
@@ -473,15 +465,15 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                <span class="status-dot"></span>
-                                <span>Activo</span>
+                                <span class="status-dot process"></span>
+                                <span>En proceso</span>
                             </div>
                             <a class="btn-link" href="#" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- 2. Producción del personal de salud -->
+                <!-- 2. Producción del personal de salud (EN PROCESO) -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">🩺</div>
@@ -498,28 +490,27 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                <span class="status-dot"></span>
-                                <span>Activo</span>
+                                <span class="status-dot process"></span>
+                                <span>En proceso</span>
                             </div>
                             <a class="btn-link" href="#" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
 
-                
-                <!-- 3. Fuas Observadas por el MUNDO IPRESS -->
+                <!-- 3. Control de reglas de consistencias SIS -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">🧾</div>
                         <div class="module-tag">Gestión</div>
                         <h3 class="module-title">Control de reglas de consistencias SIS</h3>
                         <p class="module-text">
-                            estados de consistencias, reglas críticas
+                            Estados de consistencias, reglas críticas
                             y seguimiento al levantamiento de observaciones.
                         </p>
                         <div class="module-chips">
                             <span>FUAs</span>
-                            <span>Reglas de Consistencias</span>
+                            <span>Reglas de consistencias</span>
                             <span>SIS</span>
                         </div>
                         <div class="module-footer">
@@ -527,12 +518,19 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNTRlMzdiOWEtMjEyMi00MjZkLThhMDYtMDljOWExNGI1MDc4IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">Ver módulo</a>
+                            <div>
+                                <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNTRlMzdiOWEtMjEyMi00MjZkLThhMDYtMDljOWExNGI1MDc4IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">
+                                    Ver módulo
+                                </a>
+                                <a class="btn-link" href="https://docs.google.com/spreadsheets/d/1Ws4U7nir1oQU91lFVfL78FHEd9epTFCZ/edit?usp=sharing&ouid=113977384902065324568&rtpof=true&sd=true" target="_blank">
+                                    Descargar reglas
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- 5. Afiliaciones y padrón -->
+                <!-- 4. Afiliaciones y padrón -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">🧬</div>
@@ -551,13 +549,12 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiN2I0YjM0NmItN2ZiMy00YThjLWE4ZDktNzQxZjczMGI2YmM5IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
 
-                
-                <!-- 8. Soporte a puntos de digitación -->
+                <!-- 5. Soporte a puntos de digitación -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">🖥️</div>
@@ -581,9 +578,86 @@
                         </div>
                     </div>
                 </article>
-            </div>
 
-           
+                <!-- 6. CIE10 y PROCEDIMIENTOS (Power BI) -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">📚</div>
+                        <div class="module-tag">Clínico</div>
+                        <h3 class="module-title">CIE10 y Procedimientos (para uso médico)</h3>
+                        <p class="module-text">
+                            Tablero de consulta de diagnósticos (CIE10) y procedimientos para apoyo al médico en el registro.
+                        </p>
+                        <div class="module-chips">
+                            <span>CIE10</span>
+                            <span>Procedimientos</span>
+                            <span>Consulta rápida</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiODkxNmVjMzQtMmFkNC00ZGQ1LTk4OWItZjM2NzFhNmNiY2ExIiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">
+                                Ver módulo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. FUAs valorizadas / recuperativas (Power BI) -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">💰</div>
+                        <div class="module-tag">Financiamiento</div>
+                        <h3 class="module-title">FUAs valorizadas – FUAs recuperativas</h3>
+                        <p class="module-text">
+                            Seguimiento de FUAs valorizadas de la Red de Salud Chupaca (incluye recuperativas).
+                        </p>
+                        <div class="module-chips">
+                            <span>Valorización</span>
+                            <span>Recuperativas</span>
+                            <span>Red Chupaca</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiODNhOWU4MjEtN2I4OC00ZjZjLTg5NzUtYjE2MmNiNzQ0MmNhIiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">
+                                Ver módulo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8. PDF: DX con cobertura per cápita (Convenio) -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">📄</div>
+                        <div class="module-tag">Convenio</div>
+                        <h3 class="module-title">Diagnósticos CIE10 con cobertura per cápita (Convenio vigente)</h3>
+                        <p class="module-text">
+                            Documento oficial SIS: listado de diagnósticos (DX) que pasan a cobertura por per cápita,
+                            según convenio firmado actualmente.
+                        </p>
+                        <div class="module-chips">
+                            <span>PDF SIS</span>
+                            <span>Per cápita</span>
+                            <span>CIE10</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
+                            </div>
+                            <a class="btn-link" href="https://www.sis.gob.pe/Portal/Transparencia_pdf/convenios/Convenio_2025/Anexos_%20Listado%20DX%20con%20cobertura%20x%20capita.pdf" target="_blank">
+                                Ver PDF
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </div>
     </section>
@@ -601,5 +675,4 @@
 </body>
 </html>
 
-</html>
 
