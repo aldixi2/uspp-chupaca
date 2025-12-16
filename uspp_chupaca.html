@@ -17,6 +17,9 @@
       --w:#f97316;
       --shadow:0 18px 45px rgba(15,23,42,.75);
       --r:22px;
+      --navidad-rojo:#dc2626;
+      --navidad-verde:#16a34a;
+      --navidad-oro:#fbbf24;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -47,6 +50,44 @@
       animation:spin 1s linear infinite;
     }
     @keyframes spin{100%{transform:rotate(360deg)}}
+
+    /* DECORACIÓN NAVIDEÑA */
+    .snowflake{
+      position:fixed;
+      top:-10px;
+      color:#fff;
+      font-size:1.2rem;
+      opacity:0.7;
+      animation:fall linear infinite;
+      pointer-events:none;
+      z-index:9998;
+    }
+    @keyframes fall{
+      to{transform:translateY(100vh) rotate(360deg)}
+    }
+    .christmas-lights{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:20px;
+      display:flex;
+      justify-content:space-around;
+      z-index:9997;
+      pointer-events:none;
+    }
+    .light{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      animation:blink 1.5s infinite;
+    }
+    .light:nth-child(odd){background:var(--navidad-rojo);animation-delay:0s}
+    .light:nth-child(even){background:var(--navidad-verde);animation-delay:0.75s}
+    @keyframes blink{
+      0%,100%{opacity:1}
+      50%{opacity:0.3}
+    }
 
     /* HEADER */
     header{
@@ -147,6 +188,25 @@
     .hero-panel-footer{margin-top:.8rem;padding-top:.6rem;border-top:1px dashed rgba(148,163,184,.8);font-size:.75rem;color:var(--muted)}
     .firma-nombre{font-weight:1000;color:#e5e7eb}
 
+    /* Mensaje navideño */
+    .christmas-message{
+      text-align:center;
+      padding:1rem;
+      margin:1rem 0;
+      background:linear-gradient(135deg,rgba(220,38,38,.15),rgba(22,163,74,.15));
+      border-radius:16px;
+      border:1px solid rgba(251,191,36,.3);
+    }
+    .christmas-message h3{
+      font-size:1.1rem;
+      color:var(--navidad-oro);
+      margin-bottom:.3rem;
+    }
+    .christmas-message p{
+      font-size:.9rem;
+      color:var(--text);
+    }
+
     /* SECTIONS */
     .section{padding:2.2rem 0 2.1rem}
     .section-header{margin-bottom:1.2rem}
@@ -195,10 +255,10 @@
     .quick-btn:hover{transform:translateY(-1px);border-color:rgba(6,182,212,.85);box-shadow:0 16px 40px rgba(15,23,42,.9)}
     .quick-btn .mini{font-size:.72rem;font-weight:700;color:var(--muted)}
 
-    /* DOC SLIDER (FIXED + MEJORADO) */
+    /* DOC SLIDER */
     .doc-slider-wrapper{
       position:relative;
-      overflow:hidden; /* mantiene bonito el recorte */
+      overflow:hidden;
       padding:1rem 0 1.2rem;
     }
 
@@ -306,7 +366,6 @@
       border-color:rgba(6,182,212,.65);
       transform:translateY(-50%) scale(1.03);
     }
-    /* IMPORTANTE: dentro del wrapper, para que NO queden fuera y no se puedan clickear */
     .slider-btn.left{left:10px}
     .slider-btn.right{right:10px}
 
@@ -401,6 +460,20 @@
 </head>
 
 <body>
+  <!-- Luces navideñas -->
+  <div class="christmas-lights">
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+  </div>
+
   <!-- LOADER -->
   <div id="loader">
     <div class="loader-logo">US</div>
@@ -448,6 +521,12 @@
             promoviendo una atención oportuna, de calidad y con enfoque intercultural.
           </p>
 
+          <!-- Mensaje navideño -->
+          <div class="christmas-message">
+            <h3>🎄 ¡Felices Fiestas! 🎄</h3>
+            <p>La USPP les desea una Feliz Navidad y Próspero Año Nuevo 2025</p>
+          </div>
+
           <div class="hero-actions">
             <button class="btn-primary" type="button" onclick="window.location.href='modulos.html'">
               Ver módulos <span>↗</span>
@@ -488,297 +567,430 @@
               <div>Coordinación de Seguros Públicos y Privados</div>
             </div>
           </div>
-        </aside>
-      </div>
-    </section>
+</aside>
+  </div>
+</section>
 
-    <!-- NOSOTROS -->
-    <section id="nosotros" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-kicker">Nosotros</div>
-          <h2 class="section-title">Misión, visión y enfoque de trabajo</h2>
-          <p class="section-subtitle">
-            La USPP articula procesos técnicos y administrativos vinculados al aseguramiento, orientación y gestión de la información,
-            con enfoque en calidad de atención, oportunidad y trato intercultural.
-          </p>
-        </div>
-
-        <div class="about-grid">
-          <div>
-            <h3 style="font-size:.98rem;margin-bottom:.3rem;">Misión</h3>
-            <p style="font-size:.9rem;color:var(--muted);">
-              Garantizar una gestión eficiente, transparente y oportuna del aseguramiento en salud (SIS y otros),
-              orientando a la población y articulando con los establecimientos de salud para el acceso a servicios,
-              asegurando calidad de datos y cumplimiento de disposiciones vigentes.
-            </p>
-
-            <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Visión</h3>
-            <p style="font-size:.9rem;color:var(--muted);">
-              Ser una unidad referente a nivel de Red por su capacidad técnica, atención orientadora, enfoque humano e intercultural,
-              y por fortalecer los procesos de aseguramiento y el uso responsable de la información para la toma de decisiones.
-            </p>
-
-            <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Enfoque de trabajo</h3>
-            <p style="font-size:.9rem;color:var(--muted);">
-              Trabajo articulado con IPRESS, personal de salud y población asegurada; priorizando orientación clara, acompañamiento técnico,
-              respeto cultural a población de sierra y pueblos originarios, y mejora continua de procesos.
-            </p>
-
-            <div class="pill-list">
-              <span class="pill">Aseguramiento SIS</span>
-              <span class="pill">Orientación</span>
-              <span class="pill">Enfoque intercultural</span>
-              <span class="pill">Calidad de datos</span>
-              <span class="pill">Gestión y reportes</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="about-card">
-              <h3>Funciones principales</h3>
-              <p>
-                • Orientación y soporte en afiliaciones SIS y verificación de aseguramiento.<br />
-                • Coordinación con IPRESS para atención y trámites vinculados a seguros.<br />
-                • Apoyo en validaciones y consistencias, según disposiciones vigentes.<br />
-                • Gestión de información para reportes e indicadores de aseguramiento.<br />
-                • Atención y respuesta a consultas institucionales.
-              </p>
-            </div>
-
-            <div class="about-card">
-              <h3>Articulación y soporte</h3>
-              <p>
-                Consolidación y orden de información; coordinación con unidades de Red para agilizar procesos,
-                resguardar calidad de datos y fortalecer la atención centrada en las personas.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEGUROS SIS -->
-    <section id="seguros" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-kicker">Seguros</div>
-          <h2 class="section-title">Tipos de Seguros del SIS</h2>
-          <p class="section-subtitle">
-            Orientación referencial para población del ámbito regional, incluyendo zonas rurales, sierra y pueblos originarios.
-          </p>
-        </div>
-
-        <div class="cards-grid">
-          <article class="info-card">
-            <div class="badge">🟢 SIS Gratuito</div>
-            <h3>SIS Gratuito</h3>
-            <p>Cobertura para población vulnerable, incluyendo comunidades rurales y población andina del ámbito regional.</p>
-          </article>
-
-          <article class="info-card">
-            <div class="badge">🔵 SIS Para Todos</div>
-            <h3>SIS Para Todos</h3>
-            <p>Amplía el acceso al aseguramiento para personas no aseguradas, promoviendo atención oportuna.</p>
-          </article>
-
-          <article class="info-card">
-            <div class="badge">🟣 SIS Independiente</div>
-            <h3>SIS Independiente</h3>
-            <p>Modalidad contributiva para afiliación individual, de acuerdo a condiciones SIS vigentes.</p>
-          </article>
-
-          <article class="info-card">
-            <div class="badge">🟠 SIS Microempresas</div>
-            <h3>SIS Microempresas</h3>
-            <p>Alternativa para asegurar trabajadores vinculados a microempresas, según normativa vigente.</p>
-          </article>
-
-          <article class="info-card">
-            <div class="badge">🟡 SIS Emprendedor</div>
-            <h3>SIS Emprendedor</h3>
-            <p>Modalidad para trabajadores independientes y emprendedores, aplicable según criterios SIS.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ACCESOS -->
-    <section id="accesos" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-kicker">Accesos</div>
-          <h2 class="section-title">Accesos rápidos a plataformas</h2>
-          <p class="section-subtitle">Ingrese a los aplicativos oficiales para consultas, gestión y validaciones.</p>
-        </div>
-
-        <div class="info-card">
-          <h3 style="margin-bottom:.2rem;">Plataformas</h3>
-          <p style="margin-bottom:.8rem;">Se abrirá en una nueva pestaña.</p>
-
-          <div class="quick-links">
-            <a class="quick-btn" href="http://app.sis.gob.pe/sisERP/SisMenu/frmLogin.aspx" target="_blank" rel="noopener">
-              ↗ SIASIS <span class="mini">(SIS ERP)</span>
-            </a>
-            <a class="quick-btn" href="https://sigeps.sis.gob.pe/sisAcceso/" target="_blank" rel="noopener">
-              ↗ SIGEPS <span class="mini">(Acceso SIS)</span>
-            </a>
-            <a class="quick-btn" href="https://app1.susalud.gob.pe/registro/Account/LogOn" target="_blank" rel="noopener">
-              ↗ SUSALUD <span class="mini">(Consulta)</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  <!-- DOCUMENTOS -->
-<section id="documentos" class="section">
+<!-- NOSOTROS -->
+<section id="nosotros" class="section">
   <div class="container">
     <div class="section-header">
-      <div class="section-kicker">Documentos</div>
-      <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
+      <div class="section-kicker">Nosotros</div>
+      <h2 class="section-title">Misión, visión y enfoque de trabajo</h2>
+      <p class="section-subtitle">
+        La USPP articula procesos técnicos y administrativos vinculados al aseguramiento, orientación y gestión de la información,
+        con enfoque en calidad de atención, oportunidad y trato intercultural.
+      </p>
     </div>
 
-    <div class="doc-slider-wrapper" id="docRepo">
-      <button class="slider-btn left" type="button" aria-label="Anterior">❮</button>
+    <div class="about-grid">
+      <div>
+        <h3 style="font-size:.98rem;margin-bottom:.3rem;">Misión</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Garantizar una gestión eficiente, transparente y oportuna del aseguramiento en salud (SIS y otros),
+          orientando a la población y articulando con los establecimientos de salud para el acceso a servicios,
+          asegurando calidad de datos y cumplimiento de disposiciones vigentes.
+        </p>
 
-      <div class="doc-slider" aria-label="Slider de documentos">
-        <!-- 1 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
-            <div>
-              <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
-              <div class="doc-meta">Normativa • Afiliación</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Lineamientos para afiliación y gestión del aseguramiento SIS.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">SIS</span>
-          </div>
-        </article>
+        <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Visión</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Ser una unidad referente a nivel de Red por su capacidad técnica, atención orientadora, enfoque humano e intercultural,
+          y por fortalecer los procesos de aseguramiento y el uso responsable de la información para la toma de decisiones.
+        </p>
 
-        <!-- 2 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 199-2022-SIS/J</h3>
-              <div class="doc-meta">Normativa • Convenios</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Operativización de convenios SIS y actores involucrados.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">Convenios</span>
-          </div>
-        </article>
+        <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Enfoque de trabajo</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Trabajo articulado con IPRESS, personal de salud y población asegurada; priorizando orientación clara, acompañamiento técnico,
+          respeto cultural a población de sierra y pueblos originarios, y mejora continua de procesos.
+        </p>
 
-        <!-- 3 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 000178-2024-SIS/J</h3>
-              <div class="doc-meta">Directiva • FUA</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Directiva para registro de prestaciones SIS en el FUA.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">FUA</span>
-          </div>
-        </article>
-
-        <!-- 4 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
-              <div class="doc-meta">Tarifario • 2025</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">Tarifario</span>
-          </div>
-        </article>
-
-        <!-- 5 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">PDF</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 000046-2025-SIS/J</h3>
-              <div class="doc-meta">PES</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Directiva que regula la Prestación Económica de Sepelio del Seguro Integral de Salud y su Aplicativo Digital denominado “Estamos para ti” y sus anexos.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6626326-000046-2025-sis-j" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">PES</span>
-          </div>
-        </article>
-
-        <!-- 6 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 000115-2025-SIS/J</h3>
-              <div class="doc-meta">PCPP • Auditoria</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Directiva que regula la auditoría de seguros de las prestaciones de salud brindadas por las Instituciones Prestadoras de Servicios de Salud que cuentan con convenio o contrato con el Seguro Integral de Salud (SIS)” y sus anexos, la cual entrará en vigencia a partir del 1 de octubre de 2025.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">Red</span>
-          </div>
-        </article>
-
-        <!-- 7 -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
-            <div>
-              <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
-              <div class="doc-meta">Tarifario • Procedimientos</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Tarifario de Procedimientos Médicos y Sanitarios del Seguro Integral de Salud 2025”, que como anexo forma parte integrante de la presente Resolución.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">Red</span>
-          </div>
-        </article>
-
-        <!-- 8 (ESTA ERA LA QUE SE TE SALIÓ) -->
-        <article class="doc-slide">
-          <div class="doc-top">
-            <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
-            <div>
-              <h3 class="doc-title">LISTADO DE DIAGNÓSTICOS CON COBERTURA POR MECANISMO DE PAGO PER CÁPITA</h3>
-              <div class="doc-meta">CIE10 • Capita</div>
-            </div>
-          </div>
-          <p class="doc-resumen">Lista de diagnosticos capitados que pasan al mecanismo PER CAPITA.</p>
-          <div class="doc-actions">
-            <a class="doc-btn" href="https://www.sis.gob.pe/Portal/Transparencia_pdf/convenios/Convenio_2025/Anexos_%20Listado%20DX%20con%20cobertura%20x%20capita.pdf" target="_blank" rel="noopener">Ver</a>
-            <span class="doc-chip">Listado</span>
-          </div>
-        </article>
+        <div class="pill-list">
+          <span class="pill">Aseguramiento SIS</span>
+          <span class="pill">Orientación</span>
+          <span class="pill">Enfoque intercultural</span>
+          <span class="pill">Calidad de datos</span>
+          <span class="pill">Gestión y reportes</span>
+        </div>
       </div>
 
-      <button class="slider-btn right" type="button" aria-label="Siguiente">❯</button>
+      <div>
+        <div class="about-card">
+          <h3>Funciones principales</h3>
+          <p>
+            • Orientación y soporte en afiliaciones SIS y verificación de aseguramiento.<br />
+            • Coordinación con IPRESS para atención y trámites vinculados a seguros.<br />
+            • Apoyo en validaciones y consistencias, según disposiciones vigentes.<br />
+            • Gestión de información para reportes e indicadores de aseguramiento.<br />
+            • Atención y respuesta a consultas institucionales.
+          </p>
+        </div>
 
-      <div class="slider-dots" id="docDots" aria-label="Indicadores"></div>
+        <div class="about-card">
+          <h3>Articulación y soporte</h3>
+          <p>
+            Consolidación y orden de información; coordinación con unidades de Red para agilizar procesos,
+            resguardar calidad de datos y fortalecer la atención centrada en las personas.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- SEGUROS SIS -->
+<section id="seguros" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Seguros</div>
+      <h2 class="section-title">Tipos de Seguros del SIS</h2>
+      <p class="section-subtitle">
+        Orientación referencial para población del ámbito regional, incluyendo zonas rurales, sierra y pueblos originarios.
+      </p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="info-card">
+        <div class="badge">🟢 SIS Gratuito</div>
+        <h3>SIS Gratuito</h3>
+        <p>Cobertura para población vulnerable, incluyendo comunidades rurales y población andina del ámbito regional.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🔵 SIS Para Todos</div>
+        <h3>SIS Para Todos</h3>
+        <p>Amplía el acceso al aseguramiento para personas no aseguradas, promoviendo atención oportuna.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟣 SIS Independiente</div>
+        <h3>SIS Independiente</h3>
+        <p>Modalidad contributiva para afiliación individual, de acuerdo a condiciones SIS vigentes.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟠 SIS Microempresas</div>
+        <h3>SIS Microempresas</h3>
+        <p>Alternativa para asegurar trabajadores vinculados a microempresas, según normativa vigente.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟡 SIS Emprendedor</div>
+        <h3>SIS Emprendedor</h3>
+        <p>Modalidad para trabajadores independientes y emprendedores, aplicable según criterios SIS.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESOS -->
+<section id="accesos" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Accesos</div>
+      <h2 class="section-title">Accesos rápidos a plataformas</h2>
+      <p class="section-subtitle">Ingrese a los aplicativos oficiales para consultas, gestión y validaciones.</p>
+    </div>
+
+    <div class="info-card">
+      <h3 style="margin-bottom:.2rem;">Plataformas</h3>
+      <p style="margin-bottom:.8rem;">Se abrirá en una nueva pestaña.</p>
+
+      <div class="quick-links">
+        <a class="quick-btn" href="http://app.sis.gob.pe/sisERP/SisMenu/frmLogin.aspx" target="_blank" rel="noopener">
+          ↗ SIASIS <span class="mini">(SIS ERP)</span>
+        </a>
+        <a class="quick-btn" href="https://sigeps.sis.gob.pe/sisAcceso/" target="_blank" rel="noopener">
+          ↗ SIGEPS <span class="mini">(Acceso SIS)</span>
+        </a>
+        <a class="quick-btn" href="https://app1.susalud.gob.pe/registro/Account/LogOn" target="_blank" rel="noopener">
+          ↗ SUSALUD <span class="mini">(Consulta)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</aside>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Nosotros</div>
+      <h2 class="section-title">Misión, visión y enfoque de trabajo</h2>
+      <p class="section-subtitle">
+        La USPP articula procesos técnicos y administrativos vinculados al aseguramiento, orientación y gestión de la información,
+        con enfoque en calidad de atención, oportunidad y trato intercultural.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div>
+        <h3 style="font-size:.98rem;margin-bottom:.3rem;">Misión</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Garantizar una gestión eficiente, transparente y oportuna del aseguramiento en salud (SIS y otros),
+          orientando a la población y articulando con los establecimientos de salud para el acceso a servicios,
+          asegurando calidad de datos y cumplimiento de disposiciones vigentes.
+        </p>
+
+        <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Visión</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Ser una unidad referente a nivel de Red por su capacidad técnica, atención orientadora, enfoque humano e intercultural,
+          y por fortalecer los procesos de aseguramiento y el uso responsable de la información para la toma de decisiones.
+        </p>
+
+        <h3 style="font-size:.98rem;margin:.9rem 0 .3rem;">Enfoque de trabajo</h3>
+        <p style="font-size:.9rem;color:var(--muted);">
+          Trabajo articulado con IPRESS, personal de salud y población asegurada; priorizando orientación clara, acompañamiento técnico,
+          respeto cultural a población de sierra y pueblos originarios, y mejora continua de procesos.
+        </p>
+
+        <div class="pill-list">
+          <span class="pill">Aseguramiento SIS</span>
+          <span class="pill">Orientación</span>
+          <span class="pill">Enfoque intercultural</span>
+          <span class="pill">Calidad de datos</span>
+          <span class="pill">Gestión y reportes</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="about-card">
+          <h3>Funciones principales</h3>
+          <p>
+            • Orientación y soporte en afiliaciones SIS y verificación de aseguramiento.<br />
+            • Coordinación con IPRESS para atención y trámites vinculados a seguros.<br />
+            • Apoyo en validaciones y consistencias, según disposiciones vigentes.<br />
+            • Gestión de información para reportes e indicadores de aseguramiento.<br />
+            • Atención y respuesta a consultas institucionales.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Articulación y soporte</h3>
+          <p>
+            Consolidación y orden de información; coordinación con unidades de Red para agilizar procesos,
+            resguardar calidad de datos y fortalecer la atención centrada en las personas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGUROS SIS -->
+<section id="seguros" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Seguros</div>
+      <h2 class="section-title">Tipos de Seguros del SIS</h2>
+      <p class="section-subtitle">
+        Orientación referencial para población del ámbito regional, incluyendo zonas rurales, sierra y pueblos originarios.
+      </p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="info-card">
+        <div class="badge">🟢 SIS Gratuito</div>
+        <h3>SIS Gratuito</h3>
+        <p>Cobertura para población vulnerable, incluyendo comunidades rurales y población andina del ámbito regional.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🔵 SIS Para Todos</div>
+        <h3>SIS Para Todos</h3>
+        <p>Amplía el acceso al aseguramiento para personas no aseguradas, promoviendo atención oportuna.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟣 SIS Independiente</div>
+        <h3>SIS Independiente</h3>
+        <p>Modalidad contributiva para afiliación individual, de acuerdo a condiciones SIS vigentes.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟠 SIS Microempresas</div>
+        <h3>SIS Microempresas</h3>
+        <p>Alternativa para asegurar trabajadores vinculados a microempresas, según normativa vigente.</p>
+      </article>
+
+      <article class="info-card">
+        <div class="badge">🟡 SIS Emprendedor</div>
+        <h3>SIS Emprendedor</h3>
+        <p>Modalidad para trabajadores independientes y emprendedores, aplicable según criterios SIS.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESOS -->
+<section id="accesos" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Accesos</div>
+      <h2 class="section-title">Accesos rápidos a plataformas</h2>
+      <p class="section-subtitle">Ingrese a los aplicativos oficiales para consultas, gestión y validaciones.</p>
+    </div>
+
+    <div class="info-card">
+      <h3 style="margin-bottom:.2rem;">Plataformas</h3>
+      <p style="margin-bottom:.8rem;">Se abrirá en una nueva pestaña.</p>
+
+      <div class="quick-links">
+        <a class="quick-btn" href="http://app.sis.gob.pe/sisERP/SisMenu/frmLogin.aspx" target="_blank" rel="noopener">
+          ↗ SIASIS <span class="mini">(SIS ERP)</span>
+        </a>
+        <a class="quick-btn" href="https://sigeps.sis.gob.pe/sisAcceso/" target="_blank" rel="noopener">
+          ↗ SIGEPS <span class="mini">(Acceso SIS)</span>
+        </a>
+        <a class="quick-btn" href="https://app1.susalud.gob.pe/registro/Account/LogOn" target="_blank" rel="noopener">
+          ↗ SUSALUD <span class="mini">(Consulta)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- DOCUMENTOS -->
+    <section id="documentos" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Documentos</div>
+          <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
+        </div>
+
+        <div class="doc-slider-wrapper" id="docRepo">
+          <button class="slider-btn left" type="button" aria-label="Anterior">❮</button>
+
+          <div class="doc-slider" aria-label="Slider de documentos">
+            <!-- 1 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">Resolución Jefatural 112-2020</h3>
+                  <div class="doc-meta">Normativa • Afiliación</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Lineamientos para afiliación y gestión del aseguramiento SIS.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">SIS</span>
+              </div>
+            </article>
+
+            <!-- 2 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 199-2022-SIS/J</h3>
+                  <div class="doc-meta">Normativa • Convenios</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Operativización de convenios SIS y actores involucrados.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Convenios</span>
+              </div>
+            </article>
+
+            <!-- 3 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000178-2024-SIS/J</h3>
+                  <div class="doc-meta">Directiva • FUA</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Directiva para registro de prestaciones SIS en el FUA.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">FUA</span>
+              </div>
+            </article>
+
+            <!-- 4 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">RJ</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
+                  <div class="doc-meta">Tarifario • 2025</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Tarifario</span>
+              </div>
+            </article>
+
+            <!-- 5 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">PDF</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000046-2025-SIS/J</h3>
+                  <div class="doc-meta">PES</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Directiva que regula la Prestación Económica de Sepelio del Seguro Integral de Salud y su Aplicativo Digital denominado "Estamos para ti" y sus anexos.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/6626326-000046-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">PES</span>
+              </div>
+            </article>
+
+            <!-- 6 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000115-2025-SIS/J</h3>
+                  <div class="doc-meta">PCPP • Auditoria</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Directiva que regula la auditoría de seguros de las prestaciones de salud brindadas por las Instituciones Prestadoras de Servicios de Salud que cuentan con convenio o contrato con el Seguro Integral de Salud (SIS)" y sus anexos, la cual entrará en vigencia a partir del 1 de octubre de 2025.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Red</span>
+              </div>
+            </article>
+
+            <!-- 7 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
+                <div>
+                  <h3 class="doc-title">RJ N.° 000124-2025-SIS/J</h3>
+                  <div class="doc-meta">Tarifario • Procedimientos</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Tarifario de Procedimientos Médicos y Sanitarios del Seguro Integral de Salud 2025", que como anexo forma parte integrante de la presente Resolución.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Red</span>
+              </div>
+            </article>
+
+            <!-- 8 -->
+            <article class="doc-slide">
+              <div class="doc-top">
+                <div class="doc-thumb"><div class="doc-thumb-inner">DOC</div></div>
+                <div>
+                  <h3 class="doc-title">LISTADO DE DIAGNÓSTICOS CON COBERTURA POR MECANISMO DE PAGO PER CÁPITA</h3>
+                  <div class="doc-meta">CIE10 • Capita</div>
+                </div>
+              </div>
+              <p class="doc-resumen">Lista de diagnosticos capitados que pasan al mecanismo PER CAPITA.</p>
+              <div class="doc-actions">
+                <a class="doc-btn" href="https://www.sis.gob.pe/Portal/Transparencia_pdf/convenios/Convenio_2025/Anexos_%20Listado%20DX%20con%20cobertura%20x%20capita.pdf" target="_blank" rel="noopener">Ver</a>
+                <span class="doc-chip">Listado</span>
+              </div>
+            </article>
+          </div>
 
           <button class="slider-btn right" type="button" aria-label="Siguiente">❯</button>
 
@@ -919,6 +1131,22 @@
       setTimeout(() => loader.style.display = "none", 500);
     });
 
+    // Nieve navideña (copos cayendo)
+    function createSnowflakes() {
+      const snowflakeCount = 20;
+      for (let i = 0; i < snowflakeCount; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = '❄';
+        snowflake.style.left = Math.random() * 100 + '%';
+        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        snowflake.style.fontSize = (Math.random() * 0.5 + 0.8) + 'rem';
+        document.body.appendChild(snowflake);
+      }
+    }
+    createSnowflakes();
+
     // --- SLIDER DOCUMENTOS: robusto + auto ---
     document.addEventListener("DOMContentLoaded", () => {
       const slider = document.querySelector(".doc-slider");
@@ -928,7 +1156,7 @@
       const slides = slider ? Array.from(slider.querySelectorAll(".doc-slide")) : [];
       if (!slider || !btnLeft || !btnRight || slides.length === 0) return;
 
-      // calcula “paso” real (ancho card + gap)
+      // calcula "paso" real (ancho card + gap)
       function getStep(){
         const first = slides[0];
         const gap = parseFloat(getComputedStyle(slider).gap || "16");
@@ -949,7 +1177,7 @@
 
       // DOTS
       function buildDots(){
-        dotsWrap.innerHTML = "";
+        dorooms.innerHTML = "";
         slides.forEach((_, i) => {
           const d = document.createElement("button");
           d.className = "dot" + (i === 0 ? " active" : "");
@@ -1014,6 +1242,7 @@
   </script>
 </body>
 </html>
+
 
 
 
