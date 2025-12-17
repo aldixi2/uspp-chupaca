@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulos USPP - Red de Salud Chupaca</title>
+    <title>Módulos USPP - Red de Salud Chupaca 🎄</title>
 
     <style>
         :root {
-            --bg-body: #020617;
-            --card-bg: #020617;
-            --card-border: rgba(148, 163, 184, 0.35);
-            --text-main: #e5e7eb;
-            --text-muted: #9ca3af;
-            --accent-primary: #4f46e5;
-            --accent-secondary: #06b6d4;
-            --chip-bg: rgba(148, 163, 184, 0.08);
-            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+            --bg-body: #0a1628;
+            --card-bg: #0f1e35;
+            --card-border: rgba(220, 38, 38, 0.4);
+            --text-main: #f0f9ff;
+            --text-muted: #bfdbfe;
+            --accent-primary: #dc2626;
+            --accent-secondary: #059669;
+            --chip-bg: rgba(220, 38, 38, 0.15);
+            --shadow-soft: 0 18px 45px rgba(5, 10, 20, 0.85);
             --radius-card: 22px;
         }
 
@@ -28,12 +28,74 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(79, 70, 229, 0.45), transparent 55%),
-                radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.42), transparent 55%),
-                linear-gradient(145deg, #020617, #020617 55%, #020617);
+                radial-gradient(circle at top left, rgba(220, 38, 38, 0.35), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(5, 150, 105, 0.3), transparent 50%),
+                linear-gradient(145deg, #0a1628, #0f1e35);
             color: var(--text-main);
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* ===== NIEVE CAYENDO ===== */
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10vh;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: snowfall linear infinite;
+        }
+
+        /* ===== LUCES NAVIDEÑAS ===== */
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        .christmas-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 5px;
+        }
+
+        .light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+
+        .light:nth-child(4n+1) { background: #dc2626; animation-delay: 0s; }
+        .light:nth-child(4n+2) { background: #059669; animation-delay: 0.4s; }
+        .light:nth-child(4n+3) { background: #fbbf24; animation-delay: 0.8s; }
+        .light:nth-child(4n+4) { background: #3b82f6; animation-delay: 1.2s; }
 
         a {
             text-decoration: none;
@@ -47,15 +109,15 @@
             padding: 0 1.5rem;
         }
 
-        /* HEADER SIMPLE */
-
+        /* HEADER NAVIDEÑO */
         header {
             position: sticky;
             top: 0;
             z-index: 20;
-            background: rgba(15, 23, 42, 0.96);
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.97), rgba(15, 30, 53, 0.97));
             backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+            border-bottom: 2px solid rgba(220, 38, 38, 0.5);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
         }
 
         .navbar {
@@ -76,22 +138,23 @@
             height: 36px;
             border-radius: 999px;
             background: conic-gradient(from 210deg,
-                #4f46e5,
-                #06b6d4,
-                #f97316,
-                #4f46e5);
+                #dc2626,
+                #059669,
+                #fbbf24,
+                #dc2626);
             padding: 2px;
+            animation: twinkle 2s ease-in-out infinite;
         }
 
         .logo-inner {
             width: 100%;
             height: 100%;
             border-radius: inherit;
-            background: radial-gradient(circle at 30% 20%, #0b1120, #020617);
+            background: radial-gradient(circle at 30% 20%, #1e3a5f, #0a1628);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e5e7eb;
+            color: #f0f9ff;
             font-weight: 700;
             font-size: 0.9rem;
             letter-spacing: 0.08em;
@@ -124,7 +187,7 @@
 
         .nav-links a {
             position: relative;
-            color: #e5e7eb;
+            color: #f0f9ff;
         }
 
         .nav-links a::after {
@@ -135,7 +198,7 @@
             width: 0;
             height: 2px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            background: linear-gradient(90deg, #dc2626, #059669);
             transition: width 0.18s ease;
         }
 
@@ -147,9 +210,9 @@
         .nav-cta {
             padding: 0.4rem 0.9rem;
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.2), rgba(15, 23, 42, 1));
-            color: #e5e7eb;
+            border: 1px solid rgba(220, 38, 38, 0.6);
+            background: radial-gradient(circle at top left, rgba(220, 38, 38, 0.3), rgba(15, 30, 53, 1));
+            color: #f0f9ff;
             font-size: 0.78rem;
             font-weight: 600;
             display: inline-flex;
@@ -159,9 +222,8 @@
         }
 
         /* CABECERA DE PAGINA */
-
         .page-hero {
-            padding: 2.2rem 0 1.6rem;
+            padding: 2.8rem 0 1.6rem;
         }
 
         .page-kicker {
@@ -174,8 +236,9 @@
 
         .page-title {
             font-size: 1.6rem;
-            color: #f9fafb;
+            color: #ffffff;
             margin-bottom: 0.4rem;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
         }
 
         .page-subtitle {
@@ -195,11 +258,10 @@
 
         .page-meta strong {
             display: block;
-            color: #e5e7eb;
+            color: #f0f9ff;
         }
 
-        /* MODULOS */
-
+        /* SECCIÓN */
         .section {
             padding: 0 0 2.4rem;
         }
@@ -211,6 +273,7 @@
         .section-title {
             font-size: 1.2rem;
             margin-bottom: 0.3rem;
+            color: #ffffff;
         }
 
         .section-subtitle {
@@ -224,7 +287,8 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.3rem;
         }
-
+/* CONTINUACIÓN DE ESTILOS - PARTE 2 */
+        
         .module-card {
             background: var(--card-bg);
             border-radius: var(--radius-card);
@@ -236,6 +300,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .module-card::before {
@@ -243,8 +308,8 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at top left,
-                rgba(79, 70, 229, 0.25),
-                rgba(6, 182, 212, 0.18),
+                rgba(220, 38, 38, 0.3),
+                rgba(5, 150, 105, 0.25),
                 transparent 70%);
             opacity: 0;
             transition: opacity 0.17s ease;
@@ -263,8 +328,8 @@
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 30, 53, 0.9);
+            border: 1px solid rgba(220, 38, 38, 0.7);
         }
 
         .module-tag {
@@ -277,7 +342,7 @@
         .module-title {
             font-size: 0.96rem;
             font-weight: 600;
-            color: #f9fafb;
+            color: #ffffff;
         }
 
         .module-text {
@@ -295,7 +360,7 @@
             padding: 0.16rem 0.6rem;
             border-radius: 999px;
             background: var(--chip-bg);
-            border: 1px solid rgba(148, 163, 184, 0.65);
+            border: 1px solid rgba(220, 38, 38, 0.65);
             margin-right: 0.25rem;
             margin-bottom: 0.18rem;
         }
@@ -321,20 +386,20 @@
             width: 8px;
             height: 8px;
             border-radius: 999px;
-            background: #22c55e; /* activo */
+            background: #22c55e;
         }
         .status-dot.process {
-            background: #facc15; /* en proceso */
+            background: #fbbf24;
         }
 
         .btn-link {
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
+            border: 1px solid rgba(220, 38, 38, 0.7);
             padding: 0.34rem 0.8rem;
             font-size: 0.78rem;
             font-weight: 500;
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
+            background: rgba(15, 30, 53, 0.9);
+            color: #f0f9ff;
             cursor: pointer;
             transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
             display: inline-flex;
@@ -342,23 +407,27 @@
             gap: 0.25rem;
         }
 
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.4);
+        }
+
         .module-card:hover::before {
             opacity: 1;
         }
 
         .module-card:hover .btn-link {
-            background: radial-gradient(circle at top left, #4f46e5, #06b6d4);
-            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.95);
+            background: linear-gradient(135deg, #dc2626, #059669);
+            box-shadow: 0 14px 34px rgba(220, 38, 38, 0.5);
             transform: translateY(-1px);
         }
 
         /* FOOTER */
-
         footer {
             padding: 1.2rem 0 1.7rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.65);
+            border-top: 2px solid rgba(220, 38, 38, 0.5);
             margin-top: 1.4rem;
-            background: rgba(15, 23, 42, 0.95);
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.97), rgba(15, 30, 53, 0.97));
         }
 
         .footer-inner {
@@ -372,7 +441,6 @@
         }
 
         /* RESPONSIVE */
-
         @media (max-width: 960px) {
             .modules-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -387,6 +455,22 @@
     </style>
 </head>
 <body>
+    <!-- LUCES NAVIDEÑAS -->
+    <div class="christmas-lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
     <!-- HEADER -->
     <header>
         <div class="container navbar">
@@ -395,7 +479,7 @@
                     <div class="logo-inner">US</div>
                 </div>
                 <div class="logo-text">
-                    <span class="logo-title">USPP - Red de Salud Chupaca</span>
+                    <span class="logo-title">USPP - Red de Salud Chupaca 🎄</span>
                     <span class="logo-subtitle">Módulos informativos</span>
                 </div>
             </div>
@@ -403,7 +487,7 @@
                 <a href="uspp_chupaca.html">Inicio</a>
                 <a href="modulos.html" class="active">Módulos</a>
                 <button class="nav-cta" onclick="window.location.href='uspp_chupaca.html'">
-                    Volver a la página principal
+                    🎅 Volver a la página principal
                 </button>
             </nav>
         </div>
@@ -412,7 +496,7 @@
     <!-- HERO DE LA PAGINA -->
     <section class="page-hero">
         <div class="container">
-            <div class="page-kicker">USPP Chupaca</div>
+            <div class="page-kicker">🎄 USPP Chupaca - Feliz Navidad 2025 🎄</div>
             <h1 class="page-title">Módulos informativos y de seguimiento</h1>
             <p class="page-subtitle">
                 En esta sección se organizan los módulos de producción, aseguramiento, consistencias y soporte
@@ -440,7 +524,7 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Listado de módulos</h2>
+                <h2 class="section-title">🎁 Listado de módulos</h2>
                 <p class="section-subtitle">
                     Cada módulo puede apuntar a un tablero Power BI, reporte Excel, sistema web o carpeta de trabajo.
                     Solo necesita reemplazar los enlaces por las rutas reales cuando estén disponibles.
@@ -448,7 +532,7 @@
             </div>
 
             <div class="modules-grid">
-                <!-- 1. Producción por digitador (EN PROCESO) -->
+                <!-- 1. Producción por digitador -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">👨‍💻</div>
@@ -465,15 +549,15 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                <span class="status-dot process"></span>
-                                <span>En proceso</span>
+                                 <span class="status-dot"></span>
+                                <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="#" target="_blank">Ver módulo</a>
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiZGQwNjllYmItYTNkOC00NDc0LWJiMTMtNTk3NjZkODhlODY2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9&pageName=bcd4fedeb29d5cca842c" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
 
-                <!-- 2. Producción del personal de salud (EN PROCESO) -->
+                <!-- 2. Producción del personal de salud -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">🩺</div>
@@ -490,10 +574,10 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                <span class="status-dot"></span>
+                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiZGQwNjllYmItYTNkOC00NDc0LWJiMTMtNTk3NjZkODhlODY2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">Ver módulo</a>
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiZGQwNjllYmItYTNkOC00NDc0LWJiMTMtNTk3NjZkODhlODY2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9&pageName=911ba1301b68ba98d502" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
@@ -579,7 +663,7 @@
                     </div>
                 </article>
 
-                <!-- 6. CIE10 y PROCEDIMIENTOS (Power BI) -->
+                <!-- 6. CIE10 y PROCEDIMIENTOS -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">📚</div>
@@ -605,7 +689,7 @@
                     </div>
                 </article>
 
-                <!-- 7. FUAs valorizadas / recuperativas (Power BI) -->
+                <!-- 7. FUAs valorizadas / recuperativas -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">💰</div>
@@ -631,7 +715,7 @@
                     </div>
                 </article>
 
-                <!-- 8. PDF: DX con cobertura per cápita (Convenio) -->
+                <!-- 8. PDF: DX con cobertura per cápita -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">📄</div>
@@ -660,17 +744,34 @@
 
             </div>
         </div>
-    </section>
+</section>
 
     <footer>
         <div class="container footer-inner">
-            <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca.</span>
+            <span>🎄 &copy; <span id="year"></span> USPP – Red de Salud Chupaca. ¡Feliz Navidad! 🎅</span>
             <span>Página de módulos informativos.</span>
         </div>
     </footer>
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        // NIEVE CAYENDO
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            snowflake.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        setInterval(createSnowflake, 300);
     </script>
 </body>
 </html>
