@@ -3,104 +3,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulos USPP - Red de Salud Chupaca 🎄</title>
+    <title>Módulos USPP - Red de Salud Chupaca 🎆</title>
 
     <style>
         :root {
-            --bg-body: #0a1628;
-            --card-bg: #0f1e35;
-            --card-border: rgba(220, 38, 38, 0.4);
-            --text-main: #f0f9ff;
-            --text-muted: #bfdbfe;
-            --accent-primary: #dc2626;
-            --accent-secondary: #059669;
-            --chip-bg: rgba(220, 38, 38, 0.15);
-            --shadow-soft: 0 18px 45px rgba(5, 10, 20, 0.85);
+            --bg-body: #06122a;
+            --card-bg: #0b1b3a;
+            --card-border: rgba(245, 158, 11, 0.45);
+            --text-main: #f8fafc;
+            --text-muted: rgba(226, 232, 240, 0.75);
+            --accent-primary: #f59e0b;   /* dorado */
+            --accent-secondary: #38bdf8; /* celeste */
+            --chip-bg: rgba(245, 158, 11, 0.14);
+            --shadow-soft: 0 18px 45px rgba(2, 6, 23, 0.85);
             --radius-card: 22px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(220, 38, 38, 0.35), transparent 50%),
-                radial-gradient(circle at bottom right, rgba(5, 150, 105, 0.3), transparent 50%),
-                linear-gradient(145deg, #0a1628, #0f1e35);
+                radial-gradient(circle at top left, rgba(245, 158, 11, 0.26), transparent 50%),
+                radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.22), transparent 55%),
+                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.10), transparent 35%),
+                linear-gradient(145deg, #06122a, #0b1b3a);
             color: var(--text-main);
             line-height: 1.6;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* ===== NIEVE CAYENDO ===== */
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-10vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        .snowflake {
-            position: fixed;
-            top: -10vh;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-            pointer-events: none;
-            z-index: 9999;
-            animation: snowfall linear infinite;
-        }
-
-        /* ===== LUCES NAVIDEÑAS ===== */
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.9); }
-        }
-
-        .christmas-lights {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            pointer-events: none;
-            z-index: 100;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            padding-top: 5px;
-        }
-
-        .light {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: twinkle 1.5s ease-in-out infinite;
-        }
-
-        .light:nth-child(4n+1) { background: #dc2626; animation-delay: 0s; }
-        .light:nth-child(4n+2) { background: #059669; animation-delay: 0.4s; }
-        .light:nth-child(4n+3) { background: #fbbf24; animation-delay: 0.8s; }
-        .light:nth-child(4n+4) { background: #3b82f6; animation-delay: 1.2s; }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
         .container {
             width: 100%;
@@ -109,15 +43,34 @@
             padding: 0 1.5rem;
         }
 
-        /* HEADER NAVIDEÑO */
+        /* ===== CONFETTI (AÑO NUEVO) ===== */
+        @keyframes confettiFall {
+            0%   { transform: translateY(-12vh) rotate(0deg); opacity: 0; }
+            10%  { opacity: 1; }
+            100% { transform: translateY(112vh) rotate(720deg); opacity: 0.9; }
+        }
+
+        .confetti {
+            position: fixed;
+            top: -12vh;
+            width: 10px;
+            height: 14px;
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: confettiFall linear forwards;
+            filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
+        }
+
+        /* HEADER */
         header {
             position: sticky;
             top: 0;
             z-index: 20;
-            background: linear-gradient(135deg, rgba(10, 22, 40, 0.97), rgba(15, 30, 53, 0.97));
+            background: linear-gradient(135deg, rgba(6, 18, 42, 0.95), rgba(11, 27, 58, 0.95));
             backdrop-filter: blur(18px);
-            border-bottom: 2px solid rgba(220, 38, 38, 0.5);
-            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+            border-bottom: 2px solid rgba(245, 158, 11, 0.45);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.18);
         }
 
         .navbar {
@@ -138,24 +91,29 @@
             height: 36px;
             border-radius: 999px;
             background: conic-gradient(from 210deg,
-                #dc2626,
-                #059669,
-                #fbbf24,
-                #dc2626);
+                var(--accent-primary),
+                var(--accent-secondary),
+                #a78bfa,
+                var(--accent-primary));
             padding: 2px;
-            animation: twinkle 2s ease-in-out infinite;
+            animation: glow 2.2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); transform: scale(1); }
+            50% { filter: brightness(1.25); transform: scale(1.03); }
         }
 
         .logo-inner {
             width: 100%;
             height: 100%;
             border-radius: inherit;
-            background: radial-gradient(circle at 30% 20%, #1e3a5f, #0a1628);
+            background: radial-gradient(circle at 30% 20%, #1b3b6a, #06122a);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f0f9ff;
-            font-weight: 700;
+            color: #f8fafc;
+            font-weight: 800;
             font-size: 0.9rem;
             letter-spacing: 0.08em;
         }
@@ -170,7 +128,7 @@
             font-size: 0.9rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .logo-subtitle {
@@ -187,7 +145,7 @@
 
         .nav-links a {
             position: relative;
-            color: #f0f9ff;
+            color: #f8fafc;
         }
 
         .nav-links a::after {
@@ -198,33 +156,29 @@
             width: 0;
             height: 2px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #dc2626, #059669);
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transition: width 0.18s ease;
         }
 
         .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
+        .nav-links a.active::after { width: 100%; }
 
         .nav-cta {
             padding: 0.4rem 0.9rem;
             border-radius: 999px;
-            border: 1px solid rgba(220, 38, 38, 0.6);
-            background: radial-gradient(circle at top left, rgba(220, 38, 38, 0.3), rgba(15, 30, 53, 1));
-            color: #f0f9ff;
+            border: 1px solid rgba(245, 158, 11, 0.55);
+            background: radial-gradient(circle at top left, rgba(245, 158, 11, 0.22), rgba(11, 27, 58, 1));
+            color: #f8fafc;
             font-size: 0.78rem;
-            font-weight: 600;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
             cursor: pointer;
         }
 
-        /* CABECERA DE PAGINA */
-        .page-hero {
-            padding: 2.8rem 0 1.6rem;
-        }
+        /* HERO */
+        .page-hero { padding: 2.8rem 0 1.6rem; }
 
         .page-kicker {
             font-size: 0.78rem;
@@ -238,7 +192,7 @@
             font-size: 1.6rem;
             color: #ffffff;
             margin-bottom: 0.4rem;
-            text-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+            text-shadow: 0 0 22px rgba(245, 158, 11, 0.25);
         }
 
         .page-subtitle {
@@ -256,19 +210,12 @@
             color: var(--text-muted);
         }
 
-        .page-meta strong {
-            display: block;
-            color: #f0f9ff;
-        }
+        .page-meta strong { display: block; color: #f8fafc; }
 
         /* SECCIÓN */
-        .section {
-            padding: 0 0 2.4rem;
-        }
+        .section { padding: 0 0 2.4rem; }
 
-        .section-header {
-            margin-bottom: 1.2rem;
-        }
+        .section-header { margin-bottom: 1.2rem; }
 
         .section-title {
             font-size: 1.2rem;
@@ -287,8 +234,7 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.3rem;
         }
-/* CONTINUACIÓN DE ESTILOS - PARTE 2 */
-        
+
         .module-card {
             background: var(--card-bg);
             border-radius: var(--radius-card);
@@ -308,17 +254,14 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at top left,
-                rgba(220, 38, 38, 0.3),
-                rgba(5, 150, 105, 0.25),
+                rgba(245, 158, 11, 0.22),
+                rgba(56, 189, 248, 0.18),
                 transparent 70%);
             opacity: 0;
             transition: opacity 0.17s ease;
         }
 
-        .module-inner {
-            position: relative;
-            z-index: 1;
-        }
+        .module-inner { position: relative; z-index: 1; }
 
         .module-icon {
             width: 32px;
@@ -328,8 +271,8 @@
             align-items: center;
             justify-content: center;
             font-size: 1.05rem;
-            background: rgba(15, 30, 53, 0.9);
-            border: 1px solid rgba(220, 38, 38, 0.7);
+            background: rgba(11, 27, 58, 0.92);
+            border: 1px solid rgba(245, 158, 11, 0.55);
         }
 
         .module-tag {
@@ -341,26 +284,20 @@
 
         .module-title {
             font-size: 0.96rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #ffffff;
         }
 
-        .module-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        .module-text { font-size: 0.85rem; color: var(--text-muted); }
 
-        .module-chips {
-            font-size: 0.76rem;
-            margin-top: 0.2rem;
-        }
+        .module-chips { font-size: 0.76rem; margin-top: 0.2rem; }
 
         .module-chips span {
             display: inline-block;
             padding: 0.16rem 0.6rem;
             border-radius: 999px;
             background: var(--chip-bg);
-            border: 1px solid rgba(220, 38, 38, 0.65);
+            border: 1px solid rgba(245, 158, 11, 0.5);
             margin-right: 0.25rem;
             margin-bottom: 0.18rem;
         }
@@ -388,18 +325,16 @@
             border-radius: 999px;
             background: #22c55e;
         }
-        .status-dot.process {
-            background: #fbbf24;
-        }
+        .status-dot.process { background: #fbbf24; }
 
         .btn-link {
             border-radius: 999px;
-            border: 1px solid rgba(220, 38, 38, 0.7);
+            border: 1px solid rgba(245, 158, 11, 0.55);
             padding: 0.34rem 0.8rem;
             font-size: 0.78rem;
-            font-weight: 500;
-            background: rgba(15, 30, 53, 0.9);
-            color: #f0f9ff;
+            font-weight: 700;
+            background: rgba(11, 27, 58, 0.92);
+            color: #f8fafc;
             cursor: pointer;
             transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
             display: inline-flex;
@@ -409,25 +344,23 @@
 
         .module-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 20px 52px rgba(245, 158, 11, 0.22);
         }
 
-        .module-card:hover::before {
-            opacity: 1;
-        }
+        .module-card:hover::before { opacity: 1; }
 
         .module-card:hover .btn-link {
-            background: linear-gradient(135deg, #dc2626, #059669);
-            box-shadow: 0 14px 34px rgba(220, 38, 38, 0.5);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            box-shadow: 0 14px 34px rgba(245, 158, 11, 0.25);
             transform: translateY(-1px);
         }
 
         /* FOOTER */
         footer {
             padding: 1.2rem 0 1.7rem;
-            border-top: 2px solid rgba(220, 38, 38, 0.5);
+            border-top: 2px solid rgba(245, 158, 11, 0.45);
             margin-top: 1.4rem;
-            background: linear-gradient(135deg, rgba(10, 22, 40, 0.97), rgba(15, 30, 53, 0.97));
+            background: linear-gradient(135deg, rgba(6, 18, 42, 0.95), rgba(11, 27, 58, 0.95));
         }
 
         .footer-inner {
@@ -442,9 +375,7 @@
 
         /* RESPONSIVE */
         @media (max-width: 960px) {
-            .modules-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+            .modules-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 720px) {
@@ -454,23 +385,8 @@
         }
     </style>
 </head>
-<body>
-    <!-- LUCES NAVIDEÑAS -->
-    <div class="christmas-lights">
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-    </div>
 
+<body>
     <!-- HEADER -->
     <header>
         <div class="container navbar">
@@ -479,7 +395,7 @@
                     <div class="logo-inner">US</div>
                 </div>
                 <div class="logo-text">
-                    <span class="logo-title">USPP - Red de Salud Chupaca 🎄</span>
+                    <span class="logo-title">USPP - Red de Salud Chupaca 🎆</span>
                     <span class="logo-subtitle">Módulos informativos</span>
                 </div>
             </div>
@@ -487,16 +403,16 @@
                 <a href="uspp_chupaca.html">Inicio</a>
                 <a href="modulos.html" class="active">Módulos</a>
                 <button class="nav-cta" onclick="window.location.href='uspp_chupaca.html'">
-                    🎅 Volver a la página principal
+                    🎇 Volver a la página principal
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- HERO DE LA PAGINA -->
+    <!-- HERO -->
     <section class="page-hero">
         <div class="container">
-            <div class="page-kicker">🎄 USPP Chupaca - Feliz Navidad 2025 🎄</div>
+            <div class="page-kicker">🎆 USPP Chupaca — Bienvenido 2026 🎆</div>
             <h1 class="page-title">Módulos informativos y de seguimiento</h1>
             <p class="page-subtitle">
                 En esta sección se organizan los módulos de producción, aseguramiento, consistencias y soporte
@@ -524,7 +440,7 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">🎁 Listado de módulos</h2>
+                <h2 class="section-title">🎯 Listado de módulos</h2>
                 <p class="section-subtitle">
                     Cada módulo puede apuntar a un tablero Power BI, reporte Excel, sistema web o carpeta de trabajo.
                     Solo necesita reemplazar los enlaces por las rutas reales cuando estén disponibles.
@@ -549,7 +465,7 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                 <span class="status-dot"></span>
+                                <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
                             <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiZGQwNjllYmItYTNkOC00NDc0LWJiMTMtNTk3NjZkODhlODY2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9&pageName=bcd4fedeb29d5cca842c" target="_blank">Ver módulo</a>
@@ -574,7 +490,7 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                 <span class="status-dot"></span>
+                                <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
                             <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiZGQwNjllYmItYTNkOC00NDc0LWJiMTMtNTk3NjZkODhlODY2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9&pageName=911ba1301b68ba98d502" target="_blank">Ver módulo</a>
@@ -742,18 +658,18 @@
                     </div>
                 </article>
 
- <!-- 8. PDF: DX con cobertura per cápita -->
+                <!-- 9. Indicador OGTI -->
                 <article class="module-card">
                     <div class="module-inner">
                         <div class="module-icon">👨‍💻</div>
-                        <div class="module-tag">Digitacion</div>
-                        <h3 class="module-title">Indicador oportuna de envio de informacion SIS - OGTI</h3>
+                        <div class="module-tag">Digitación</div>
+                        <h3 class="module-title">Indicador oportuna de envío de información SIS - OGTI</h3>
                         <p class="module-text">
-                            Fuas enviadas y digitadas antes de los 30 dias desde la fecha de atencion.
+                            FUAs enviadas y digitadas antes de los 30 días desde la fecha de atención.
                         </p>
                         <div class="module-chips">
-                            <span>Envio</span>
-                            <span>30 dias</span>
+                            <span>Envío</span>
+                            <span>30 días</span>
                             <span>OGTI</span>
                         </div>
                         <div class="module-footer">
@@ -762,43 +678,63 @@
                                 <span>Activo</span>
                             </div>
                             <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNDkwYTM1MDgtZWFmYy00N2VkLTgwM2QtZWVmOTI4MTFjN2M2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9">
-                                Ver MODULO
+                                Ver módulo
                             </a>
                         </div>
                     </div>
                 </article>
             </div>
         </div>
-</section>
+    </section>
 
     <footer>
         <div class="container footer-inner">
-            <span>🎄 &copy; <span id="year"></span> USPP – Red de Salud Chupaca. ¡Feliz Navidad! 🎅</span>
+            <span>🎆 &copy; <span id="year"></span> USPP – Red de Salud Chupaca. ¡Feliz Año Nuevo 2026! 🥂</span>
             <span>Página de módulos informativos.</span>
         </div>
     </footer>
 
     <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+        // Año fijo (2026) pero igual actualiza automático por si lo reutilizas
+        const y = new Date().getFullYear();
+        document.getElementById("year").textContent = y;
 
-        // NIEVE CAYENDO
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.innerHTML = '❄';
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            snowflake.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
-            document.body.appendChild(snowflake);
+        // CONFETTI (AÑO NUEVO)
+        const confettiColors = ["#f59e0b", "#38bdf8", "#a78bfa", "#22c55e", "#f43f5e", "#ffffff"];
 
-            setTimeout(() => {
-                snowflake.remove();
-            }, 8000);
+        function createConfetti() {
+            const c = document.createElement("div");
+            c.className = "confetti";
+
+            const sizeW = Math.random() * 8 + 6;   // 6 - 14
+            const sizeH = Math.random() * 10 + 8;  // 8 - 18
+            c.style.width = sizeW + "px";
+            c.style.height = sizeH + "px";
+
+            c.style.left = (Math.random() * 100) + "vw";
+            c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+            const dur = Math.random() * 2.8 + 4.5; // 4.5 - 7.3s
+            c.style.animationDuration = dur + "s";
+
+            c.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
+
+            document.body.appendChild(c);
+
+            setTimeout(() => c.remove(), (dur + 0.2) * 1000);
         }
 
-        setInterval(createSnowflake, 300);
+        // Arranque de celebración
+        const confettiInterval = setInterval(createConfetti, 140);
+
+        // Opcional: baja intensidad después de 12s
+        setTimeout(() => {
+            clearInterval(confettiInterval);
+            setInterval(createConfetti, 420); // suavecito
+        }, 12000);
     </script>
 </body>
 </html>
+
 
 
