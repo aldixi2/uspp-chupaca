@@ -17,9 +17,12 @@
       --w:#f97316;
       --shadow:0 18px 45px rgba(15,23,42,.75);
       --r:22px;
-      --navidad-rojo:#dc2626;
-      --navidad-verde:#16a34a;
-      --navidad-oro:#fbbf24;
+
+      /* === AÑO NUEVO 2026 (reemplaza navidad) === */
+      --ny-gold:#fbbf24;
+      --ny-purple:#a855f7;
+      --ny-cyan:#22d3ee;
+      --ny-silver:#e5e7eb;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -27,6 +30,7 @@
       background:
         radial-gradient(circle at top left, rgba(79,70,229,.45), transparent 55%),
         radial-gradient(circle at bottom right, rgba(6,182,212,.42), transparent 55%),
+        radial-gradient(circle at 60% 10%, rgba(251,191,36,.20), transparent 45%),
         linear-gradient(145deg,#020617,#020617 55%,#020617);
       color:var(--text);line-height:1.6;
     }
@@ -41,52 +45,52 @@
     }
     .loader-logo{
       font-size:2rem;font-weight:800;padding:1.2rem 1.6rem;
-      background:conic-gradient(from 210deg,var(--p),var(--s),var(--w),var(--p));
+      background:conic-gradient(from 210deg,var(--ny-gold),var(--ny-purple),var(--ny-cyan),var(--ny-gold));
       border-radius:16px;color:#fff;
     }
     .loader-circle{
       width:55px;height:55px;border:5px solid rgba(255,255,255,.2);
-      border-top-color:var(--s);border-radius:50%;
+      border-top-color:var(--ny-cyan);border-radius:50%;
       animation:spin 1s linear infinite;
     }
     @keyframes spin{100%{transform:rotate(360deg)}}
 
-    /* DECORACIÓN NAVIDEÑA */
-    .snowflake{
+    /* ====== DECORACIÓN AÑO NUEVO 2026 ====== */
+    .confetti{
+      position:fixed;inset:0;
+      pointer-events:none;
+      z-index:9997;
+      overflow:hidden;
+    }
+    .confetti .piece{
+      position:absolute;
+      top:-20px;
+      width:10px;height:14px;
+      border-radius:4px;
+      opacity:.9;
+      animation:confettiFall linear infinite;
+      filter:saturate(1.05) contrast(1.05);
+    }
+    @keyframes confettiFall{
+      to{ transform:translateY(110vh) rotate(720deg); opacity:.8; }
+    }
+
+    .spark{
       position:fixed;
-      top:-10px;
-      color:#fff;
-      font-size:1.2rem;
-      opacity:0.7;
-      animation:fall linear infinite;
+      bottom:-10px;
+      width:6px;height:6px;
+      border-radius:999px;
+      opacity:.9;
       pointer-events:none;
       z-index:9998;
+      animation:firework 1.8s ease-out forwards;
+      box-shadow:0 0 18px rgba(255,255,255,.22);
     }
-    @keyframes fall{
-      to{transform:translateY(100vh) rotate(360deg)}
-    }
-    .christmas-lights{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:20px;
-      display:flex;
-      justify-content:space-around;
-      z-index:9997;
-      pointer-events:none;
-    }
-    .light{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      animation:blink 1.5s infinite;
-    }
-    .light:nth-child(odd){background:var(--navidad-rojo);animation-delay:0s}
-    .light:nth-child(even){background:var(--navidad-verde);animation-delay:0.75s}
-    @keyframes blink{
-      0%,100%{opacity:1}
-      50%{opacity:0.3}
+    @keyframes firework{
+      0%{ transform:translateY(0) scale(.85); opacity:0 }
+      10%{ opacity:.95 }
+      60%{ opacity:.9 }
+      100%{ transform:translateY(-80vh) scale(0.6); opacity:0 }
     }
 
     /* HEADER */
@@ -188,24 +192,52 @@
     .hero-panel-footer{margin-top:.8rem;padding-top:.6rem;border-top:1px dashed rgba(148,163,184,.8);font-size:.75rem;color:var(--muted)}
     .firma-nombre{font-weight:1000;color:#e5e7eb}
 
-    /* Mensaje navideño */
-    .christmas-message{
+    /* Mensaje Año Nuevo */
+    .newyear-message{
       text-align:center;
       padding:1rem;
       margin:1rem 0;
-      background:linear-gradient(135deg,rgba(220,38,38,.15),rgba(22,163,74,.15));
+      background:linear-gradient(135deg, rgba(251,191,36,.12), rgba(168,85,247,.12), rgba(34,211,238,.10));
       border-radius:16px;
-      border:1px solid rgba(251,191,36,.3);
+      border:1px solid rgba(251,191,36,.25);
+      position:relative;
+      overflow:hidden;
     }
-    .christmas-message h3{
+    .newyear-message::before{
+      content:"";
+      position:absolute;inset:-40px -80px auto auto;
+      width:200px;height:200px;border-radius:999px;
+      background:radial-gradient(circle at 30% 30%, rgba(251,191,36,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .newyear-message h3{
       font-size:1.1rem;
-      color:var(--navidad-oro);
-      margin-bottom:.3rem;
+      color:var(--ny-gold);
+      margin-bottom:.25rem;
+      letter-spacing:.02em;
     }
-    .christmas-message p{
+    .newyear-message p{
       font-size:.9rem;
       color:var(--text);
+      margin-bottom:.45rem;
     }
+    .ny-countdown{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.5rem;
+    }
+    .ny-chip{
+      padding:.35rem .7rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.35);
+      background:rgba(15,23,42,.85);
+      font-size:.78rem;
+      color:#cbd5e1;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+    .ny-chip strong{color:#fff}
 
     /* SECTIONS */
     .section{padding:2.2rem 0 2.1rem}
@@ -499,11 +531,8 @@
 </head>
 
 <body>
-  <!-- Luces navideñas -->
-  <div class="christmas-lights">
-    <div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div>
-    <div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div>
-  </div>
+  <!-- Decoración Año Nuevo -->
+  <div class="confetti" id="confetti"></div>
 
   <!-- LOADER -->
   <div id="loader">
@@ -552,10 +581,17 @@
             promoviendo una atención oportuna, de calidad y con enfoque intercultural.
           </p>
 
-          <!-- Mensaje navideño -->
-          <div class="christmas-message">
-            <h3>🎄 ¡Felices Fiestas! 🎄</h3>
-            <p>La USPP les desea una Feliz Navidad y Próspero Año Nuevo 2025</p>
+          <!-- Mensaje Año Nuevo 2026 -->
+          <div class="newyear-message" id="nyBox">
+            <h3>🎆 ¡Feliz Año Nuevo 2026! 🎆</h3>
+            <p>La USPP les desea un año de salud, bienestar y trabajo articulado por nuestra población.</p>
+
+            <div class="ny-countdown" id="nyCountdown">
+              <span class="ny-chip"><strong id="nyDays">--</strong> días</span>
+              <span class="ny-chip"><strong id="nyHours">--</strong> horas</span>
+              <span class="ny-chip"><strong id="nyMins">--</strong> min</span>
+              <span class="ny-chip"><strong id="nySecs">--</strong> seg</span>
+            </div>
           </div>
 
           <div class="hero-actions">
@@ -1050,21 +1086,47 @@
       setTimeout(() => loader.style.display = "none", 500);
     });
 
-    // Nieve navideña (copos cayendo)
-    function createSnowflakes() {
-      const snowflakeCount = 20;
-      for (let i = 0; i < snowflakeCount; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'snowflake';
-        snowflake.textContent = '❄';
-        snowflake.style.left = Math.random() * 100 + '%';
-        snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        snowflake.style.animationDelay = Math.random() * 5 + 's';
-        snowflake.style.fontSize = (Math.random() * 0.5 + 0.8) + 'rem';
-        document.body.appendChild(snowflake);
+    // === CONFETI 2026 ===
+    (function confettiInit(){
+      const wrap = document.getElementById("confetti");
+      if(!wrap) return;
+
+      const colors = ["var(--ny-gold)","var(--ny-purple)","var(--ny-cyan)","var(--ny-silver)","var(--w)","var(--s)"];
+      const pieces = 40;
+
+      for(let i=0;i<pieces;i++){
+        const p = document.createElement("div");
+        p.className = "piece";
+        p.style.left = (Math.random()*100) + "%";
+        p.style.background = colors[Math.floor(Math.random()*colors.length)];
+        p.style.animationDuration = (Math.random()*3 + 5) + "s";
+        p.style.animationDelay = (Math.random()*3) + "s";
+        p.style.transform = "rotate(" + (Math.random()*360) + "deg)";
+        p.style.width = (Math.random()*6 + 8) + "px";
+        p.style.height = (Math.random()*8 + 10) + "px";
+        p.style.opacity = (Math.random()*0.35 + 0.55);
+        wrap.appendChild(p);
       }
-    }
-    createSnowflakes();
+    })();
+
+    // === FUEGUITOS (sparkles) ===
+    (function fireworks(){
+      const colors = ["var(--ny-gold)","var(--ny-purple)","var(--ny-cyan)","var(--w)"];
+      function launch(){
+        const s = document.createElement("div");
+        s.className = "spark";
+        s.style.left = (Math.random()*100) + "%";
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.animationDuration = (Math.random()*0.6 + 1.5) + "s";
+        document.body.appendChild(s);
+        setTimeout(()=> s.remove(), 2200);
+      }
+      // 1–2 por segundo (suave)
+      setInterval(() => {
+        launch();
+        if(Math.random() > 0.55) launch();
+      }, 1000);
+    })();
 
     // --- SLIDER DOCUMENTOS: robusto + auto ---
     document.addEventListener("DOMContentLoaded", () => {
@@ -1151,11 +1213,39 @@
     }
     updateClock();
     setInterval(updateClock, 1000);
+
+    // === Contador a 2026 (Perú UTC-5) ===
+    function updateNYCountdown(){
+      const target = new Date("2026-01-01T00:00:00-05:00");
+      const now = new Date();
+      const diff = target - now;
+
+      const box = document.getElementById("nyBox");
+      const cd = document.getElementById("nyCountdown");
+
+      if(!box || !cd) return;
+
+      if(diff <= 0){
+        cd.innerHTML = '<span class="ny-chip"><strong>¡Bienvenido 2026!</strong> 🎉</span>';
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff/1000);
+      const days = Math.floor(totalSeconds / (3600*24));
+      const hours = Math.floor((totalSeconds % (3600*24)) / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      const secs = Math.floor(totalSeconds % 60);
+
+      document.getElementById("nyDays").textContent = String(days).padStart(2,"0");
+      document.getElementById("nyHours").textContent = String(hours).padStart(2,"0");
+      document.getElementById("nyMins").textContent = String(mins).padStart(2,"0");
+      document.getElementById("nySecs").textContent = String(secs).padStart(2,"0");
+    }
+    updateNYCountdown();
+    setInterval(updateNYCountdown, 1000);
   </script>
 </body>
 </html>
-
-
 
 
 
