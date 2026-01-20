@@ -355,6 +355,31 @@
             transform: translateY(-1px);
         }
 
+        /* ====== MINI MENÚ DE SECCIONES ====== */
+        .section-nav {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .section-pill {
+            border-radius: 999px;
+            border: 1px solid rgba(245, 158, 11, 0.55);
+            padding: 0.32rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            background: rgba(11, 27, 58, 0.92);
+            color: #f8fafc;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .section-pill:hover {
+            background: linear-gradient(135deg, rgba(245,158,11,.85), rgba(56,189,248,.65));
+        }
+
         /* FOOTER */
         footer {
             padding: 1.2rem 0 1.7rem;
@@ -433,17 +458,24 @@
                     Unidad de Seguros Públicos y Privados
                 </div>
             </div>
+
+            <!-- MINI MENÚ -->
+            <div class="section-nav">
+                <a class="section-pill" href="#operativos">🧩 Operativos</a>
+                <a class="section-pill" href="#estructura">📦 Estructura RC 80</a>
+                <a class="section-pill" href="#indicadores">📈 Indicadores</a>
+            </div>
         </div>
     </section>
 
-    <!-- MODULOS -->
-    <section class="section">
+    <!-- ====================== 1) OPERATIVOS ====================== -->
+    <section class="section" id="operativos">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">🎯 Listado de módulos</h2>
+                <h2 class="section-title">🧩 Módulos operativos y de gestión</h2>
                 <p class="section-subtitle">
-                    Cada módulo puede apuntar a un tablero Power BI, reporte Excel, sistema web o carpeta de trabajo.
-                    Solo necesita reemplazar los enlaces por las rutas reales cuando estén disponibles.
+                    Tableros Power BI, reportes, sistemas y repositorios de trabajo vinculados a producción, afiliaciones,
+                    consistencias y soporte.
                 </p>
             </div>
 
@@ -493,7 +525,7 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://loose-acoustic-slip-launch.trycloudflare.com/dashboard/">Ver módulo</a>
+                            <a class="btn-link" href="https://entrepreneurs-caroline-delaware-hope.trycloudflare.com/dashboard/" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
@@ -657,12 +689,68 @@
                         </div>
                     </div>
                 </article>
+            </div>
+        </div>
+    </section>
 
+    <!-- ====================== 2) ESTRUCTURA RC 80 ====================== -->
+    <section class="section" id="estructura">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📦 Estructura cualitativas y cuantitativas (Medicamentos e insumos empaquetados por RC 80)</h2>
+                <p class="section-subtitle">
+                    Sección de estructura para seguimiento de abastecimiento, empaquetamiento y control de medicamentos e insumos
+                    de acuerdo a lineamientos RC 80.
+                </p>
+            </div>
+
+            <div class="modules-grid">
+                <!-- NUEVO: Estructura RC80 -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">📦</div>
+                        <div class="module-tag">Estructura</div>
+                        <h3 class="module-title">Medicamentos e insumos empaquetados – RC 80</h3>
+                        <p class="module-text">
+                            Control cualitativo y cuantitativo de medicamentos e insumos empaquetados (RC 80),
+                            stock, cumplimiento y trazabilidad de distribución.
+                        </p>
+                        <div class="module-chips">
+                            <span>RC 80</span>
+                            <span>Stock</span>
+                            <span>Trazabilidad</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot process"></span>
+                                <span>En implementación</span>
+                            </div>
+                            <a class="btn-link" href="#" onclick="alert('Reemplaza este enlace por tu Power BI/Excel/Drive cuando lo tengas listo'); return false;">
+                                En Proceso
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================== 3) INDICADORES ====================== -->
+    <section class="section" id="indicadores">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📈 Indicadores</h2>
+                <p class="section-subtitle">
+                    Indicadores de seguimiento institucional. Reemplaza los enlaces por tus tableros Power BI u otros reportes.
+                </p>
+            </div>
+
+            <div class="modules-grid">
                 <!-- 9. Indicador OGTI -->
                 <article class="module-card">
                     <div class="module-inner">
-                        <div class="module-icon">👨‍💻</div>
-                        <div class="module-tag">Digitación</div>
+                        <div class="module-icon">📨</div>
+                        <div class="module-tag">Indicador</div>
                         <h3 class="module-title">Indicador oportuna de envío de información SIS - OGTI</h3>
                         <p class="module-text">
                             FUAs enviadas y digitadas antes de los 30 días desde la fecha de atención.
@@ -677,8 +765,87 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNDkwYTM1MDgtZWFmYy00N2VkLTgwM2QtZWVmOTI4MTFjN2M2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9">
+                            <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNDkwYTM1MDgtZWFmYy00N2VkLTgwM2QtZWVmOTI4MTFjN2M2IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">
                                 Ver módulo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- NUEVO INDICADOR 1 -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">❤️</div>
+                        <div class="module-tag">Indicador</div>
+                        <h3 class="module-title">Hipertensión arterial: % atendidos con meta terapéutica alcanzada</h3>
+                        <p class="module-text">
+                            Porcentaje de atendidos con diagnóstico de hipertensión arterial que han alcanzado la
+                            meta terapéutica, según seguimiento clínico.
+                        </p>
+                        <div class="module-chips">
+                            <span>HTA</span>
+                            <span>Meta terapéutica</span>
+                            <span>Seguimiento</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot process"></span>
+                                <span>Por configurar</span>
+                            </div>
+                            <a class="btn-link" href="https://entrepreneurs-caroline-delaware-hope.trycloudflare.com/hta_web/seguimiento.php" target="_blank">
+                                Ver módulo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- NUEVO INDICADOR 2 -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🩻</div>
+                        <div class="module-tag">Indicador</div>
+                        <h3 class="module-title">Incremento de cobertura: Teleinterconsulta</h3>
+                        <p class="module-text">
+                            Seguimiento al incremento de la cobertura de prestaciones del procedimiento de teleinterconsulta.
+                        </p>
+                        <div class="module-chips">
+                            <span>Teleinterconsulta</span>
+                            <span>Cobertura</span>
+                            <span>Prestaciones</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot process"></span>
+                                <span>Por configurar</span>
+                            </div>
+                            <a class="btn-link" href="#" onclick="alert('Reemplaza este enlace por tu Power BI/Excel/Drive'); return false;">
+                                En Proceso
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- NUEVO INDICADOR 3 -->
+                <article class="module-card">
+                    <div class="module-inner">
+                        <div class="module-icon">🏠</div>
+                        <div class="module-tag">Indicador</div>
+                        <h3 class="module-title">ERC 5: Tasa de asegurados en diálisis peritoneal con seguimiento domiciliario</h3>
+                        <p class="module-text">
+                            Tasa de asegurados con ERC - 5 en diálisis peritoneal que cuentan con seguimiento domiciliario.
+                        </p>
+                        <div class="module-chips">
+                            <span>ERC 5</span>
+                            <span>DP</span>
+                            <span>Seguimiento domiciliario</span>
+                        </div>
+                        <div class="module-footer">
+                            <div class="module-status">
+                                <span class="status-dot process"></span>
+                                <span>Por configurar</span>
+                            </div>
+                            <a class="btn-link" href="#" onclick="alert('Reemplaza este enlace por tu Power BI/Excel/Drive'); return false;">
+                                En Proceso
                             </a>
                         </div>
                     </div>
@@ -735,10 +902,6 @@
     </script>
 </body>
 </html>
-
-
-
-
 
 
 
