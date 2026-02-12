@@ -27,10 +27,11 @@
     body{
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(79,70,229,.45), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(6,182,212,.42), transparent 55%),
-        radial-gradient(circle at 60% 10%, rgba(251,191,36,.20), transparent 45%),
-        linear-gradient(145deg,#020617,#020617 55%,#020617);
+        linear-gradient(180deg, rgba(10,20,40,.86), rgba(10,20,40,.90)),
+        url("assets/bg_hex_design.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color:var(--text);line-height:1.6;
       overflow-x:hidden;
     }
@@ -49,6 +50,18 @@
       border-radius:16px;color:#fff;
       animation:pop 1.1s ease-in-out infinite alternate;
     }
+
+    /* ✅ NUEVO: logo real en el loader (usa tu archivo logoUSPP.png) */
+    .loader-img{
+      width:96px;height:96px;border-radius:22px;
+      object-fit:contain;display:block;
+      padding:10px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(148,163,184,.25);
+      box-shadow:0 20px 55px rgba(0,0,0,.45);
+      animation:pop 1.1s ease-in-out infinite alternate;
+    }
+
     .loader-circle{
       width:55px;height:55px;border:5px solid rgba(255,255,255,.2);
       border-top-color:var(--ny-cyan);border-radius:50%;
@@ -89,22 +102,39 @@
     }
     .navbar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;gap:1rem}
     .logo{display:flex;align-items:center;gap:.7rem}
+
     .logo-mark{
-      width:40px;height:40px;border-radius:999px;
-      background:conic-gradient(from 210deg,var(--p),var(--s),var(--w),var(--p));
-      padding:2px;flex:0 0 auto;
-      animation:glow 2.4s ease-in-out infinite;
-    }
+  width:75px;        /* ✅ más grande */
+  height:75px;       /* ✅ más grande */
+  border-radius:0;
+  background:transparent;
+  padding:0;
+  animation:none;
+  overflow:visible;
+}
+
     @keyframes glow{
       0%,100%{filter:drop-shadow(0 0 0 rgba(6,182,212,0))}
       50%{filter:drop-shadow(0 10px 16px rgba(6,182,212,.22))}
     }
+
+    /* ✅ NUEVO: imagen del logo dentro del circulito */
+    .logo-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;   /* ✅ no recorta */
+  display:block;
+}
+
+
+
     .logo-inner{
       width:100%;height:100%;border-radius:inherit;
       background:radial-gradient(circle at 30% 20%,#0b1120,#020617);
       display:flex;align-items:center;justify-content:center;
       color:#e5e7eb;font-weight:1000;letter-spacing:.08em;
     }
+
     .logo-text{display:flex;flex-direction:column;gap:.05rem}
     .logo-title{font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;font-weight:1000;line-height:1.1}
     .logo-subtitle{font-size:.75rem;color:var(--muted)}
@@ -387,7 +417,8 @@
 
   <!-- LOADER -->
   <div id="loader">
-    <div class="loader-logo">PSM</div>
+    <!-- ✅ CAMBIADO: antes decía PSM, ahora es tu logo real -->
+    <img src="assets/logoUSPP.png" class="loader-img" alt="Logo USPP">
     <div class="loader-circle"></div>
   </div>
 
@@ -395,7 +426,11 @@
   <header>
     <div class="container navbar">
       <div class="logo">
-        <div class="logo-mark"><div class="logo-inner">PS</div></div>
+        <!-- ✅ CAMBIADO: antes era PS texto, ahora es tu logo real -->
+        <div class="logo-mark">
+          <img src="assets/logoUSPP.png" class="logo-img" alt="Logo USPP">
+        </div>
+
         <div class="logo-text">
           <span class="logo-title">Pedrito en Línea</span>
           <span class="logo-subtitle">C.S. “Pedro Sánchez Meza”</span>
@@ -403,13 +438,13 @@
       </div>
 
       <nav class="nav-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#como">¿Cómo llamo?</a>
-        <a href="#afiches">Afiches</a>
-        <button type="button" class="nav-cta" onclick="window.location.href='uspp_chupaca.html'">
-  Volver <span>↩</span>
-</button>
-
+        <a href="index.html">Inicio</a>
+        <a href="pedrito_en_linea.html" class="active">Pedrito en Línea</a>
+        <a href="galeria.html">Galería</a>
+        <a href="modulos.html">Módulos</a>
+        <button type="button" class="nav-cta" onclick="window.location.href='index.html'">
+          Volver <span>↩</span>
+        </button>
       </nav>
     </div>
   </header>
@@ -603,7 +638,6 @@
       <img class="lbImg" id="lbImg" alt="Imagen ampliada" />
     </div>
   </div>
-
   <script>
     // año footer (si luego lo agregas)
     // loader
@@ -664,3 +698,5 @@
   </script>
 </body>
 </html>
+
+
