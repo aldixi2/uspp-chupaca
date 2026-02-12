@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulos USPP - Red de Salud Chupaca 🎆</title>
+    <title>Módulos USPP - Red de Salud Chupaca</title>
 
     <style>
         :root {
-            --bg-body: #06122a;
-            --card-bg: #0b1b3a;
-            --card-border: rgba(245, 158, 11, 0.45);
-            --text-main: #f8fafc;
-            --text-muted: rgba(226, 232, 240, 0.75);
-            --accent-primary: #f59e0b;   /* dorado */
-            --accent-secondary: #38bdf8; /* celeste */
-            --chip-bg: rgba(245, 158, 11, 0.14);
-            --shadow-soft: 0 18px 45px rgba(2, 6, 23, 0.85);
-            --radius-card: 22px;
+            --bg:#020617;
+            --soft:#0b1120;
+            --border:rgba(148,163,184,.35);
+            --text:#e5e7eb;
+            --muted:#9ca3af;
+            --p:#4f46e5;
+            --s:#06b6d4;
+            --w:#f97316;
+            --shadow:0 18px 45px rgba(15,23,42,.75);
+            --r:22px;
+            --love-pink:#ec4899;
+            --love-purple:#a855f7;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,11 +26,12 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(245, 158, 11, 0.26), transparent 50%),
-                radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.22), transparent 55%),
-                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.10), transparent 35%),
-                linear-gradient(145deg, #06122a, #0b1b3a);
-            color: var(--text-main);
+        linear-gradient(180deg, rgba(10,20,40,.86), rgba(10,20,40,.90)),
+        url("assets/bg_hex_design.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text);
             line-height: 1.6;
             position: relative;
             overflow-x: hidden;
@@ -43,41 +46,22 @@
             padding: 0 1.5rem;
         }
 
-        /* ===== CONFETTI (AÑO NUEVO) ===== */
-        @keyframes confettiFall {
-            0%   { transform: translateY(-12vh) rotate(0deg); opacity: 0; }
-            10%  { opacity: 1; }
-            100% { transform: translateY(112vh) rotate(720deg); opacity: 0.9; }
-        }
-
-        .confetti {
-            position: fixed;
-            top: -12vh;
-            width: 10px;
-            height: 14px;
-            border-radius: 3px;
-            pointer-events: none;
-            z-index: 9999;
-            animation: confettiFall linear forwards;
-            filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
-        }
-
         /* HEADER */
         header {
             position: sticky;
             top: 0;
             z-index: 20;
-            background: linear-gradient(135deg, rgba(6, 18, 42, 0.95), rgba(11, 27, 58, 0.95));
-            backdrop-filter: blur(18px);
-            border-bottom: 2px solid rgba(245, 158, 11, 0.45);
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.18);
+            background: radial-gradient(circle at top left, rgba(79,70,229,.18), transparent 40%),
+                       rgba(15,23,42,.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148,163,184,.4);
         }
 
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.6rem 0;
+            padding: 0.7rem 0;
         }
 
         .logo {
@@ -87,28 +71,21 @@
         }
 
         .logo-mark {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 999px;
-            background: conic-gradient(from 210deg,
-                var(--accent-primary),
-                var(--accent-secondary),
-                #a78bfa,
-                var(--accent-primary));
+            background: linear-gradient(135deg, var(--p), var(--s));
             padding: 2px;
-            animation: glow 2.2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: brightness(1); transform: scale(1); }
-            50% { filter: brightness(1.25); transform: scale(1.03); }
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo-inner {
             width: 100%;
             height: 100%;
             border-radius: inherit;
-            background: radial-gradient(circle at 30% 20%, #1b3b6a, #06122a);
+            background: radial-gradient(circle at 30% 20%, rgba(79,70,229,.4), #020617);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -125,27 +102,27 @@
         }
 
         .logo-title {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            font-weight: 800;
+            font-weight: 1000;
         }
 
         .logo-subtitle {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--muted);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .nav-links a {
             position: relative;
-            color: #f8fafc;
+            color: #d1d5db;
         }
 
         .nav-links a::after {
@@ -156,7 +133,7 @@
             width: 0;
             height: 2px;
             border-radius: 999px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            background: linear-gradient(90deg, var(--p), var(--s));
             transition: width 0.18s ease;
         }
 
@@ -164,159 +141,216 @@
         .nav-links a.active::after { width: 100%; }
 
         .nav-cta {
-            padding: 0.4rem 0.9rem;
+            padding: 0.55rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(245, 158, 11, 0.55);
-            background: radial-gradient(circle at top left, rgba(245, 158, 11, 0.22), rgba(11, 27, 58, 1));
-            color: #f8fafc;
-            font-size: 0.78rem;
-            font-weight: 700;
+            border: 1px solid rgba(148,163,184,.35);
+            background: radial-gradient(circle at top left, rgba(79,70,229,.18), rgba(15,23,42,1));
+            color: #e5e7eb;
+            font-size: 0.85rem;
+            font-weight: 1000;
             display: inline-flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
             cursor: pointer;
+            transition: all .15s ease;
+        }
+        .nav-cta:hover{
+            transform: translateY(-1px);
+            box-shadow: 0 16px 36px rgba(15,23,42,.9);
+            border-color: rgba(79,70,229,.8);
         }
 
         /* HERO */
-        .page-hero { padding: 2.8rem 0 1.6rem; }
+        .page-hero { padding: 2.8rem 0 1.8rem; }
 
         .page-kicker {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--text-muted);
-            margin-bottom: 0.3rem;
+            letter-spacing: 0.16em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
         }
 
         .page-title {
-            font-size: 1.6rem;
+            font-size: clamp(1.6rem, 2.6vw, 2rem);
             color: #ffffff;
-            margin-bottom: 0.4rem;
-            text-shadow: 0 0 22px rgba(245, 158, 11, 0.25);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
         }
 
         .page-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            max-width: 40rem;
+            font-size: 0.92rem;
+            color: var(--muted);
+            max-width: 42rem;
+            margin-bottom: 1.2rem;
         }
 
         .page-meta {
-            margin-top: 0.8rem;
             display: flex;
             flex-wrap: wrap;
             gap: 1.2rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            padding: 1rem 0;
+            font-size: 0.82rem;
         }
 
-        .page-meta strong { display: block; color: #f8fafc; }
+        .page-meta > div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
 
-        /* SECCIÓN */
-        .section { padding: 0 0 2.4rem; }
+        .page-meta strong {
+            color: var(--s);
+            font-weight: 1000;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
 
-        .section-header { margin-bottom: 1.2rem; }
+        /* MINI MENÚ */
+        .section-nav {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .section-pill {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.5);
+            padding: 0.4rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 800;
+            background: radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
+            color: #e5e7eb;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all .15s ease;
+        }
+
+        .section-pill:hover {
+            background: linear-gradient(135deg, var(--p), var(--s));
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* SECTIONS */
+        .section { padding: 2.8rem 0; }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
 
         .section-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
-            color: #ffffff;
+            font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+            color: #f9fafb;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
         }
 
         .section-subtitle {
-            font-size: 0.88rem;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            color: var(--muted);
             max-width: 42rem;
         }
 
+        /* MODULES GRID */
         .modules-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
             gap: 1.3rem;
         }
 
         .module-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-card);
-            padding: 1rem 1.05rem;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-soft);
-            position: relative;
+            background: radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
+            border-radius: 20px;
+            border: 1px solid rgba(148,163,184,.5);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            position: relative;
         }
 
         .module-card::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top left,
-                rgba(245, 158, 11, 0.22),
-                rgba(56, 189, 248, 0.18),
-                transparent 70%);
+            background: linear-gradient(135deg, rgba(79,70,229,.15), transparent 60%);
             opacity: 0;
-            transition: opacity 0.17s ease;
+            transition: opacity 0.2s ease;
         }
 
-        .module-inner { position: relative; z-index: 1; }
+        .module-inner {
+            position: relative;
+            z-index: 1;
+            padding: 1.6rem 1.4rem;
+        }
 
         .module-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.05rem;
-            background: rgba(11, 27, 58, 0.92);
-            border: 1px solid rgba(245, 158, 11, 0.55);
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
         }
 
         .module-tag {
+            display: inline-block;
+            padding: 0.22rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(79,70,229,.25);
+            color: #c7d2fe;
             font-size: 0.7rem;
+            font-weight: 1000;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--text-muted);
+            margin-bottom: 0.6rem;
         }
 
         .module-title {
-            font-size: 0.96rem;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 1000;
+            color: #f9fafb;
+            margin-bottom: 0.6rem;
+            line-height: 1.35;
         }
 
-        .module-text { font-size: 0.85rem; color: var(--text-muted); }
+        .module-text {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
 
-        .module-chips { font-size: 0.76rem; margin-top: 0.2rem; }
+        .module-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-bottom: 0.8rem;
+        }
 
         .module-chips span {
             display: inline-block;
-            padding: 0.16rem 0.6rem;
+            padding: 0.22rem 0.5rem;
             border-radius: 999px;
-            background: var(--chip-bg);
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            margin-right: 0.25rem;
-            margin-bottom: 0.18rem;
+            background: rgba(6,182,212,.15);
+            color: #67e8f9;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border: 1px solid rgba(6,182,212,.3);
         }
 
         .module-footer {
-            margin-top: 0.6rem;
+            margin-top: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.6rem;
             font-size: 0.78rem;
-            color: var(--text-muted);
+            color: var(--muted);
             flex-wrap: wrap;
         }
 
         .module-status {
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.3rem;
         }
 
         .status-dot {
@@ -324,68 +358,46 @@
             height: 8px;
             border-radius: 999px;
             background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,.2);
         }
-        .status-dot.process { background: #fbbf24; }
+        .status-dot.process { background: #fbbf24; box-shadow: 0 0 0 4px rgba(251,191,36,.2); }
 
         .btn-link {
             border-radius: 999px;
-            border: 1px solid rgba(245, 158, 11, 0.55);
-            padding: 0.34rem 0.8rem;
-            font-size: 0.78rem;
+            border: 1px solid rgba(148,163,184,.5);
+            padding: 0.4rem 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            background: rgba(11, 27, 58, 0.92);
-            color: #f8fafc;
+            background: rgba(15,23,42,.8);
+            color: #e5e7eb;
             cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            transition: all 0.15s ease;
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.3rem;
         }
 
         .module-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 52px rgba(245, 158, 11, 0.22);
+            transform: translateY(-4px);
+            box-shadow: 0 26px 60px rgba(15,23,42,1);
+            border-color: rgba(79,70,229,.75);
         }
 
         .module-card:hover::before { opacity: 1; }
 
         .module-card:hover .btn-link {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            box-shadow: 0 14px 34px rgba(245, 158, 11, 0.25);
+            background: linear-gradient(135deg, var(--p), var(--s));
+            border-color: transparent;
             transform: translateY(-1px);
-        }
-
-        /* ====== MINI MENÚ DE SECCIONES ====== */
-        .section-nav {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
-        }
-
-        .section-pill {
-            border-radius: 999px;
-            border: 1px solid rgba(245, 158, 11, 0.55);
-            padding: 0.32rem 0.75rem;
-            font-size: 0.78rem;
-            font-weight: 800;
-            background: rgba(11, 27, 58, 0.92);
-            color: #f8fafc;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-
-        .section-pill:hover {
-            background: linear-gradient(135deg, rgba(245,158,11,.85), rgba(56,189,248,.65));
         }
 
         /* FOOTER */
         footer {
-            padding: 1.2rem 0 1.7rem;
-            border-top: 2px solid rgba(245, 158, 11, 0.45);
-            margin-top: 1.4rem;
-            background: linear-gradient(135deg, rgba(6, 18, 42, 0.95), rgba(11, 27, 58, 0.95));
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(148,163,184,.4);
+            margin-top: 3rem;
+            background: radial-gradient(circle at top left, rgba(79,70,229,.15), transparent 40%),
+                       rgba(15,23,42,.96);
         }
 
         .footer-inner {
@@ -393,9 +405,9 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 0.7rem;
-            font-size: 0.78rem;
-            color: var(--text-muted);
+            gap: 0.8rem;
+            font-size: 0.8rem;
+            color: var(--muted);
         }
 
         /* RESPONSIVE */
@@ -415,21 +427,18 @@
     <!-- HEADER -->
     <header>
         <div class="container navbar">
-            <div class="logo">
-                <div class="logo-mark">
-                    <div class="logo-inner">US</div>
-                </div>
+            <a href="index.html" class="logo">
+                <img src="assets/logoUSPP.png" alt="Logo USPP" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));" />
                 <div class="logo-text">
-                    <span class="logo-title">USPP - Red de Salud Chupaca 🎆</span>
+                    <span class="logo-title">USPP CHUPACA</span>
                     <span class="logo-subtitle">Módulos informativos</span>
                 </div>
-            </div>
+            </a>
             <nav class="nav-links">
-                <a href="uspp_chupaca.html">Inicio</a>
+                <a href="index.html">Inicio</a>
+                <a href="pedrito_en_linea.html">Pedrito en Línea</a>
+                <a href="galeria.html">Galería</a>
                 <a href="modulos.html" class="active">Módulos</a>
-                <button class="nav-cta" onclick="window.location.href='uspp_chupaca.html'">
-                    🎇 Volver a la página principal
-                </button>
             </nav>
         </div>
     </header>
@@ -437,7 +446,7 @@
     <!-- HERO -->
     <section class="page-hero">
         <div class="container">
-            <div class="page-kicker">🎆 USPP Chupaca — Bienvenido 2026 🎆</div>
+            <div class="page-kicker">USPP Chupaca — Módulos de Gestión</div>
             <h1 class="page-title">Módulos informativos y de seguimiento</h1>
             <p class="page-subtitle">
                 En esta sección se organizan los módulos de producción, aseguramiento, consistencias y soporte
@@ -447,15 +456,15 @@
             <div class="page-meta">
                 <div>
                     <strong>Ámbito</strong>
-                    Gestión de seguros, producción e información
+                    <span>Gestión de seguros, producción e información</span>
                 </div>
                 <div>
                     <strong>Actualización</strong>
-                    Según cierre mensual de producción
+                    <span>Según cierre mensual de producción</span>
                 </div>
                 <div>
                     <strong>Responsable</strong>
-                    Unidad de Seguros Públicos y Privados
+                    <span>Unidad de Seguros Públicos y Privados</span>
                 </div>
             </div>
 
@@ -525,7 +534,7 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://parties-associates-oaks-term.trycloudflare.com/dashboard/" target="_blank">Ver módulo</a>
+                            <a class="btn-link" href="https://entrepreneurs-caroline-delaware-hope.trycloudflare.com/dashboard/" target="_blank">Ver módulo</a>
                         </div>
                     </div>
                 </article>
@@ -550,7 +559,7 @@
                                 <span class="status-dot"></span>
                                 <span>Activo</span>
                             </div>
-                            <div>
+                            <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
                                 <a class="btn-link" href="https://app.powerbi.com/view?r=eyJrIjoiNTRlMzdiOWEtMjEyMi00MjZkLThhMDYtMDljOWExNGI1MDc4IiwidCI6Ijk5NDZjMmExLTI3MTktNDljNy1hZGQ4LWQzOGFlOWM0YWE0NCIsImMiOjR9" target="_blank">
                                     Ver módulo
                                 </a>
@@ -725,8 +734,8 @@
                                 <span class="status-dot process"></span>
                                 <span>En implementación</span>
                             </div>
-                            <a class="btn-link" href="https://drive.google.com/drive/folders/1mA_6Idqw0lEn4mMr3181kislwa9WK9VU?usp=sharing" target="_blank">
-                                Drive
+                            <a class="btn-link" href="#" onclick="alert('Módulo en proceso de implementación'); return false;">
+                                En Proceso
                             </a>
                         </div>
                     </div>
@@ -741,7 +750,7 @@
             <div class="section-header">
                 <h2 class="section-title">📈 Indicadores</h2>
                 <p class="section-subtitle">
-                    Indicadores de seguimiento institucional. Reemplaza los enlaces por tus tableros Power BI u otros reportes.
+                    Indicadores de seguimiento institucional y metas sanitarias.
                 </p>
             </div>
 
@@ -789,10 +798,10 @@
                         </div>
                         <div class="module-footer">
                             <div class="module-status">
-                                <span class="status-dot process"></span>
-                                <span>Por configurar</span>
+                                <span class="status-dot"></span>
+                                <span>Activo</span>
                             </div>
-                            <a class="btn-link" href="https://agree-breakfast-gonna-regards.trycloudflare.com/hta_web/seguimiento.php" target="_blank">
+                            <a class="btn-link" href="https://entrepreneurs-caroline-delaware-hope.trycloudflare.com/hta_web/seguimiento.php" target="_blank">
                                 Ver módulo
                             </a>
                         </div>
@@ -818,7 +827,7 @@
                                 <span class="status-dot process"></span>
                                 <span>Por configurar</span>
                             </div>
-                            <a class="btn-link" href="#" onclick="alert('Reemplaza este enlace por tu Power BI/Excel/Drive'); return false;">
+                            <a class="btn-link" href="#" onclick="alert('Módulo en configuración'); return false;">
                                 En Proceso
                             </a>
                         </div>
@@ -844,8 +853,8 @@
                                 <span class="status-dot process"></span>
                                 <span>Por configurar</span>
                             </div>
-                            <a class="btn-link" href="https://agree-breakfast-gonna-regards.trycloudflare.com/hta_web/seguimiento_erc5_dp.php" target="_blank">
-                                Ver módulo
+                            <a class="btn-link" href="#" onclick="alert('Módulo en configuración'); return false;">
+                                En Proceso
                             </a>
                         </div>
                     </div>
@@ -856,49 +865,13 @@
 
     <footer>
         <div class="container footer-inner">
-            <span>🎆 &copy; <span id="year"></span> USPP – Red de Salud Chupaca. ¡Feliz Año Nuevo 2026! 🥂</span>
+            <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.</span>
             <span>Página de módulos informativos.</span>
         </div>
     </footer>
 
     <script>
-        // Año fijo (2026) pero igual actualiza automático por si lo reutilizas
-        const y = new Date().getFullYear();
-        document.getElementById("year").textContent = y;
-
-        // CONFETTI (AÑO NUEVO)
-        const confettiColors = ["#f59e0b", "#38bdf8", "#a78bfa", "#22c55e", "#f43f5e", "#ffffff"];
-
-        function createConfetti() {
-            const c = document.createElement("div");
-            c.className = "confetti";
-
-            const sizeW = Math.random() * 8 + 6;   // 6 - 14
-            const sizeH = Math.random() * 10 + 8;  // 8 - 18
-            c.style.width = sizeW + "px";
-            c.style.height = sizeH + "px";
-
-            c.style.left = (Math.random() * 100) + "vw";
-            c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-
-            const dur = Math.random() * 2.8 + 4.5; // 4.5 - 7.3s
-            c.style.animationDuration = dur + "s";
-
-            c.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
-
-            document.body.appendChild(c);
-
-            setTimeout(() => c.remove(), (dur + 0.2) * 1000);
-        }
-
-        // Arranque de celebración
-        const confettiInterval = setInterval(createConfetti, 140);
-
-        // Opcional: baja intensidad después de 12s
-        setTimeout(() => {
-            clearInterval(confettiInterval);
-            setInterval(createConfetti, 420); // suavecito
-        }, 12000);
+        document.getElementById("year").textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
