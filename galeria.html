@@ -33,10 +33,11 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
     body{
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(79,70,229,.45), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(6,182,212,.42), transparent 55%),
-        radial-gradient(circle at 60% 10%, rgba(251,191,36,.18), transparent 45%),
-        linear-gradient(145deg,#020617,#020617 55%,#020617);
+        linear-gradient(180deg, rgba(10,20,40,.86), rgba(10,20,40,.90)),
+        url("assets/bg_hex_design.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color:var(--text);line-height:1.6;
       overflow-x:hidden;
     }
@@ -99,16 +100,10 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
     }
     .navbar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;gap:1rem}
     .logo{display:flex;align-items:center;gap:.7rem}
-    .logo-mark{
-      width:40px;height:40px;border-radius:999px;
-      background:conic-gradient(from 210deg,var(--p),var(--s),var(--w),var(--p));
-      padding:2px;flex:0 0 auto;
-    }
-    .logo-inner{
-      width:100%;height:100%;border-radius:inherit;
-      background:radial-gradient(circle at 30% 20%,#0b1120,#020617);
-      display:flex;align-items:center;justify-content:center;
-      color:#e5e7eb;font-weight:1000;letter-spacing:.08em;
+    /* ✅ Logo real (assets/logoUSPP.png) */
+    .logo-img{
+      height:40px;width:auto;display:block;object-fit:contain;
+      filter:drop-shadow(0 10px 22px rgba(0,0,0,.35));
     }
     .logo-text{display:flex;flex-direction:column;gap:.05rem}
     .logo-title{font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;font-weight:1000;line-height:1.1}
@@ -372,7 +367,7 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
   <header>
     <div class="container navbar">
       <div class="logo">
-        <div class="logo-mark"><div class="logo-inner">US</div></div>
+        <img src="assets/logoUSPP.png" alt="Logo USPP" class="logo-img" />
         <div class="logo-text">
           <span class="logo-title">Unidad de Seguros Públicos y Privados</span>
           <span class="logo-subtitle">Red de Salud Chupaca</span>
@@ -380,7 +375,7 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
       </div>
 
       <nav class="nav-links">
-        <a href="uspp_chupaca.html">Inicio</a>
+        <a href="index.html">Inicio</a>
         <button class="nav-cta" onclick="window.location.href='modulos.html'">Ver módulos <span>↗</span></button>
         <button class="nav-cta" onclick="window.location.href='pedrito_en_linea.html'">Pedrito en Línea <span>📞</span></button>
       </nav>
@@ -410,7 +405,7 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
             <button class="btn-primary" type="button" onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})">
               Ver galería <span>⬇</span>
             </button>
-            <button class="btn-ghost" type="button" onclick="window.location.href='uspp_chupaca.html'">
+            <button class="btn-ghost" type="button" onclick="window.location.href='index.html'">
               Volver al inicio
             </button>
           </div>
@@ -554,8 +549,10 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
     <div class="container footer-inner">
       <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.</span>
       <div class="footer-links">
-        <a href="uspp_chupaca.html">Inicio</a>
+        <a href="index.html">Inicio</a>
         <a href="#galeria">Galería</a>
+        <a href="pedrito_en_linea.html">Pedrito en Línea</a>
+        <a href="galeria.html" class="active">Galería</a>
         <a href="modulos.html">Módulos</a>
         <a href="pedrito_en_linea.html">Pedrito en Línea</a>
       </div>
@@ -717,3 +714,5 @@ coloca tus fotos dentro: assets/g1.jpg, g2.jpg, g3.jpg...
   </script>
 </body>
 </html>
+
+
