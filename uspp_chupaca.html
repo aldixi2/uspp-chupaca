@@ -200,7 +200,7 @@
     .hero-panel-footer{margin-top:.8rem;padding-top:.6rem;border-top:1px dashed rgba(148,163,184,.8);font-size:.75rem;color:var(--muted)}
     .firma-nombre{font-weight:1000;color:#e5e7eb}
 
-    /* ✨ MENSAJE - (se actualiza a MARZO en el HTML) ✨ */
+    /* ✅ MENSAJE MARZO */
     .newyear-message{
       text-align:center;
       padding:.8rem 1rem;
@@ -288,113 +288,177 @@
     .info-card strong{color:#e5e7eb;font-weight:1000}
 
     /* ===== TARJETAS SIS PLEGABLES TIPO ESPEJO ===== */
-    .sis-cards-wrapper{
-      display:grid;
-      grid-template-columns:repeat(5, 1fr);
-      gap:1rem;
-      margin-top:2rem;
-    }
-    .sis-flip-card{
-      perspective:1000px;
-      height:380px;
-      cursor:pointer;
-    }
-    .sis-flip-inner{
-      position:relative;
-      width:100%;
-      height:100%;
-      transition:transform 0.6s;
-      transform-style:preserve-3d;
-    }
-    .sis-flip-card:hover .sis-flip-inner{
-      transform:rotateY(180deg);
-    }
-    .sis-flip-front, .sis-flip-back{
-      position:absolute;
-      width:100%;
-      height:100%;
-      backface-visibility:hidden;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(148,163,184,.5);
-      box-shadow:var(--shadow);
-    }
-    .sis-flip-front{
-      background:radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
-    }
-    .sis-flip-back{
-      background:radial-gradient(circle at bottom right, rgba(6,182,212,.25), rgba(15,23,42,.95));
-      transform:rotateY(180deg);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:1.5rem;
-    }
-    .sis-img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      display:block;
-    }
-    .sis-body{
-      padding:1.2rem;
-    }
-    .sis-badge{
-      display:inline-block;
-      padding:.22rem .55rem;
-      border-radius:999px;
-      background:rgba(79,70,229,.25);
-      color:#c7d2fe;
-      font-size:.68rem;
-      font-weight:1000;
-      text-transform:uppercase;
-      margin-bottom:.5rem;
-    }
-    .sis-title{
-      font-size:.95rem;
-      font-weight:1000;
-      color:#f9fafb;
-      margin-bottom:.4rem;
-    }
-    .sis-desc{
-      font-size:.8rem;
-      color:var(--muted);
-      line-height:1.5;
-    }
-    .sis-flip-back h4{
-      font-size:1rem;
-      color:#f9fafb;
-      margin-bottom:.8rem;
-      font-weight:1000;
-    }
-    .sis-flip-back ul{
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    .sis-flip-back li{
-      padding:.4rem 0;
-      color:var(--muted);
-      font-size:.8rem;
-      display:flex;
-      align-items:center;
-      gap:.4rem;
-    }
-    .sis-flip-back li::before{
-      content:"✓";
-      color:var(--s);
-      font-weight:1000;
-    }
+
+.sis-cards-wrapper{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.sis-link{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+}
+
+.sis-flip-card{
+  perspective:1000px;
+  height:380px;
+  position:relative;
+  transform:translateZ(0);
+}
+
+.sis-flip-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform 0.6s ease;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+
+/* 🔥 FIX DEFINITIVO: ya no baja ni salta */
+.sis-flip-card:hover .sis-flip-inner,
+.sis-flip-card:focus-within .sis-flip-inner{
+  transform:rotateY(180deg);
+}
+
+.sis-flip-front,
+.sis-flip-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  transform-style:preserve-3d;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(148,163,184,.5);
+  box-shadow:var(--shadow);
+}
+
+.sis-flip-front{
+  background:radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
+}
+
+.sis-flip-back{
+  background:radial-gradient(circle at bottom right, rgba(6,182,212,.25), rgba(15,23,42,.95));
+  transform:rotateY(180deg);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:1.5rem;
+}
+
+.sis-img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+}
+
+.sis-body{
+  padding:1.2rem;
+}
+
+.sis-badge{
+  display:inline-block;
+  padding:.22rem .55rem;
+  border-radius:999px;
+  background:rgba(79,70,229,.25);
+  color:#c7d2fe;
+  font-size:.68rem;
+  font-weight:1000;
+  text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+
+.sis-title{
+  font-size:.95rem;
+  font-weight:1000;
+  color:#f9fafb;
+  margin-bottom:.4rem;
+}
+
+.sis-desc{
+  font-size:.8rem;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.sis-flip-back h4{
+  font-size:1rem;
+  color:#f9fafb;
+  margin-bottom:.8rem;
+  font-weight:1000;
+}
+
+.sis-flip-back ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.sis-flip-back li{
+  padding:.4rem 0;
+  color:var(--muted);
+  font-size:.8rem;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+}
+
+.sis-flip-back li::before{
+  content:"✓";
+  color:var(--s);
+  font-weight:1000;
+}
+
+/* ============================= */
+/* 🎀 CINTA DIAGONAL ESTABLE */
+/* ============================= */
+
+.sis-ribbon{
+  position:absolute;
+  top:16px;
+  left:-60px;
+  width:220px;
+  text-align:center;
+  padding:6px 0;
+  font-size:.72rem;
+  font-weight:1000;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#fff;
+  transform:rotate(-35deg);
+  z-index:10;
+  box-shadow:0 6px 18px rgba(0,0,0,.4);
+}
+
+/* colores por tipo */
+.sis-flip-front[data-variant="gratuito"] .sis-ribbon{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+.sis-flip-front[data-variant="paratodos"] .sis-ribbon{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+.sis-flip-front[data-variant="independiente"] .sis-ribbon{
+  background:linear-gradient(135deg,#a855f7,#7e22ce);
+}
+.sis-flip-front[data-variant="microempresas"] .sis-ribbon{
+  background:linear-gradient(135deg,#f97316,#ea580c);
+}
+.sis-flip-front[data-variant="emprendedor"] .sis-ribbon{
+  background:linear-gradient(135deg,#ec4899,#be185d);
+}
 
     /* DOCUMENTOS SLIDER */
     .doc-section{background:rgba(15,23,42,.5);border-radius:26px;padding:2rem 1.5rem;margin-top:2.5rem}
     .doc-slider-wrap{position:relative;margin-top:1.8rem}
 
-    /* ✅ swipe + snap pro */
     .doc-slider{
       display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;
-      padding-bottom:.8rem;
-      scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.5) transparent;
+      padding-bottom:.8rem;scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.5) transparent;
       scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;
     }
@@ -403,21 +467,14 @@
     .doc-slider::-webkit-scrollbar-thumb{background:rgba(148,163,184,.5);border-radius:999px}
     .doc-slider::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,.75)}
 
-    /* ✅ tarjeta exacta + link detrás */
     .doc-slide{
       min-width:280px;
-      height:260px; /* tarjeta exacta */
+      height:260px;
       background:radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
-      border-radius:18px;
-      padding:1.3rem 1.2rem;
-      border:1px solid rgba(148,163,184,.5);
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      cursor:pointer;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      scroll-snap-align:start;
-      outline:none;
+      border-radius:18px;padding:1.3rem 1.2rem;border:1px solid rgba(148,163,184,.5);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;cursor:pointer;
+      display:flex;flex-direction:column;justify-content:space-between;
+      scroll-snap-align:start;outline:none;
     }
     .doc-slide:hover{
       transform:translateY(-4px);
@@ -438,8 +495,6 @@
       display:inline-block;padding:.18rem .45rem;border-radius:999px;
       background:rgba(79,70,229,.25);color:#c7d2fe;font-size:.68rem;font-weight:700
     }
-
-    /* ✅ hint de link (sin botón) */
     .doc-linkhint{
       margin-top:.55rem;
       display:flex;
@@ -452,11 +507,7 @@
       color:#cbd5e1;
       opacity:.92;
     }
-    .doc-linkhint span{
-      color:rgba(203,213,225,.9);
-      font-weight:800;
-    }
-
+    .doc-linkhint span{color:rgba(203,213,225,.9);font-weight:800}
     .slider-btn{
       position:absolute;top:50%;transform:translateY(-50%);
       width:40px;height:40px;border-radius:999px;border:1px solid rgba(148,163,184,.5);
@@ -556,64 +607,12 @@
       .section{padding:2rem 0}
       .hero{padding:2rem 0 1.5rem}
       .sis-cards-wrapper{grid-template-columns:1fr;}
-
-      /* ✅ móvil: mejor swipe (sin flechas “encima”) */
       .slider-btn{display:none}
       .doc-slide{min-width:82%; height:270px;}
     }
-
-    /* ===== FIX: imágenes de Seguros SIS más visibles ===== */
-    .seguro-media{
-      position: relative;
-      height: 180px;
-      border-radius: 18px 18px 0 0;
-      overflow: hidden;
-      background: #0b1120;
-    }
-    .seguro-media img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 1 !important;
-      filter: none !important;
-      transform: scale(1.02);
-    }
-    .seguro-media::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.30));
-      pointer-events:none;
-    }
-    .seguro-tag{
-      position:absolute;
-      left: 12px;
-      bottom: 12px;
-      z-index: 2;
-      background: rgba(15,23,42,.55);
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(6px);
-    }
-
-    /* ====== FIX: fotos reales en tarjetas SIS ====== */
-    .sis-flip-front img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      opacity:1 !important;
-      filter:none !important;
-    }
-    .sis-flip-front::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.45));
-      pointer-events:none;
-    }
   </style>
 </head>
+
 <body>
   <!-- HEXÁGONOS ANIMADOS -->
   <div class="hex-bg" id="hexBg"></div>
@@ -647,7 +646,6 @@
       </nav>
     </div>
   </header>
-
   <main id="inicio">
     <!-- HERO -->
     <section class="hero">
@@ -662,16 +660,12 @@
               Gestión integral de <span class="hero-highlight">seguros de salud</span> en la Red Chupaca
             </h1>
             <p class="hero-text">
-              Facilitamos el acceso al aseguramiento universal, garantizando afiliaciones oportunas, 
+              Facilitamos el acceso al aseguramiento universal, garantizando afiliaciones oportunas,
               seguimiento de producción y soporte técnico a establecimientos de salud.
             </p>
             <div class="hero-actions">
-              <button class="btn-primary" onclick="window.location.href='#seguros'">
-                Conocer SIS
-              </button>
-              <button class="btn-ghost" onclick="window.location.href='pedrito_en_linea.html'">
-                Pedrito en Línea
-              </button>
+              <button class="btn-primary" onclick="window.location.href='#seguros'">Conocer SIS</button>
+              <button class="btn-ghost" onclick="window.location.href='pedrito_en_linea.html'">Pedrito en Línea</button>
             </div>
 
             <!-- ✅ MENSAJE ACTUALIZADO A MARZO -->
@@ -679,7 +673,7 @@
               <div class="newyear-emoji">🌸</div>
               <h3 class="newyear-title">Marzo: Mes de la Mujer y la Salud</h3>
               <p class="newyear-text">
-                Reconocemos el rol de la mujer en la familia, la comunidad y los servicios de salud. 
+                Reconocemos el rol de la mujer en la familia, la comunidad y los servicios de salud.
                 Cuidemos nuestro bienestar con prevención y chequeos oportunos.
               </p>
             </div>
@@ -708,7 +702,7 @@
                 </div>
               </div>
               <div class="hero-panel-footer">
-                Responsable de la coordinación y supervisión de afiliaciones, producción y aseguramiento en la Red de Salud Chupaca. 
+                Responsable de la coordinación y supervisión de afiliaciones, producción y aseguramiento en la Red de Salud Chupaca.
                 <span class="firma-nombre">Gabriela Andrea Ichpas De la Peña</span>
               </div>
             </div>
@@ -724,7 +718,7 @@
           <div class="section-kicker">Nosotros</div>
           <h2 class="section-title">Unidad de Seguros Públicos y Privados</h2>
           <p class="section-subtitle">
-            Somos el área responsable de gestionar el aseguramiento universal en salud, 
+            Somos el área responsable de gestionar el aseguramiento universal en salud,
             garantizando que la población acceda a servicios de calidad.
           </p>
         </div>
@@ -734,8 +728,8 @@
             <div class="info-card-icon">🎯</div>
             <h3>Misión</h3>
             <p>
-              Gestionar y coordinar el aseguramiento universal en salud a través del SIS, 
-              garantizando el acceso oportuno de la población a servicios de salud de calidad, 
+              Gestionar y coordinar el aseguramiento universal en salud a través del SIS,
+              garantizando el acceso oportuno de la población a servicios de salud de calidad,
               mediante procesos eficientes de afiliación, producción y seguimiento.
             </p>
           </div>
@@ -744,8 +738,8 @@
             <div class="info-card-icon">🔭</div>
             <h3>Visión</h3>
             <p>
-              Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su 
-              eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al 
+              Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su
+              eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al
               bienestar de la población de Chupaca.
             </p>
           </div>
@@ -794,10 +788,8 @@
             <h3>Requisitos</h3>
             <p>Documentos necesarios para realizar tu afiliación al SIS.</p>
             <ul>
-              <li>DNI original y vigente</li>
-              <li>Recibo de agua, luz o predio</li>
-              <li>Declaración jurada (se proporciona en oficina)</li>
-              <li>Certificado de estudios (menores de edad)</li>
+              <li>DNI o CARNET DE EXTRANJERIA</li>
+              <li>No contar con otro tipo de SEGURO</li>
             </ul>
           </div>
 
@@ -814,7 +806,6 @@
             </ul>
           </div>
         </div>
-
         <!-- TIPOS DE SIS - TARJETAS PLEGABLES -->
         <div style="margin-top:3rem">
           <div class="section-header">
@@ -823,10 +814,12 @@
           </div>
 
           <div class="sis-cards-wrapper">
+
             <!-- SIS Gratuito -->
-            <div class="sis-flip-card">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/10337-verificar-si-estas-afiliado-al-sis" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Gratuito en gob.pe">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front">
+                <div class="sis-flip-front" data-variant="gratuito">
+                  <div class="sis-ribbon">SIS GRATUITO</div>
                   <img src="assets/SIS_gratuito.jpg" alt="SIS Gratuito" class="sis-img">
                   <div class="sis-body">
                     <div class="sis-badge">Gratuito</div>
@@ -848,9 +841,10 @@
             </div>
 
             <!-- SIS Para Todos -->
-            <div class="sis-flip-card">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/8970-afiliarte-al-sis-para-todos" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Para Todos en gob.pe">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front">
+                <div class="sis-flip-front" data-variant="paratodos">
+                  <div class="sis-ribbon">SIS PARA TODOS</div>
                   <img src="assets/SIS_Paratodos.jpg" alt="SIS Para Todos" class="sis-img">
                   <div class="sis-body">
                     <div class="sis-badge">Para Todos</div>
@@ -872,9 +866,10 @@
             </div>
 
             <!-- SIS Independiente -->
-            <div class="sis-flip-card">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/172-sis-independiente" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Independiente en gob.pe">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front">
+                <div class="sis-flip-front" data-variant="independiente">
+                  <div class="sis-ribbon">SIS INDEPENDIENTE</div>
                   <img src="assets/SIS_Independiente.jpg" alt="SIS Independiente" class="sis-img">
                   <div class="sis-body">
                     <div class="sis-badge">Independiente</div>
@@ -896,9 +891,10 @@
             </div>
 
             <!-- SIS Microempresas -->
-            <div class="sis-flip-card">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/180-sis-microempresas" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Microempresas en gob.pe">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front">
+                <div class="sis-flip-front" data-variant="microempresas">
+                  <div class="sis-ribbon">SIS MICROEMPRESAS</div>
                   <img src="assets/SIS_Microempresas.jpg" alt="SIS Microempresas" class="sis-img">
                   <div class="sis-body">
                     <div class="sis-badge">Microempresas</div>
@@ -920,9 +916,10 @@
             </div>
 
             <!-- SIS Emprendedor -->
-            <div class="sis-flip-card">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/152-sis-emprendedor" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Emprendedor en gob.pe">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front">
+                <div class="sis-flip-front" data-variant="emprendedor">
+                  <div class="sis-ribbon">SIS EMPRENDEDOR</div>
                   <img src="assets/SIS_Emprendedor.jpg" alt="SIS Emprendedor" class="sis-img">
                   <div class="sis-body">
                     <div class="sis-badge">Emprendedor</div>
@@ -942,12 +939,13 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
-
       </div>
     </section>
-    <!-- DOCUMENTOS (ARREGLADO: section + container + wrap + botones + dots) -->
+
+    <!-- DOCUMENTOS -->
     <section id="documentos" class="section">
       <div class="container">
         <div class="section-header">
@@ -961,99 +959,59 @@
             <button class="slider-btn left" type="button" aria-label="Anterior">‹</button>
 
             <div class="doc-slider">
-              <!-- 112-2020 -->
-              <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis"
-                 target="_blank" rel="noopener"
-                 class="doc-slide">
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener" class="doc-slide">
                 <div>
                   <div class="doc-icon">RJ</div>
                   <div class="doc-meta">Normativa • Afiliación</div>
                   <div class="doc-title">Resolución Jefatural 112-2020</div>
                   <div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div>
-                  <div class="doc-tags">
-                    <span class="doc-tag">SIS</span>
-                  </div>
+                  <div class="doc-tags"><span class="doc-tag">SIS</span></div>
                 </div>
-                <div class="doc-linkhint">
-                  <span>Ver documento</span>
-                  <span>↗</span>
-                </div>
+                <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
 
-              <!-- 199-2022 -->
-              <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j"
-                 target="_blank" rel="noopener"
-                 class="doc-slide">
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j" target="_blank" rel="noopener" class="doc-slide">
                 <div>
                   <div class="doc-icon">RJ</div>
                   <div class="doc-meta">Normativa • Convenios</div>
                   <div class="doc-title">RJ N.° 199-2022-SIS/J</div>
                   <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-                  <div class="doc-tags">
-                    <span class="doc-tag">Convenios</span>
-                  </div>
+                  <div class="doc-tags"><span class="doc-tag">Convenios</span></div>
                 </div>
-                <div class="doc-linkhint">
-                  <span>Ver documento</span>
-                  <span>↗</span>
-                </div>
+                <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
 
-              <!-- 178-2024 -->
-              <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j"
-                 target="_blank" rel="noopener"
-                 class="doc-slide">
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener" class="doc-slide">
                 <div>
                   <div class="doc-icon">RJ</div>
                   <div class="doc-meta">Directiva • 2024 • FUA</div>
                   <div class="doc-title">RJ N.° 000178-2024-SIS/J</div>
                   <div class="doc-desc">Directiva para registro de prestaciones SIS en el FUA.</div>
-                  <div class="doc-tags">
-                    <span class="doc-tag">FUA</span>
-                  </div>
+                  <div class="doc-tags"><span class="doc-tag">FUA</span></div>
                 </div>
-                <div class="doc-linkhint">
-                  <span>Ver documento</span>
-                  <span>↗</span>
-                </div>
+                <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
 
-              <!-- 124-2025 -->
-              <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j"
-                 target="_blank" rel="noopener"
-                 class="doc-slide">
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
                 <div>
                   <div class="doc-icon">RJ</div>
                   <div class="doc-meta">Tarifario • 2025</div>
                   <div class="doc-title">RJ N.° 000124-2025-SIS/J</div>
                   <div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div>
-                  <div class="doc-tags">
-                    <span class="doc-tag">Tarifario</span>
-                  </div>
+                  <div class="doc-tags"><span class="doc-tag">Tarifario</span></div>
                 </div>
-                <div class="doc-linkhint">
-                  <span>Ver documento</span>
-                  <span>↗</span>
-                </div>
+                <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
 
-              <!-- 115-2025 -->
-              <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j"
-                 target="_blank" rel="noopener"
-                 class="doc-slide">
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
                 <div>
                   <div class="doc-icon">RJ</div>
                   <div class="doc-meta">Normativa • Convenios</div>
                   <div class="doc-title">RJ N.° 115-2025-SIS/J</div>
                   <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-                  <div class="doc-tags">
-                    <span class="doc-tag">Convenios</span>
-                  </div>
+                  <div class="doc-tags"><span class="doc-tag">Convenios</span></div>
                 </div>
-                <div class="doc-linkhint">
-                  <span>Ver documento</span>
-                  <span>↗</span>
-                </div>
+                <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
             </div>
 
@@ -1064,7 +1022,6 @@
         </div>
       </div>
     </section>
-
     <!-- HORARIO -->
     <section id="horario" class="section">
       <div class="container">
@@ -1106,14 +1063,14 @@
         </div>
 
         <div class="map-card">
-          <iframe
-            class="map-iframe"
+          <iframe class="map-iframe"
             src="https://www.google.com/maps?q=Red+de+Salud+Chupaca&output=embed"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
+
     <!-- CONTACTO -->
     <section id="contacto" class="section">
       <div class="container">
@@ -1128,7 +1085,7 @@
             <h3>Información institucional</h3>
             <ul class="contact-list">
               <li><strong>Dirección</strong> Jr. Petrona Apolaya N° 955 – Chupaca – Junín</li>
-              <li><strong>Teléfono</strong> 982009770</li>
+              <li><strong>Teléfono</strong> 991-193-863</li>
               <li><strong>Correo</strong> usppsaludchupaca@gmail.com</li>
               <li><strong>Horario</strong> Lunes a viernes, 8:00 a 17:30 h</li>
             </ul>
@@ -1195,6 +1152,7 @@
       </div>
     </div>
   </footer>
+
   <script>
     // Año footer
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -1232,7 +1190,6 @@
       const btnRight = section.querySelector(".slider-btn.right");
       const dotsWrap = document.getElementById("docDots");
       const slides = slider ? Array.from(slider.querySelectorAll(".doc-slide")) : [];
-
       if (!slider || !btnLeft || !btnRight || slides.length === 0 || !dotsWrap) return;
 
       function getStep(){
@@ -1240,12 +1197,10 @@
         const gap = parseFloat(getComputedStyle(slider).gap || "16");
         return first.getBoundingClientRect().width + gap;
       }
-
       function goBy(px){
         try{ slider.scrollBy({ left: px, behavior: "smooth" }); }
         catch(e){ slider.scrollLeft += px; }
       }
-
       btnLeft.addEventListener("click", () => goBy(-getStep()));
       btnRight.addEventListener("click", () => goBy(getStep()));
 
@@ -1263,12 +1218,10 @@
           dotsWrap.appendChild(d);
         });
       }
-
       function setActiveDot(index){
         const dots = Array.from(dotsWrap.querySelectorAll(".dot"));
         dots.forEach((d,i)=> d.classList.toggle("active", i===index));
       }
-
       buildDots();
 
       let ticking = false;
@@ -1280,20 +1233,34 @@
           setActiveDot(Math.max(0, Math.min(idx, slides.length-1)));
           ticking = false;
         });
-      }, { passive: true });
+      }, { passive:true });
 
-      // Auto scroll (se pausa al pasar el mouse/tocar)
       let auto = setInterval(() => goBy(getStep()), 5000);
-
       function pause(){ clearInterval(auto); auto = null; }
-      function resume(){
-        if (auto) return;
-        auto = setInterval(() => goBy(getStep()), 5000);
-      }
+      function resume(){ if (auto) return; auto = setInterval(() => goBy(getStep()), 5000); }
       slider.addEventListener("mouseenter", pause);
       slider.addEventListener("mouseleave", resume);
       slider.addEventListener("touchstart", pause, {passive:true});
       slider.addEventListener("touchend", resume, {passive:true});
+    });
+
+    // ✅ CLICK EN TARJETAS SIS (abre link en nueva pestaña)
+    function openSisLink(el){
+      const url = el.getAttribute("data-href");
+      if(!url) return;
+      window.open(url, "_blank", "noopener");
+    }
+    document.addEventListener("click", (e) => {
+      const card = e.target.closest(".sis-flip-card[data-href]");
+      if(!card) return;
+      openSisLink(card);
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key !== "Enter" && e.key !== " ") return;
+      const card = e.target.closest(".sis-flip-card[data-href]");
+      if(!card) return;
+      e.preventDefault();
+      openSisLink(card);
     });
 
     // Reloj en vivo
@@ -1315,6 +1282,7 @@
   </script>
 </body>
 </html>
+
 
 
 
