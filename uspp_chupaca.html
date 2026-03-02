@@ -200,7 +200,7 @@
     .hero-panel-footer{margin-top:.8rem;padding-top:.6rem;border-top:1px dashed rgba(148,163,184,.8);font-size:.75rem;color:var(--muted)}
     .firma-nombre{font-weight:1000;color:#e5e7eb}
 
-    /* ✨ MENSAJE MES DEL AMOR - COMPACTO ✨ */
+    /* ✨ MENSAJE - (se actualiza a MARZO en el HTML) ✨ */
     .newyear-message{
       text-align:center;
       padding:.8rem 1rem;
@@ -389,20 +389,35 @@
     /* DOCUMENTOS SLIDER */
     .doc-section{background:rgba(15,23,42,.5);border-radius:26px;padding:2rem 1.5rem;margin-top:2.5rem}
     .doc-slider-wrap{position:relative;margin-top:1.8rem}
+
+    /* ✅ swipe + snap pro */
     .doc-slider{
       display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;
-      padding-bottom:.8rem;scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.5) transparent
+      padding-bottom:.8rem;
+      scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.5) transparent;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
     }
     .doc-slider::-webkit-scrollbar{height:6px}
     .doc-slider::-webkit-scrollbar-track{background:rgba(15,23,42,.5);border-radius:999px}
     .doc-slider::-webkit-scrollbar-thumb{background:rgba(148,163,184,.5);border-radius:999px}
     .doc-slider::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,.75)}
 
+    /* ✅ tarjeta exacta + link detrás */
     .doc-slide{
       min-width:280px;
+      height:260px; /* tarjeta exacta */
       background:radial-gradient(circle at top left, rgba(79,70,229,.25), rgba(15,23,42,.95));
-      border-radius:18px;padding:1.3rem 1.2rem;border:1px solid rgba(148,163,184,.5);
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;cursor:pointer
+      border-radius:18px;
+      padding:1.3rem 1.2rem;
+      border:1px solid rgba(148,163,184,.5);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      scroll-snap-align:start;
+      outline:none;
     }
     .doc-slide:hover{
       transform:translateY(-4px);
@@ -418,17 +433,29 @@
     .doc-meta{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem}
     .doc-title{font-size:.95rem;font-weight:1000;color:#f9fafb;margin-bottom:.5rem;line-height:1.35}
     .doc-desc{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:.8rem}
-    .doc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem}
+    .doc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.4rem}
     .doc-tag{
       display:inline-block;padding:.18rem .45rem;border-radius:999px;
       background:rgba(79,70,229,.25);color:#c7d2fe;font-size:.68rem;font-weight:700
     }
-    .doc-btn{
-      width:100%;padding:.5rem;border-radius:999px;border:1px solid rgba(148,163,184,.5);
-      background:rgba(15,23,42,.8);color:#e5e7eb;font-size:.8rem;font-weight:700;
-      cursor:pointer;transition:all .15s ease
+
+    /* ✅ hint de link (sin botón) */
+    .doc-linkhint{
+      margin-top:.55rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:.6rem;
+      padding-top:.65rem;
+      border-top:1px dashed rgba(148,163,184,.35);
+      font-size:.78rem;
+      color:#cbd5e1;
+      opacity:.92;
     }
-    .doc-btn:hover{background:linear-gradient(135deg,var(--p),var(--s));border-color:transparent}
+    .doc-linkhint span{
+      color:rgba(203,213,225,.9);
+      font-weight:800;
+    }
 
     .slider-btn{
       position:absolute;top:50%;transform:translateY(-50%);
@@ -529,63 +556,64 @@
       .section{padding:2rem 0}
       .hero{padding:2rem 0 1.5rem}
       .sis-cards-wrapper{grid-template-columns:1fr;}
+
+      /* ✅ móvil: mejor swipe (sin flechas “encima”) */
+      .slider-btn{display:none}
+      .doc-slide{min-width:82%; height:270px;}
     }
-  
-/* ===== FIX: imágenes de Seguros SIS más visibles ===== */
-.seguro-media{
-  position: relative;
-  height: 180px;
-  border-radius: 18px 18px 0 0;
-  overflow: hidden;
-  background: #0b1120;
-}
-.seguro-media img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 1 !important;
-  filter: none !important;
-  transform: scale(1.02);
-}
-.seguro-media::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.30));
-  pointer-events:none;
-}
-.seguro-tag{
-  position:absolute;
-  left: 12px;
-  bottom: 12px;
-  z-index: 2;
-  background: rgba(15,23,42,.55);
-  border: 1px solid rgba(255,255,255,.16);
-  backdrop-filter: blur(6px);
-}
 
+    /* ===== FIX: imágenes de Seguros SIS más visibles ===== */
+    .seguro-media{
+      position: relative;
+      height: 180px;
+      border-radius: 18px 18px 0 0;
+      overflow: hidden;
+      background: #0b1120;
+    }
+    .seguro-media img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: scale(1.02);
+    }
+    .seguro-media::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.30));
+      pointer-events:none;
+    }
+    .seguro-tag{
+      position:absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      background: rgba(15,23,42,.55);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(6px);
+    }
 
-/* ====== FIX: fotos reales en tarjetas SIS ====== */
-.sis-flip-front img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  opacity:1 !important;
-  filter:none !important;
-}
-.sis-flip-front::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.45));
-  pointer-events:none;
-}
-
-</style>
+    /* ====== FIX: fotos reales en tarjetas SIS ====== */
+    .sis-flip-front img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:1 !important;
+      filter:none !important;
+    }
+    .sis-flip-front::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.45));
+      pointer-events:none;
+    }
+  </style>
 </head>
-
 <body>
   <!-- HEXÁGONOS ANIMADOS -->
   <div class="hex-bg" id="hexBg"></div>
@@ -646,12 +674,13 @@
               </button>
             </div>
 
-            <!-- ✨ MENSAJE MES DEL AMOR - COMPACTO ✨ -->
+            <!-- ✅ MENSAJE ACTUALIZADO A MARZO -->
             <div class="newyear-message">
-              <div class="newyear-emoji">💖</div>
-              <h3 class="newyear-title">Mes del Amor y la Amistad</h3>
+              <div class="newyear-emoji">🌸</div>
+              <h3 class="newyear-title">Marzo: Mes de la Mujer y la Salud</h3>
               <p class="newyear-text">
-                Febrero es el mes para celebrar el amor en todas sus formas. Cuida tu salud y la de tus seres queridos.
+                Reconocemos el rol de la mujer en la familia, la comunidad y los servicios de salud. 
+                Cuidemos nuestro bienestar con prevención y chequeos oportunos.
               </p>
             </div>
           </div>
@@ -915,10 +944,10 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
-
-    <!-- DOCUMENTOS -->
+    <!-- DOCUMENTOS (ARREGLADO: section + container + wrap + botones + dots) -->
     <section id="documentos" class="section">
       <div class="container">
         <div class="section-header">
@@ -929,54 +958,108 @@
 
         <div class="doc-section">
           <div class="doc-slider-wrap">
-            <button class="slider-btn left">‹</button>
+            <button class="slider-btn left" type="button" aria-label="Anterior">‹</button>
+
             <div class="doc-slider">
-              <div class="doc-slide">
-                <div class="doc-icon">RJ</div>
-                <div class="doc-meta">Normativa • Afiliación</div>
-                <div class="doc-title">Resolución Jefatural 112-2020</div>
-                <div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div>
-                <div class="doc-tags">
-                  <span class="doc-tag">SIS</span>
+              <!-- 112-2020 -->
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis"
+                 target="_blank" rel="noopener"
+                 class="doc-slide">
+                <div>
+                  <div class="doc-icon">RJ</div>
+                  <div class="doc-meta">Normativa • Afiliación</div>
+                  <div class="doc-title">Resolución Jefatural 112-2020</div>
+                  <div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div>
+                  <div class="doc-tags">
+                    <span class="doc-tag">SIS</span>
+                  </div>
                 </div>
-                <button class="doc-btn" onclick="alert('Documento en repositorio')">Ver documento</button>
-              </div>
+                <div class="doc-linkhint">
+                  <span>Ver documento</span>
+                  <span>↗</span>
+                </div>
+              </a>
 
-              <div class="doc-slide">
-                <div class="doc-icon">RJ</div>
-                <div class="doc-meta">Normativa • Convenios</div>
-                <div class="doc-title">RJ N.° 199-2022-SIS/J</div>
-                <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-                <div class="doc-tags">
-                  <span class="doc-tag">Convenios</span>
+              <!-- 199-2022 -->
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j"
+                 target="_blank" rel="noopener"
+                 class="doc-slide">
+                <div>
+                  <div class="doc-icon">RJ</div>
+                  <div class="doc-meta">Normativa • Convenios</div>
+                  <div class="doc-title">RJ N.° 199-2022-SIS/J</div>
+                  <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
+                  <div class="doc-tags">
+                    <span class="doc-tag">Convenios</span>
+                  </div>
                 </div>
-                <button class="doc-btn" onclick="alert('Documento en repositorio')">Ver documento</button>
-              </div>
+                <div class="doc-linkhint">
+                  <span>Ver documento</span>
+                  <span>↗</span>
+                </div>
+              </a>
 
-              <div class="doc-slide">
-                <div class="doc-icon">RJ</div>
-                <div class="doc-meta">Directiva • 2024 • FUA</div>
-                <div class="doc-title">RJ N.° 000178-2024-SIS/J</div>
-                <div class="doc-desc">Directiva para registro de prestaciones SIS en el FUA.</div>
-                <div class="doc-tags">
-                  <span class="doc-tag">FUA</span>
+              <!-- 178-2024 -->
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j"
+                 target="_blank" rel="noopener"
+                 class="doc-slide">
+                <div>
+                  <div class="doc-icon">RJ</div>
+                  <div class="doc-meta">Directiva • 2024 • FUA</div>
+                  <div class="doc-title">RJ N.° 000178-2024-SIS/J</div>
+                  <div class="doc-desc">Directiva para registro de prestaciones SIS en el FUA.</div>
+                  <div class="doc-tags">
+                    <span class="doc-tag">FUA</span>
+                  </div>
                 </div>
-                <button class="doc-btn" onclick="alert('Documento en repositorio')">Ver documento</button>
-              </div>
+                <div class="doc-linkhint">
+                  <span>Ver documento</span>
+                  <span>↗</span>
+                </div>
+              </a>
 
-              <div class="doc-slide">
-                <div class="doc-icon">RJ</div>
-                <div class="doc-meta">Tarifario • 2025</div>
-                <div class="doc-title">RJ N.° 000124-2025-SIS/J</div>
-                <div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div>
-                <div class="doc-tags">
-                  <span class="doc-tag">Tarifario</span>
+              <!-- 124-2025 -->
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j"
+                 target="_blank" rel="noopener"
+                 class="doc-slide">
+                <div>
+                  <div class="doc-icon">RJ</div>
+                  <div class="doc-meta">Tarifario • 2025</div>
+                  <div class="doc-title">RJ N.° 000124-2025-SIS/J</div>
+                  <div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div>
+                  <div class="doc-tags">
+                    <span class="doc-tag">Tarifario</span>
+                  </div>
                 </div>
-                <button class="doc-btn" onclick="alert('Documento en repositorio')">Ver documento</button>
-              </div>
+                <div class="doc-linkhint">
+                  <span>Ver documento</span>
+                  <span>↗</span>
+                </div>
+              </a>
+
+              <!-- 115-2025 -->
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j"
+                 target="_blank" rel="noopener"
+                 class="doc-slide">
+                <div>
+                  <div class="doc-icon">RJ</div>
+                  <div class="doc-meta">Normativa • Convenios</div>
+                  <div class="doc-title">RJ N.° 115-2025-SIS/J</div>
+                  <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
+                  <div class="doc-tags">
+                    <span class="doc-tag">Convenios</span>
+                  </div>
+                </div>
+                <div class="doc-linkhint">
+                  <span>Ver documento</span>
+                  <span>↗</span>
+                </div>
+              </a>
             </div>
-            <button class="slider-btn right">›</button>
+
+            <button class="slider-btn right" type="button" aria-label="Siguiente">›</button>
           </div>
+
           <div class="dots" id="docDots"></div>
         </div>
       </div>
@@ -1031,7 +1114,6 @@
         </div>
       </div>
     </section>
-
     <!-- CONTACTO -->
     <section id="contacto" class="section">
       <div class="container">
@@ -1113,7 +1195,6 @@
       </div>
     </div>
   </footer>
-
   <script>
     // Año footer
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -1141,13 +1222,17 @@
     for(let i=0; i<15; i++) createHexagon();
     setInterval(createHexagon, 3000);
 
-    // Slider documentos
+    // ✅ Slider documentos (scoped a #documentos para que no falle)
     document.addEventListener("DOMContentLoaded", () => {
-      const slider = document.querySelector(".doc-slider");
-      const btnLeft = document.querySelector(".slider-btn.left");
-      const btnRight = document.querySelector(".slider-btn.right");
+      const section = document.getElementById("documentos");
+      if (!section) return;
+
+      const slider = section.querySelector(".doc-slider");
+      const btnLeft = section.querySelector(".slider-btn.left");
+      const btnRight = section.querySelector(".slider-btn.right");
       const dotsWrap = document.getElementById("docDots");
       const slides = slider ? Array.from(slider.querySelectorAll(".doc-slide")) : [];
+
       if (!slider || !btnLeft || !btnRight || slides.length === 0 || !dotsWrap) return;
 
       function getStep(){
@@ -1195,8 +1280,9 @@
           setActiveDot(Math.max(0, Math.min(idx, slides.length-1)));
           ticking = false;
         });
-      });
+      }, { passive: true });
 
+      // Auto scroll (se pausa al pasar el mouse/tocar)
       let auto = setInterval(() => goBy(getStep()), 5000);
 
       function pause(){ clearInterval(auto); auto = null; }
@@ -1229,6 +1315,7 @@
   </script>
 </body>
 </html>
+
 
 
 
