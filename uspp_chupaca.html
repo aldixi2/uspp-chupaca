@@ -4,713 +4,264 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>USPP - Red de Salud Chupaca</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg: #f0f4f8;
-      --white: #ffffff;
-      --surface: #ffffff;
-      --surface2: #eaf2fb;
-      --border: #d0dce9;
-      --text: #1a2b3c;
-      --muted: #5a7a94;
-      --primary: #005f9e;
-      --primary-dark: #004275;
-      --accent: #00b4d8;
-      --accent2: #0077b6;
-      --success: #2ecc71;
-      --warn: #f39c12;
-      --red: #e74c3c;
-      --shadow-sm: 0 2px 8px rgba(0,63,130,.08);
-      --shadow: 0 8px 32px rgba(0,63,130,.13);
-      --shadow-lg: 0 20px 60px rgba(0,63,130,.18);
-      --r: 16px;
-      --r-sm: 10px;
+    :root {
+      --bg:       #f2f6fc;
+      --bg2:      #e6eef8;
+      --surface:  #ffffff;
+      --navy:     #0b2d5e;
+      --blue:     #1565c0;
+      --sky:      #0ea5e9;
+      --teal:     #0d9488;
+      --amber:    #f59e0b;
+      --rose:     #e11d48;
+      --mint:     #10b981;
+      --lavender: #6366f1;
+      --text:     #0f1f3d;
+      --muted:    #4b6280;
+      --border:   #cddaee;
+      --shadow:   0 4px 24px rgba(11,45,94,.10);
+      --shadow-md:0 10px 40px rgba(11,45,94,.15);
+      --shadow-lg:0 20px 60px rgba(11,45,94,.2);
+      --r:        18px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
       overflow-x: hidden;
     }
-
     a { text-decoration: none; color: inherit; }
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-    /* ===== LOADER ===== */
+    /* LOADER */
     #loader {
       position: fixed; inset: 0;
-      background: linear-gradient(135deg, #004275, #0077b6);
+      background: linear-gradient(135deg, #0b2d5e 0%, #1565c0 60%, #0ea5e9 100%);
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
-      z-index: 99999; gap: 1.5rem;
+      z-index: 99999; gap: 1.4rem;
       transition: opacity .5s ease;
     }
     .loader-logo-img {
-      width: 100px; height: 100px;
-      background: rgba(255,255,255,.12);
-      border-radius: 20px;
-      border: 2px solid rgba(255,255,255,.25);
+      width: 96px; height: 96px;
+      background: rgba(255,255,255,.15); border-radius: 22px;
+      border: 2px solid rgba(255,255,255,.3);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,.2);
     }
-    .loader-logo-img img { width: 80%; height: 80%; object-fit: contain; }
-    .loader-text { color: rgba(255,255,255,.9); font-size: .85rem; letter-spacing: .2em; text-transform: uppercase; }
-    .loader-bar {
-      width: 200px; height: 3px;
-      background: rgba(255,255,255,.2);
-      border-radius: 999px; overflow: hidden;
-    }
-    .loader-bar-fill {
-      height: 100%; width: 0;
-      background: linear-gradient(90deg, #00b4d8, white);
-      border-radius: 999px;
-      animation: loadBar 1.6s ease forwards;
-    }
-    @keyframes loadBar { to { width: 100%; } }
+    .loader-logo-img img { width: 78%; height: 78%; object-fit: contain; }
+    .loader-bar { width: 180px; height: 3px; background: rgba(255,255,255,.2); border-radius: 999px; overflow: hidden; }
+    .loader-bar-fill { height: 100%; width: 0; background: linear-gradient(90deg,#fff,#7dd3fc); border-radius: 999px; animation: loadFill 1.5s ease forwards; }
+    @keyframes loadFill { to { width: 100%; } }
+    .loader-label { font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75); }
 
-    /* ===== HEADER ===== */
+    /* HEADER */
     header {
       position: sticky; top: 0; z-index: 100;
-      background: var(--white);
+      background: rgba(255,255,255,.93);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 2px 12px rgba(11,45,94,.07);
     }
-    .navbar {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: .75rem 0; gap: 1.5rem;
-    }
-    .logo { display: flex; align-items: center; gap: .75rem; }
-    .logo-img {
-      height: 48px; width: auto; object-fit: contain;
-      filter: drop-shadow(0 2px 6px rgba(0,63,130,.15));
-    }
-    .logo-text { display: flex; flex-direction: column; }
-    .logo-title {
-      font-size: .9rem; font-weight: 700;
-      letter-spacing: .06em; text-transform: uppercase;
-      color: var(--primary);
-      line-height: 1.1;
-    }
-    .logo-subtitle { font-size: .72rem; color: var(--muted); font-weight: 500; }
-
-    .logo-divider {
-      width: 1px; height: 36px;
-      background: var(--border); margin: 0 .25rem;
-    }
-
-    .nav-links {
-      display: flex; align-items: center;
-      gap: 1.4rem; margin-left: auto;
-    }
-    .nav-links a {
-      font-size: .85rem; font-weight: 600;
-      color: var(--muted);
-      position: relative;
-      padding-bottom: 2px;
-      transition: color .15s;
-    }
-    .nav-links a::after {
-      content: ""; position: absolute;
-      left: 0; bottom: 0;
-      width: 0; height: 2px;
-      background: var(--primary);
-      border-radius: 999px;
-      transition: width .18s ease;
-    }
-    .nav-links a:hover { color: var(--primary); }
+    .navbar { display: flex; align-items: center; justify-content: space-between; padding: .7rem 0; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: .7rem; }
+    .logo-img { height: 46px; width: auto; object-fit: contain; }
+    .logo-sep { width: 1px; height: 32px; background: var(--border); }
+    .logo-title { font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--navy); }
+    .logo-subtitle { font-size: .7rem; color: var(--muted); font-weight: 500; }
+    .nav-links { display: flex; align-items: center; gap: 1.3rem; margin-left: auto; }
+    .nav-links a { font-size: .83rem; font-weight: 600; color: var(--muted); position: relative; padding-bottom: 2px; transition: color .15s; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; border-radius: 999px; background: var(--sky); transition: width .18s; }
+    .nav-links a:hover { color: var(--navy); }
     .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: .48rem 1rem; border-radius: 999px; background: var(--navy); color: white; font-size: .8rem; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 4px 14px rgba(11,45,94,.3); transition: background .15s, transform .14s; white-space: nowrap; }
+    .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
 
-    .nav-cta {
-      padding: .5rem 1.1rem;
-      border-radius: 999px;
-      background: var(--primary);
-      color: white; font-size: .82rem;
-      font-weight: 700; border: none;
-      cursor: pointer; display: inline-flex;
-      align-items: center; gap: .4rem;
-      box-shadow: 0 4px 14px rgba(0,95,158,.3);
-      transition: background .15s, transform .15s, box-shadow .15s;
-      white-space: nowrap;
-    }
-    .nav-cta:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0,95,158,.4);
-    }
-
-    /* ===== HERO ===== */
+    /* HERO */
     .hero {
-      background: linear-gradient(135deg, #004275 0%, #0077b6 55%, #00b4d8 100%);
-      padding: 3.5rem 0 3rem;
       position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #0b2d5e 0%, #1565c0 50%, #0284c7 100%);
+      padding: 3.5rem 0 3rem;
     }
-    .hero::before {
-      content: "";
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(circle at 80% 20%, rgba(0,180,216,.25) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(0,66,117,.4) 0%, transparent 45%);
-    }
-    .hero-cross-pattern {
-      position: absolute; inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 1px, transparent 40px),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 1px, transparent 40px);
-      pointer-events: none;
-    }
-    /* Medical cross floating decorations */
-    .hero-deco {
-      position: absolute; right: 5%; top: 12%;
-      font-size: 8rem; opacity: .05;
-      color: white; pointer-events: none;
-      animation: float 8s ease-in-out infinite;
-    }
-    .hero-deco-2 {
-      position: absolute; left: 2%; bottom: 8%;
-      font-size: 5rem; opacity: .05;
-      color: white; pointer-events: none;
-      animation: float 6s ease-in-out infinite reverse;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-    }
+    .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; animation: blobFloat ease-in-out infinite alternate; }
+    .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(14,165,233,.35), transparent 70%); top: -120px; right: -80px; animation-duration: 9s; }
+    .hero-blob-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(16,185,129,.2), transparent 70%); bottom: -80px; left: 10%; animation-duration: 12s; }
+    .hero-blob-3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(245,158,11,.15), transparent 70%); top: 30%; left: 40%; animation-duration: 7s; }
+    @keyframes blobFloat { from { transform: translateY(0) scale(1); } to { transform: translateY(-20px) scale(1.06); } }
+    .hero-grid-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr .8fr; gap: 2.5rem; align-items: center; }
+    .hero-kicker { display: inline-flex; align-items: center; gap: .5rem; padding: .25rem .7rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); border-radius: 999px; font-size: .72rem; color: rgba(255,255,255,.9); margin-bottom: 1rem; font-weight: 600; letter-spacing: .04em; }
+    .hero-kicker-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 5px rgba(74,222,128,.25); flex-shrink: 0; }
+    .hero-title { font-family: 'Sora', sans-serif; font-size: clamp(1.9rem, 3vw, 2.65rem); color: white; line-height: 1.18; margin-bottom: .8rem; }
+    .hero-highlight { color: #7dd3fc; }
+    .hero-text { font-size: .94rem; color: rgba(255,255,255,.76); max-width: 34rem; margin-bottom: 1.5rem; line-height: 1.7; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 1.5rem; }
+    .btn-primary { padding: .7rem 1.5rem; border-radius: 999px; background: white; color: var(--navy); font-weight: 800; font-size: .88rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 6px 22px rgba(0,0,0,.18); transition: transform .15s, box-shadow .15s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.22); }
+    .btn-ghost { padding: .68rem 1.3rem; border-radius: 999px; border: 2px solid rgba(255,255,255,.4); background: rgba(255,255,255,.1); color: white; font-size: .88rem; font-weight: 600; display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; backdrop-filter: blur(8px); transition: background .15s, transform .15s; }
+    .btn-ghost:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+    .hero-notice { display: flex; align-items: flex-start; gap: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(12px); border-radius: 14px; padding: 1rem 1.2rem; }
+    .hero-notice-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .hero-notice-title { font-size: .88rem; font-weight: 800; color: #bae6fd; margin-bottom: .2rem; }
+    .hero-notice-text { font-size: .78rem; color: rgba(255,255,255,.7); line-height: 1.55; }
+    .hero-panel { background: white; border-radius: 22px; padding: 1.6rem; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+    .hero-panel-stripe { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--sky), var(--mint), var(--amber)); }
+    .hero-panel-tag { font-size: .67rem; text-transform: uppercase; letter-spacing: .16em; color: var(--sky); font-weight: 700; margin-bottom: .2rem; }
+    .hero-panel-title { font-size: .98rem; font-weight: 800; color: var(--navy); margin-bottom: 1rem; }
+    .hero-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .9rem; }
+    .hero-panel-item { background: var(--bg); border-radius: 11px; padding: .6rem .75rem; border: 1px solid var(--border); }
+    .hero-panel-label { font-size: .67rem; color: var(--muted); font-weight: 500; margin-bottom: .1rem; }
+    .hero-panel-value { font-size: .84rem; font-weight: 700; color: var(--text); }
+    .hero-panel-footer { padding-top: .75rem; border-top: 1px solid var(--border); font-size: .74rem; color: var(--muted); line-height: 1.5; }
+    .firma-nombre { font-weight: 800; color: var(--blue); display: block; margin-top: .3rem; }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 2.5rem; align-items: center;
-      position: relative; z-index: 1;
-    }
-    .hero-kicker {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .25rem .65rem;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px;
-      font-size: .72rem; color: rgba(255,255,255,.9);
-      margin-bottom: .9rem; font-weight: 600;
-      letter-spacing: .05em;
-    }
-    .hero-kicker-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 0 5px rgba(74,222,128,.25);
-    }
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 3vw, 2.6rem);
-      color: white; line-height: 1.2;
-      margin-bottom: .75rem;
-    }
-    .hero-highlight {
-      color: #7dd3fc;
-    }
-    .hero-text {
-      font-size: .95rem; color: rgba(255,255,255,.78);
-      max-width: 34rem; margin-bottom: 1.4rem;
-    }
-    .hero-actions {
-      display: flex; flex-wrap: wrap; gap: .8rem;
-      margin-bottom: 1.5rem;
-    }
-    .btn-primary {
-      padding: .7rem 1.5rem; border-radius: 999px;
-      background: white; color: var(--primary);
-      font-weight: 700; font-size: .88rem;
-      border: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: .4rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,.2);
-      transition: transform .15s, box-shadow .15s;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 28px rgba(0,0,0,.25);
-    }
-    .btn-ghost {
-      padding: .68rem 1.3rem; border-radius: 999px;
-      border: 2px solid rgba(255,255,255,.4);
-      background: rgba(255,255,255,.1);
-      color: white; font-size: .88rem;
-      font-weight: 600;
-      display: inline-flex; align-items: center; gap: .4rem;
-      cursor: pointer; backdrop-filter: blur(8px);
-      transition: background .15s, transform .15s;
-    }
-    .btn-ghost:hover {
-      background: rgba(255,255,255,.2);
-      transform: translateY(-1px);
-    }
-
-    /* Hero notice (Marzo) */
-    .hero-notice {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.2);
-      backdrop-filter: blur(10px);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      display: flex; align-items: flex-start; gap: .8rem;
-    }
-    .hero-notice-icon { font-size: 1.6rem; flex-shrink: 0; }
-    .hero-notice-title {
-      font-size: .9rem; font-weight: 700;
-      color: #bfdbfe; margin-bottom: .2rem;
-    }
-    .hero-notice-text { font-size: .8rem; color: rgba(255,255,255,.72); }
-
-    /* Hero Panel */
-    .hero-panel {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 1.6rem;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-panel::before {
-      content: "";
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-    }
-    .hero-panel-tag {
-      font-size: .68rem; text-transform: uppercase;
-      letter-spacing: .16em; color: var(--accent);
-      font-weight: 700; margin-bottom: .25rem;
-    }
-    .hero-panel-title {
-      font-size: 1rem; font-weight: 700;
-      color: var(--primary); margin-bottom: 1rem;
-    }
-    .hero-panel-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: .6rem; margin-bottom: .9rem;
-    }
-    .hero-panel-item {
-      background: var(--surface2);
-      border-radius: 10px; padding: .6rem .75rem;
-      border: 1px solid var(--border);
-    }
-    .hero-panel-label { font-size: .68rem; color: var(--muted); font-weight: 500; }
-    .hero-panel-value { font-size: .85rem; font-weight: 700; color: var(--text); }
-    .hero-panel-footer {
-      padding-top: .75rem;
-      border-top: 1px dashed var(--border);
-      font-size: .75rem; color: var(--muted);
-      line-height: 1.5;
-    }
-    .firma-nombre { font-weight: 700; color: var(--primary); display: block; margin-top: .3rem; }
-
-    /* ===== SECTIONS ===== */
+    /* SECTIONS */
     .section { padding: 3.5rem 0; }
     .section-header { text-align: center; margin-bottom: 2.5rem; }
-    .section-kicker {
-      display: inline-block; padding: .22rem .7rem;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: .7rem; text-transform: uppercase;
-      letter-spacing: .14em; color: var(--primary);
-      font-weight: 700; margin-bottom: .6rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: var(--text); margin-bottom: .5rem;
-    }
-    .section-subtitle { font-size: .92rem; color: var(--muted); max-width: 38rem; margin: 0 auto; }
+    .section-kicker { display: inline-block; padding: .22rem .72rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; font-size: .69rem; text-transform: uppercase; letter-spacing: .14em; color: var(--blue); font-weight: 700; margin-bottom: .6rem; box-shadow: var(--shadow); }
+    .section-title { font-family: 'Sora', sans-serif; font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--navy); margin-bottom: .5rem; }
+    .section-subtitle { font-size: .9rem; color: var(--muted); max-width: 38rem; margin: 0 auto; }
 
-    /* ===== INFO CARDS ===== */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-      gap: 1.4rem;
-    }
-    .info-card {
-      background: var(--white);
-      border-radius: var(--r);
-      padding: 1.8rem 1.6rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: transform .2s, box-shadow .2s, border-color .2s;
-      position: relative; overflow: hidden;
-    }
-    .info-card::before {
-      content: "";
-      position: absolute; bottom: 0; left: 0;
-      width: 100%; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .25s ease;
-    }
-    .info-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: #b3d0e8; }
-    .info-card:hover::before { transform: scaleX(1); }
+    /* section backgrounds */
+    .nosotros-bg   { background: linear-gradient(160deg, #dbeafe 0%, #e0f2fe 40%, #ccfbf1 100%); }
+    .seguros-bg    { background: linear-gradient(160deg, #fef3c7 0%, #fde68a 30%, #fce7f3 100%); }
+    .documentos-bg { background: linear-gradient(160deg, #ede9fe 0%, #dbeafe 60%, #e0f7fa 100%); }
+    .horario-bg    { background: linear-gradient(160deg, #ccfbf1 0%, #d1fae5 50%, #dbeafe 100%); }
+    .ubicacion-bg  { background: linear-gradient(160deg, #fce7f3 0%, #ede9fe 60%, #dbeafe 100%); }
+    .contacto-bg   { background: linear-gradient(160deg, #e0f2fe 0%, #fef3c7 100%); }
 
-    .info-card-icon {
-      font-size: 2rem; margin-bottom: .9rem;
-      width: 52px; height: 52px;
-      background: var(--surface2);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .info-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .6rem; color: var(--primary); }
-    .info-card p { font-size: .87rem; color: var(--muted); line-height: 1.65; margin-bottom: .8rem; }
+    /* INFO CARDS */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 1.4rem; }
+    .info-card { background: var(--surface); border-radius: 20px; padding: 1.8rem 1.6rem; border: 1px solid var(--border); box-shadow: var(--shadow); position: relative; overflow: hidden; transition: transform .22s, box-shadow .22s; }
+    .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .info-card-icon { width: 54px; height: 54px; border-radius: 14px; background: linear-gradient(135deg, #dbeafe, #e0f2fe); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(21,101,192,.1); }
+    .info-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: .6rem; }
+    .info-card p { font-size: .86rem; color: var(--muted); line-height: 1.65; margin-bottom: .8rem; }
     .info-card ul { list-style: none; }
-    .info-card li {
-      padding: .45rem 0; color: var(--muted);
-      border-bottom: 1px solid var(--surface2);
-      display: flex; align-items: center;
-      gap: .5rem; font-size: .84rem;
-    }
+    .info-card li { padding: .45rem 0; font-size: .84rem; color: var(--muted); border-bottom: 1px solid var(--bg2); display: flex; align-items: center; gap: .5rem; }
     .info-card li:last-child { border: none; }
-    .info-card li::before { content: "→"; color: var(--accent); font-weight: 700; }
-    .info-card strong { color: var(--text); font-weight: 700; }
+    .info-card li::before { content: "→"; color: var(--sky); font-weight: 800; }
 
-    /* ===== SIS FLIP CARDS ===== */
-    .sis-cards-wrapper {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.1rem; margin-top: 2rem;
-    }
-    .sis-flip-card { perspective: 1000px; height: 380px; position: relative; }
-    .sis-flip-inner {
-      width: 100%; height: 100%;
-      transition: transform 0.6s ease;
-      transform-style: preserve-3d;
-      position: relative;
-    }
-    .sis-flip-card:hover .sis-flip-inner,
-    .sis-flip-card:focus-within .sis-flip-inner { transform: rotateY(180deg); }
-
-    .sis-flip-front, .sis-flip-back {
-      position: absolute; width: 100%; height: 100%;
-      backface-visibility: hidden;
-      border-radius: 16px; overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .sis-flip-front { background: var(--white); }
-    .sis-flip-back {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      transform: rotateY(180deg);
-      display: flex; flex-direction: column;
-      justify-content: center; padding: 1.5rem;
-    }
-    .sis-img { width: 100%; height: 180px; object-fit: cover; display: block; }
-    .sis-body { padding: 1rem 1.1rem; }
-    .sis-badge {
-      display: inline-block; padding: .2rem .55rem;
-      border-radius: 999px; font-size: .66rem;
-      font-weight: 700; text-transform: uppercase;
-      margin-bottom: .5rem;
-      background: var(--surface2); color: var(--primary);
-      border: 1px solid var(--border);
-    }
-    .sis-title { font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: .35rem; }
-    .sis-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-
-    .sis-flip-back h4 { font-size: .95rem; color: white; margin-bottom: .8rem; font-weight: 700; }
-    .sis-flip-back ul { list-style: none; padding: 0; margin: 0; }
-    .sis-flip-back li {
-      padding: .4rem 0; color: rgba(255,255,255,.85);
-      font-size: .8rem; display: flex; align-items: center; gap: .4rem;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
+    /* SIS FLIP CARDS */
+    .sis-cards-wrapper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.1rem; margin-top: 2rem; }
+    .sis-flip-card { perspective: 1000px; height: 370px; }
+    .sis-flip-inner { width: 100%; height: 100%; transition: transform .6s cubic-bezier(.4,0,.2,1); transform-style: preserve-3d; position: relative; }
+    .sis-flip-card:hover .sis-flip-inner, .sis-flip-card:focus-within .sis-flip-inner { transform: rotateY(180deg); }
+    .sis-flip-front, .sis-flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+    .sis-flip-front { background: var(--surface); }
+    .sis-flip-back { transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 1.5rem; }
+    .sis-img { width: 100%; height: 175px; object-fit: cover; display: block; }
+    .sis-body { padding: .9rem 1rem; }
+    .sis-badge { display: inline-block; padding: .18rem .5rem; border-radius: 999px; font-size: .65rem; font-weight: 700; text-transform: uppercase; margin-bottom: .4rem; }
+    [data-variant="gratuito"] .sis-badge    { background: #dcfce7; color: #166534; }
+    [data-variant="paratodos"] .sis-badge   { background: #dbeafe; color: #1e3a8a; }
+    [data-variant="independiente"] .sis-badge { background: #ede9fe; color: #4c1d95; }
+    [data-variant="microempresas"] .sis-badge { background: #ffedd5; color: #7c2d12; }
+    [data-variant="emprendedor"] .sis-badge  { background: #e0f2fe; color: #0c4a6e; }
+    .sis-title { font-size: .9rem; font-weight: 800; color: var(--text); margin-bottom: .3rem; }
+    .sis-desc { font-size: .77rem; color: var(--muted); line-height: 1.5; }
+    .sis-flip-back h4 { font-size: .95rem; color: white; margin-bottom: .8rem; font-weight: 800; }
+    .sis-flip-back ul { list-style: none; }
+    .sis-flip-back li { padding: .38rem 0; color: rgba(255,255,255,.85); font-size: .8rem; display: flex; align-items: center; gap: .4rem; border-bottom: 1px solid rgba(255,255,255,.1); }
     .sis-flip-back li:last-child { border: none; }
-    .sis-flip-back li::before { content: "✓"; color: #7dd3fc; font-weight: 700; }
+    .sis-flip-back li::before { content: "✓"; color: #6ee7b7; font-weight: 800; }
+    .sis-ribbon { position: absolute; top: 16px; left: -60px; width: 220px; text-align: center; padding: 5px 0; font-size: .66rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: white; transform: rotate(-35deg); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
+    [data-variant="gratuito"] .sis-ribbon    { background: linear-gradient(135deg,#22c55e,#15803d); }
+    [data-variant="paratodos"] .sis-ribbon   { background: linear-gradient(135deg,#3b82f6,#1d4ed8); }
+    [data-variant="independiente"] .sis-ribbon { background: linear-gradient(135deg,#8b5cf6,#6d28d9); }
+    [data-variant="microempresas"] .sis-ribbon { background: linear-gradient(135deg,#f97316,#c2410c); }
+    [data-variant="emprendedor"] .sis-ribbon  { background: linear-gradient(135deg,#0ea5e9,#0369a1); }
 
-    .sis-ribbon {
-      position: absolute; top: 16px; left: -60px;
-      width: 220px; text-align: center;
-      padding: 5px 0; font-size: .68rem;
-      font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; color: #fff;
-      transform: rotate(-35deg); z-index: 10;
-      box-shadow: 0 4px 10px rgba(0,0,0,.2);
-    }
-    .sis-flip-front[data-variant="gratuito"] .sis-ribbon { background: linear-gradient(135deg,#22c55e,#16a34a); }
-    .sis-flip-front[data-variant="paratodos"] .sis-ribbon { background: linear-gradient(135deg,#0077b6,#005f9e); }
-    .sis-flip-front[data-variant="independiente"] .sis-ribbon { background: linear-gradient(135deg,#7c3aed,#5b21b6); }
-    .sis-flip-front[data-variant="microempresas"] .sis-ribbon { background: linear-gradient(135deg,#f97316,#ea580c); }
-    .sis-flip-front[data-variant="emprendedor"] .sis-ribbon { background: linear-gradient(135deg,#0891b2,#0e7490); }
-
-    /* ===== DOCUMENTOS SLIDER ===== */
-    .doc-section {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 22px; padding: 2rem 1.5rem;
-      box-shadow: var(--shadow-sm);
-    }
+    /* DOCUMENTOS */
+    .doc-section { background: rgba(255,255,255,.75); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.8); border-radius: 24px; padding: 2rem 1.5rem; box-shadow: var(--shadow-md); }
     .doc-slider-wrap { position: relative; margin-top: 1.8rem; }
-    .doc-slider {
-      display: flex; gap: 1rem;
-      overflow-x: auto; scroll-behavior: smooth;
-      padding-bottom: .8rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
+    .doc-slider { display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; padding-bottom: .8rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; scroll-snap-type: x mandatory; }
     .doc-slider::-webkit-scrollbar { height: 5px; }
-    .doc-slider::-webkit-scrollbar-track { background: var(--surface2); border-radius: 999px; }
     .doc-slider::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
-
-    .doc-slide {
-      min-width: 270px; height: 260px;
-      background: var(--white);
-      border-radius: 16px; padding: 1.3rem 1.2rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: transform .2s, box-shadow .2s, border-color .2s;
-      cursor: pointer; display: flex;
-      flex-direction: column; justify-content: space-between;
-      scroll-snap-align: start;
-    }
-    .doc-slide:hover {
-      transform: translateY(-4px);
-      border-color: #93c5fd;
-      box-shadow: var(--shadow);
-    }
-    .doc-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 800; color: white;
-      margin-bottom: .75rem;
-      box-shadow: 0 6px 16px rgba(0,95,158,.25);
-    }
-    .doc-meta { font-size: .67rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
-    .doc-title { font-size: .9rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; line-height: 1.35; }
-    .doc-desc { font-size: .79rem; color: var(--muted); line-height: 1.5; margin-bottom: .6rem; }
-    .doc-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
-    .doc-tag {
-      display: inline-block; padding: .15rem .4rem;
-      border-radius: 999px;
-      background: var(--surface2); color: var(--primary);
-      font-size: .65rem; font-weight: 700;
-      border: 1px solid var(--border);
-    }
-    .doc-linkhint {
-      margin-top: .5rem;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: .5rem;
-      padding-top: .55rem;
-      border-top: 1px solid var(--border);
-      font-size: .76rem; color: var(--primary); font-weight: 600;
-    }
-
-    .slider-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 38px; height: 38px; border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--white); color: var(--primary);
-      font-size: 1.2rem; cursor: pointer;
-      transition: all .15s ease; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow-sm);
-    }
-    .slider-btn:hover {
-      background: var(--primary); color: white;
-      border-color: var(--primary);
-      box-shadow: 0 6px 18px rgba(0,95,158,.3);
-    }
+    .doc-slide { min-width: 265px; height: 255px; background: var(--surface); border-radius: 18px; padding: 1.3rem 1.2rem; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; scroll-snap-align: start; }
+    .doc-slide:hover { transform: translateY(-5px); border-color: #93c5fd; box-shadow: var(--shadow-md); }
+    .doc-icon { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(135deg, var(--blue), var(--sky)); display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 800; color: white; margin-bottom: .75rem; box-shadow: 0 6px 14px rgba(21,101,192,.25); }
+    .doc-meta { font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
+    .doc-title { font-size: .88rem; font-weight: 800; color: var(--text); margin-bottom: .4rem; line-height: 1.3; }
+    .doc-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+    .doc-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
+    .doc-tag { display: inline-block; padding: .15rem .4rem; border-radius: 999px; background: #dbeafe; color: #1e3a8a; font-size: .64rem; font-weight: 700; }
+    .doc-linkhint { display: flex; align-items: center; justify-content: space-between; padding-top: .55rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--blue); font-weight: 700; }
+    .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--blue); font-size: 1.2rem; cursor: pointer; transition: all .15s; z-index: 2; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
+    .slider-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
     .slider-btn.left { left: -19px; }
     .slider-btn.right { right: -19px; }
-
     .dots { display: flex; justify-content: center; gap: .5rem; margin-top: 1.2rem; }
-    .dot {
-      width: 8px; height: 8px; border-radius: 999px;
-      background: var(--border); border: none; cursor: pointer;
-      transition: all .2s ease;
-    }
-    .dot.active, .dot:hover { background: var(--primary); transform: scale(1.35); }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--border); border: none; cursor: pointer; transition: all .2s; }
+    .dot.active, .dot:hover { background: var(--blue); transform: scale(1.4); }
 
-    /* ===== HORARIO ===== */
-    .schedule-card {
-      background: var(--white);
-      border-radius: 22px; padding: 2.5rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      text-align: center; max-width: 600px; margin: 0 auto;
-      position: relative; overflow: hidden;
-    }
-    .schedule-card::before {
-      content: "";
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-    }
-    .clock-icon { font-size: 3rem; margin-bottom: .8rem; }
-    #scheduleTime {
-      font-size: 2.6rem; font-weight: 700;
-      color: var(--primary); margin-bottom: .3rem;
-      font-family: 'DM Sans', monospace;
-      letter-spacing: .04em;
-    }
-    #scheduleDate {
-      font-size: .82rem; color: var(--muted);
-      margin-bottom: 1.5rem;
-      text-transform: uppercase; letter-spacing: .1em;
-    }
-    .schedule-info {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: .8rem;
-      background: var(--surface2);
-      border-radius: 14px; padding: 1.2rem;
-      border: 1px solid var(--border);
-    }
-    .schedule-item { display: flex; flex-direction: column; gap: .2rem; text-align: left; }
-    .schedule-label { font-size: .75rem; color: var(--muted); font-weight: 600; }
-    .schedule-value { font-size: .9rem; color: var(--text); font-weight: 700; }
+    /* HORARIO */
+    .schedule-card { background: var(--surface); border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); text-align: center; max-width: 580px; margin: 0 auto; position: relative; overflow: hidden; }
+    .schedule-card-stripe { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--teal), var(--sky), var(--lavender)); }
+    .clock-icon { font-size: 2.8rem; margin-bottom: .7rem; }
+    #scheduleTime { font-family: 'Sora', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--navy); margin-bottom: .25rem; }
+    #scheduleDate { font-size: .78rem; color: var(--muted); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+    .schedule-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .8rem; background: var(--bg); border-radius: 14px; padding: 1.2rem; border: 1px solid var(--border); }
+    .schedule-item { text-align: left; }
+    .schedule-label { font-size: .73rem; color: var(--muted); font-weight: 600; margin-bottom: .15rem; }
+    .schedule-value { font-size: .88rem; color: var(--text); font-weight: 800; }
 
-    /* ===== MAPA ===== */
-    .map-card {
-      background: var(--white);
-      border-radius: 22px; overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      height: 440px;
-    }
-    .map-iframe { width: 100%; height: 100%; border: none; }
+    /* MAPA */
+    .map-wrapper { border-radius: 24px; overflow: hidden; border: 4px solid white; box-shadow: var(--shadow-lg); height: 430px; }
+    .map-iframe { width: 100%; height: 100%; border: none; display: block; }
 
-    /* ===== CONTACTO ===== */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-      gap: 1.5rem;
-    }
-    .contact-card {
-      background: var(--white);
-      border-radius: var(--r); padding: 1.8rem 1.6rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .contact-card h3 {
-      font-size: 1rem; font-weight: 700;
-      color: var(--primary); margin-bottom: 1rem;
-      padding-bottom: .6rem;
-      border-bottom: 2px solid var(--surface2);
-    }
+    /* CONTACTO */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,320px),1fr)); gap: 1.5rem; }
+    .contact-card { background: var(--surface); border-radius: 20px; padding: 1.8rem 1.6rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .contact-card-header { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 2px solid var(--bg2); }
+    .contact-card-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg,#dbeafe,#e0f2fe); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .contact-card h3 { font-size: .98rem; font-weight: 800; color: var(--navy); }
     .contact-list { list-style: none; }
-    .contact-list li {
-      padding: .6rem 0; color: var(--muted);
-      border-bottom: 1px solid var(--surface2);
-      font-size: .85rem; display: flex; gap: .5rem;
-    }
+    .contact-list li { padding: .58rem 0; color: var(--muted); border-bottom: 1px solid var(--bg2); font-size: .84rem; display: flex; gap: .5rem; align-items: flex-start; }
     .contact-list li:last-child { border: none; }
-    .contact-list strong {
-      color: var(--text); font-weight: 700;
-      min-width: 72px; display: inline-block;
-    }
+    .contact-list strong { color: var(--text); font-weight: 700; min-width: 70px; display: inline-block; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: .85rem; margin-bottom: .85rem; }
+    .form-group { display: flex; flex-direction: column; gap: .28rem; }
+    .form-group label { font-size: .76rem; color: var(--muted); font-weight: 700; }
+    .form-group input, .form-group select, .form-group textarea { padding: .62rem .85rem; border-radius: 11px; border: 1.5px solid var(--border); background: var(--bg); color: var(--text); font-size: .84rem; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--sky); background: var(--surface); box-shadow: 0 0 0 3px rgba(14,165,233,.12); }
+    .form-group textarea { resize: vertical; min-height: 95px; }
+    .form-footer { display: flex; justify-content: flex-end; margin-top: .3rem; }
+    .btn-submit { padding: .65rem 1.4rem; border-radius: 999px; background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; font-size: .86rem; font-weight: 800; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 4px 16px rgba(11,45,94,.28); transition: transform .14s, box-shadow .14s; }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(11,45,94,.35); }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: .9rem; margin-bottom: .9rem;
-    }
-    .form-group { display: flex; flex-direction: column; gap: .3rem; }
-    .form-group label { font-size: .78rem; color: var(--muted); font-weight: 600; }
-    .form-group input, .form-group select, .form-group textarea {
-      padding: .65rem .85rem;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      background: var(--bg); color: var(--text);
-      font-size: .85rem; font-family: inherit;
-      transition: border-color .15s, background .15s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: var(--white);
-    }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-footer { display: flex; justify-content: flex-end; margin-top: .4rem; }
-
-    /* Botón submit del form */
-    .btn-submit {
-      padding: .65rem 1.5rem; border-radius: 999px;
-      background: var(--primary); color: white;
-      font-size: .88rem; font-weight: 700;
-      border: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: .4rem;
-      box-shadow: 0 4px 14px rgba(0,95,158,.25);
-      transition: background .15s, transform .15s;
-    }
-    .btn-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
-
-    /* ===== NOSOTROS seccion alternativa ===== */
-    .nosotros-section {
-      background: linear-gradient(135deg, #f0f7ff, #e8f4fd);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--primary-dark);
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding: 1.5rem 0;
-    }
-    .footer-inner {
-      display: flex; flex-wrap: wrap;
-      justify-content: space-between; align-items: center;
-      gap: .8rem; font-size: .78rem; color: rgba(255,255,255,.55);
-    }
+    /* FOOTER */
+    footer { background: linear-gradient(135deg, var(--navy), #0e3a7d); padding: 1.5rem 0; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .8rem; font-size: .78rem; color: rgba(255,255,255,.45); }
     .footer-links { display: flex; flex-wrap: wrap; gap: .8rem; }
-    .footer-links a {
-      color: rgba(255,255,255,.55);
-      transition: color .15s;
-    }
+    .footer-links a { color: rgba(255,255,255,.45); transition: color .15s; }
     .footer-links a:hover { color: #7dd3fc; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1200px) {
-      .sis-cards-wrapper { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 980px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .nav-links { display: none; }
-      .sis-cards-wrapper { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .container { padding: 0 1rem; }
-      .section { padding: 2.2rem 0; }
-      .hero { padding: 2.2rem 0 1.8rem; }
-      .sis-cards-wrapper { grid-template-columns: 1fr; }
-      .slider-btn { display: none; }
-      .doc-slide { min-width: 84%; height: 270px; }
-    }
+    /* RESPONSIVE */
+    @media (max-width: 1200px) { .sis-cards-wrapper { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 980px) { .hero-inner { grid-template-columns: 1fr; gap: 1.5rem; } .nav-links { display: none; } .sis-cards-wrapper { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px) { .container { padding: 0 1rem; } .section { padding: 2.2rem 0; } .hero { padding: 2rem 0 1.6rem; } .sis-cards-wrapper { grid-template-columns: 1fr; } .slider-btn { display: none; } .doc-slide { min-width: 83%; height: 265px; } }
   </style>
 </head>
-
 <body>
 
-  <!-- LOADER -->
   <div id="loader">
-    <div class="loader-logo-img">
-      <img src="assets/logoUSPP.png" alt="Logo USPP" />
-    </div>
-    <div class="loader-text">Red de Salud Chupaca</div>
+    <div class="loader-logo-img"><img src="assets/logoUSPP.png" alt="Logo USPP" /></div>
+    <div class="loader-label">Red de Salud Chupaca</div>
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
   </div>
 
-  <!-- HEADER -->
   <header>
     <div class="container navbar">
       <a href="#inicio" class="logo">
         <img src="assets/logoUSPP.png" alt="Logo USPP" class="logo-img" />
-        <div class="logo-divider"></div>
-        <div class="logo-text">
-          <span class="logo-title">USPP CHUPACA</span>
-          <span class="logo-subtitle">Red de Salud</span>
-        </div>
+        <div class="logo-sep"></div>
+        <div><div class="logo-title">USPP CHUPACA</div><div class="logo-subtitle">Red de Salud</div></div>
       </a>
       <nav class="nav-links">
         <a href="#nosotros">Nosotros</a>
@@ -726,105 +277,63 @@
 
   <main id="inicio">
 
-    <!-- HERO -->
     <section class="hero">
-      <div class="hero-cross-pattern"></div>
-      <div class="hero-deco">✚</div>
-      <div class="hero-deco-2">✚</div>
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+      <div class="hero-blob hero-blob-3"></div>
+      <div class="hero-grid-dots"></div>
       <div class="container">
-        <div class="hero-grid">
+        <div class="hero-inner">
           <div>
-            <div class="hero-kicker">
-              <span class="hero-kicker-dot"></span>
-              Unidad de Seguros Públicos y Privados
-            </div>
-            <h1 class="hero-title">
-              Impulsando el acceso <span class="hero-highlight">universal a la salud</span> en la Red Chupaca
-            </h1>
-            <p class="hero-text">
-              Facilitamos el acceso al aseguramiento universal, garantizando afiliaciones oportunas,
-              seguimiento de producción y soporte técnico a establecimientos de salud.
-            </p>
+            <div class="hero-kicker"><span class="hero-kicker-dot"></span>Unidad de Seguros Públicos y Privados</div>
+            <h1 class="hero-title">Impulsando el acceso <span class="hero-highlight">universal a la salud</span> en la Red Chupaca</h1>
+            <p class="hero-text">Facilitamos el acceso al aseguramiento universal, garantizando afiliaciones oportunas, seguimiento de producción y soporte técnico a establecimientos de salud.</p>
             <div class="hero-actions">
               <button class="btn-primary" onclick="window.location.href='#seguros'">Conocer SIS</button>
               <button class="btn-ghost" onclick="window.location.href='pedrito_en_linea.html'">Pedrito en Línea</button>
             </div>
-
             <div class="hero-notice">
               <div class="hero-notice-icon">🌸</div>
               <div>
                 <div class="hero-notice-title">Marzo: Mes de la Mujer y la Salud</div>
-                <p class="hero-notice-text">
-                  Reconocemos el rol de la mujer en la familia, la comunidad y los servicios de salud.
-                  Cuidemos nuestro bienestar con prevención y chequeos oportunos.
-                </p>
+                <p class="hero-notice-text">Reconocemos el rol de la mujer en la familia, la comunidad y los servicios de salud. Cuidemos nuestro bienestar con prevención y chequeos oportunos.</p>
               </div>
             </div>
           </div>
-
           <div class="hero-panel">
+            <div class="hero-panel-stripe"></div>
             <div class="hero-panel-tag">Datos del responsable</div>
-            <h3 class="hero-panel-title">Coordinadora USPP</h3>
+            <div class="hero-panel-title">Coordinadora USPP</div>
             <div class="hero-panel-grid">
-              <div class="hero-panel-item">
-                <div class="hero-panel-label">Nombre</div>
-                <div class="hero-panel-value">Gabriela Andrea</div>
-              </div>
-              <div class="hero-panel-item">
-                <div class="hero-panel-label">Apellido</div>
-                <div class="hero-panel-value">Ichpas De la Peña</div>
-              </div>
-              <div class="hero-panel-item">
-                <div class="hero-panel-label">Cargo</div>
-                <div class="hero-panel-value">Coordinadora</div>
-              </div>
-              <div class="hero-panel-item">
-                <div class="hero-panel-label">Contacto</div>
-                <div class="hero-panel-value">+51 935 449 044</div>
-              </div>
+              <div class="hero-panel-item"><div class="hero-panel-label">Nombre</div><div class="hero-panel-value">Gabriela Andrea</div></div>
+              <div class="hero-panel-item"><div class="hero-panel-label">Apellido</div><div class="hero-panel-value">Ichpas De la Peña</div></div>
+              <div class="hero-panel-item"><div class="hero-panel-label">Cargo</div><div class="hero-panel-value">Coordinadora</div></div>
+              <div class="hero-panel-item"><div class="hero-panel-label">Contacto</div><div class="hero-panel-value">+51 935 449 044</div></div>
             </div>
-            <div class="hero-panel-footer">
-              Responsable de la coordinación y supervisión de afiliaciones, producción y aseguramiento en la Red de Salud Chupaca.
-              <span class="firma-nombre">Gabriela Andrea Ichpas De la Peña</span>
-            </div>
+            <div class="hero-panel-footer">Responsable de la coordinación y supervisión de afiliaciones, producción y aseguramiento en la Red de Salud Chupaca.<span class="firma-nombre">Gabriela Andrea Ichpas De la Peña</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- NOSOTROS -->
-    <section id="nosotros" class="section nosotros-section">
+    <section id="nosotros" class="section nosotros-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Nosotros</div>
           <h2 class="section-title">Unidad de Seguros Públicos y Privados</h2>
-          <p class="section-subtitle">
-            Somos el área responsable de gestionar el aseguramiento universal en salud,
-            garantizando que la población acceda a servicios de calidad.
-          </p>
+          <p class="section-subtitle">Somos el área responsable de gestionar el aseguramiento universal en salud, garantizando que la población acceda a servicios de calidad.</p>
         </div>
-
         <div class="info-grid">
           <div class="info-card">
             <div class="info-card-icon">🎯</div>
             <h3>Misión</h3>
-            <p>
-              Gestionar y coordinar el aseguramiento universal en salud a través del SIS,
-              garantizando el acceso oportuno de la población a servicios de salud de calidad,
-              mediante procesos eficientes de afiliación, producción y seguimiento.
-            </p>
+            <p>Gestionar y coordinar el aseguramiento universal en salud a través del SIS, garantizando el acceso oportuno de la población a servicios de salud de calidad, mediante procesos eficientes de afiliación, producción y seguimiento.</p>
           </div>
-
           <div class="info-card">
             <div class="info-card-icon">🔭</div>
             <h3>Visión</h3>
-            <p>
-              Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su
-              eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al
-              bienestar de la población de Chupaca.
-            </p>
+            <p>Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al bienestar de la población de Chupaca.</p>
           </div>
-
           <div class="info-card">
             <div class="info-card-icon">⚙️</div>
             <h3>Funciones principales</h3>
@@ -840,17 +349,13 @@
       </div>
     </section>
 
-    <!-- SEGUROS -->
-    <section id="seguros" class="section">
+    <section id="seguros" class="section seguros-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Afiliaciones</div>
           <h2 class="section-title">Seguro Integral de Salud</h2>
-          <p class="section-subtitle">
-            Información sobre el proceso de afiliación, beneficios y requisitos del SIS
-          </p>
+          <p class="section-subtitle">Información sobre el proceso de afiliación, beneficios y requisitos del SIS</p>
         </div>
-
         <div class="info-grid">
           <div class="info-card">
             <div class="info-card-icon">👥</div>
@@ -863,7 +368,6 @@
               <li>Personas con discapacidad</li>
             </ul>
           </div>
-
           <div class="info-card">
             <div class="info-card-icon">📄</div>
             <h3>Requisitos</h3>
@@ -873,7 +377,6 @@
               <li>No contar con otro tipo de SEGURO</li>
             </ul>
           </div>
-
           <div class="info-card">
             <div class="info-card-icon">✅</div>
             <h3>Beneficios</h3>
@@ -888,209 +391,113 @@
           </div>
         </div>
 
-        <!-- TIPOS DE SIS -->
         <div style="margin-top:3rem">
           <div class="section-header">
             <h3 class="section-title" style="font-size:1.4rem">Tipos de Seguro SIS</h3>
             <p class="section-subtitle">Conoce las diferentes modalidades de afiliación disponibles (pasa el mouse sobre las tarjetas)</p>
           </div>
-
           <div class="sis-cards-wrapper">
-
-            <div class="sis-flip-card" data-href="https://www.gob.pe/10337-verificar-si-estas-afiliado-al-sis" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Gratuito en gob.pe">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/10337-verificar-si-estas-afiliado-al-sis" role="link" tabindex="0">
               <div class="sis-flip-inner">
                 <div class="sis-flip-front" data-variant="gratuito">
                   <div class="sis-ribbon">SIS GRATUITO</div>
                   <img src="assets/SIS_gratuito.jpg" alt="SIS Gratuito" class="sis-img">
-                  <div class="sis-body">
-                    <div class="sis-badge">Gratuito</div>
-                    <div class="sis-title">SIS Gratuito</div>
-                    <div class="sis-desc">Para personas en situación de pobreza y extrema pobreza sin capacidad de pago.</div>
-                  </div>
+                  <div class="sis-body"><div class="sis-badge">Gratuito</div><div class="sis-title">SIS Gratuito</div><div class="sis-desc">Para personas en situación de pobreza y extrema pobreza sin capacidad de pago.</div></div>
                 </div>
-                <div class="sis-flip-back">
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#065f46,#047857)">
                   <h4>✓ Cobertura SIS Gratuito</h4>
-                  <ul>
-                    <li>Sin costo alguno</li>
-                    <li>Atención preventiva</li>
-                    <li>Consultas especializadas</li>
-                    <li>Medicamentos incluidos</li>
-                    <li>Hospitalizaciones cubiertas</li>
-                  </ul>
+                  <ul><li>Sin costo alguno</li><li>Atención preventiva</li><li>Consultas especializadas</li><li>Medicamentos incluidos</li><li>Hospitalizaciones cubiertas</li></ul>
                 </div>
               </div>
             </div>
-
-            <div class="sis-flip-card" data-href="https://www.gob.pe/8970-afiliarte-al-sis-para-todos" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Para Todos en gob.pe">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/8970-afiliarte-al-sis-para-todos" role="link" tabindex="0">
               <div class="sis-flip-inner">
                 <div class="sis-flip-front" data-variant="paratodos">
                   <div class="sis-ribbon">SIS PARA TODOS</div>
                   <img src="assets/SIS_Paratodos.jpg" alt="SIS Para Todos" class="sis-img">
-                  <div class="sis-body">
-                    <div class="sis-badge">Para Todos</div>
-                    <div class="sis-title">SIS Para Todos</div>
-                    <div class="sis-desc">Para peruanos y extranjeros residentes que no cuentan con otro seguro de salud.</div>
-                  </div>
+                  <div class="sis-body"><div class="sis-badge">Para Todos</div><div class="sis-title">SIS Para Todos</div><div class="sis-desc">Para peruanos y extranjeros residentes que no cuentan con otro seguro de salud.</div></div>
                 </div>
-                <div class="sis-flip-back">
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#1e3a8a,#1565c0)">
                   <h4>✓ Beneficios SIS Para Todos</h4>
-                  <ul>
-                    <li>Acceso universal</li>
-                    <li>Sin límite de edad</li>
-                    <li>Cobertura integral</li>
-                    <li>Afiliación rápida</li>
-                    <li>Atención oportuna</li>
-                  </ul>
+                  <ul><li>Acceso universal</li><li>Sin límite de edad</li><li>Cobertura integral</li><li>Afiliación rápida</li><li>Atención oportuna</li></ul>
                 </div>
               </div>
             </div>
-
-            <div class="sis-flip-card" data-href="https://www.gob.pe/172-sis-independiente" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Independiente en gob.pe">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/172-sis-independiente" role="link" tabindex="0">
               <div class="sis-flip-inner">
                 <div class="sis-flip-front" data-variant="independiente">
                   <div class="sis-ribbon">SIS INDEPENDIENTE</div>
                   <img src="assets/SIS_Independiente.jpg" alt="SIS Independiente" class="sis-img">
-                  <div class="sis-body">
-                    <div class="sis-badge">Independiente</div>
-                    <div class="sis-title">SIS Independiente</div>
-                    <div class="sis-desc">Para trabajadores independientes con aportes mensuales accesibles.</div>
-                  </div>
+                  <div class="sis-body"><div class="sis-badge">Independiente</div><div class="sis-title">SIS Independiente</div><div class="sis-desc">Para trabajadores independientes con aportes mensuales accesibles.</div></div>
                 </div>
-                <div class="sis-flip-back">
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#4c1d95,#6d28d9)">
                   <h4>✓ SIS Independiente</h4>
-                  <ul>
-                    <li>Aporte mensual bajo</li>
-                    <li>Flexibilidad laboral</li>
-                    <li>Cobertura familiar opcional</li>
-                    <li>Atención inmediata</li>
-                    <li>Red nacional</li>
-                  </ul>
+                  <ul><li>Aporte mensual bajo</li><li>Flexibilidad laboral</li><li>Cobertura familiar opcional</li><li>Atención inmediata</li><li>Red nacional</li></ul>
                 </div>
               </div>
             </div>
-
-            <div class="sis-flip-card" data-href="https://www.gob.pe/180-sis-microempresas" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Microempresas en gob.pe">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/180-sis-microempresas" role="link" tabindex="0">
               <div class="sis-flip-inner">
                 <div class="sis-flip-front" data-variant="microempresas">
                   <div class="sis-ribbon">SIS MICROEMPRESAS</div>
                   <img src="assets/SIS_Microempresas.jpg" alt="SIS Microempresas" class="sis-img">
-                  <div class="sis-body">
-                    <div class="sis-badge">Microempresas</div>
-                    <div class="sis-title">SIS Microempresas</div>
-                    <div class="sis-desc">Para trabajadores y conductores de microempresas hasta 10 trabajadores.</div>
-                  </div>
+                  <div class="sis-body"><div class="sis-badge">Microempresas</div><div class="sis-title">SIS Microempresas</div><div class="sis-desc">Para trabajadores y conductores de microempresas hasta 10 trabajadores.</div></div>
                 </div>
-                <div class="sis-flip-back">
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">
                   <h4>✓ SIS Microempresas</h4>
-                  <ul>
-                    <li>Hasta 10 trabajadores</li>
-                    <li>Cobertura grupal</li>
-                    <li>Aportes compartidos</li>
-                    <li>Incluye empleador</li>
-                    <li>Gestión simplificada</li>
-                  </ul>
+                  <ul><li>Hasta 10 trabajadores</li><li>Cobertura grupal</li><li>Aportes compartidos</li><li>Incluye empleador</li><li>Gestión simplificada</li></ul>
                 </div>
               </div>
             </div>
-
-            <div class="sis-flip-card" data-href="https://www.gob.pe/152-sis-emprendedor" data-newtab="1" role="link" tabindex="0" aria-label="Abrir SIS Emprendedor en gob.pe">
+            <div class="sis-flip-card" data-href="https://www.gob.pe/152-sis-emprendedor" role="link" tabindex="0">
               <div class="sis-flip-inner">
                 <div class="sis-flip-front" data-variant="emprendedor">
                   <div class="sis-ribbon">SIS EMPRENDEDOR</div>
                   <img src="assets/SIS_Emprendedor.jpg" alt="SIS Emprendedor" class="sis-img">
-                  <div class="sis-body">
-                    <div class="sis-badge">Emprendedor</div>
-                    <div class="sis-title">SIS Emprendedor</div>
-                    <div class="sis-desc">Para emprendedores que desarrollan actividades económicas por cuenta propia.</div>
-                  </div>
+                  <div class="sis-body"><div class="sis-badge">Emprendedor</div><div class="sis-title">SIS Emprendedor</div><div class="sis-desc">Para emprendedores que desarrollan actividades económicas por cuenta propia.</div></div>
                 </div>
-                <div class="sis-flip-back">
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#0c4a6e,#0369a1)">
                   <h4>✓ SIS Emprendedor</h4>
-                  <ul>
-                    <li>Ideal para emprendedores</li>
-                    <li>Aporte individual</li>
-                    <li>Cobertura completa</li>
-                    <li>Trámite ágil</li>
-                    <li>Apoyo al negocio</li>
-                  </ul>
+                  <ul><li>Ideal para emprendedores</li><li>Aporte individual</li><li>Cobertura completa</li><li>Trámite ágil</li><li>Apoyo al negocio</li></ul>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DOCUMENTOS -->
-    <section id="documentos" class="section" style="background: linear-gradient(135deg,#f0f7ff,#e8f4fd);">
+    <section id="documentos" class="section documentos-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Documentos</div>
           <h2 class="section-title">Repositorio institucional USPP – Chupaca</h2>
           <p class="section-subtitle">Accede a normas, directivas, manuales y documentos oficiales</p>
         </div>
-
         <div class="doc-section">
           <div class="doc-slider-wrap">
             <button class="slider-btn left" type="button" aria-label="Anterior">‹</button>
             <div class="doc-slider">
-
               <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener" class="doc-slide">
-                <div>
-                  <div class="doc-icon">RJ</div>
-                  <div class="doc-meta">Normativa • Afiliación</div>
-                  <div class="doc-title">Resolución Jefatural 112-2020</div>
-                  <div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div>
-                  <div class="doc-tags"><span class="doc-tag">SIS</span></div>
-                </div>
+                <div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Afiliación</div><div class="doc-title">Resolución Jefatural 112-2020</div><div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div><div class="doc-tags"><span class="doc-tag">SIS</span></div></div>
                 <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
-
               <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j" target="_blank" rel="noopener" class="doc-slide">
-                <div>
-                  <div class="doc-icon">RJ</div>
-                  <div class="doc-meta">Normativa • Convenios</div>
-                  <div class="doc-title">RJ N.° 199-2022-SIS/J</div>
-                  <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-                  <div class="doc-tags"><span class="doc-tag">Convenios</span></div>
-                </div>
+                <div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Convenios</div><div class="doc-title">RJ N.° 199-2022-SIS/J</div><div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div><div class="doc-tags"><span class="doc-tag">Convenios</span></div></div>
                 <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
-
               <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener" class="doc-slide">
-                <div>
-                  <div class="doc-icon">RJ</div>
-                  <div class="doc-meta">Directiva • 2024 • FUA</div>
-                  <div class="doc-title">RJ N.° 000178-2024-SIS/J</div>
-                  <div class="doc-desc">Directiva para registro de prestaciones SIS en el FUA.</div>
-                  <div class="doc-tags"><span class="doc-tag">FUA</span></div>
-                </div>
+                <div><div class="doc-icon">RJ</div><div class="doc-meta">Directiva • 2024 • FUA</div><div class="doc-title">RJ N.° 000178-2024-SIS/J</div><div class="doc-desc">Directiva para registro de prestaciones SIS en el FUA.</div><div class="doc-tags"><span class="doc-tag">FUA</span></div></div>
                 <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
-
               <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
-                <div>
-                  <div class="doc-icon">RJ</div>
-                  <div class="doc-meta">Tarifario • 2025</div>
-                  <div class="doc-title">RJ N.° 000124-2025-SIS/J</div>
-                  <div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div>
-                  <div class="doc-tags"><span class="doc-tag">Tarifario</span></div>
-                </div>
+                <div><div class="doc-icon">RJ</div><div class="doc-meta">Tarifario • 2025</div><div class="doc-title">RJ N.° 000124-2025-SIS/J</div><div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div><div class="doc-tags"><span class="doc-tag">Tarifario</span></div></div>
                 <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
-
               <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
-                <div>
-                  <div class="doc-icon">RJ</div>
-                  <div class="doc-meta">Normativa • Convenios</div>
-                  <div class="doc-title">RJ N.° 115-2025-SIS/J</div>
-                  <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-                  <div class="doc-tags"><span class="doc-tag">Convenios</span></div>
-                </div>
+                <div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Convenios</div><div class="doc-title">RJ N.° 115-2025-SIS/J</div><div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div><div class="doc-tags"><span class="doc-tag">Convenios</span></div></div>
                 <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
               </a>
-
             </div>
             <button class="slider-btn right" type="button" aria-label="Siguiente">›</button>
           </div>
@@ -1099,67 +506,50 @@
       </div>
     </section>
 
-    <!-- HORARIO -->
-    <section id="horario" class="section">
+    <section id="horario" class="section horario-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Atención</div>
           <h2 class="section-title">Horario de Atención</h2>
           <p class="section-subtitle">Estamos disponibles para atenderte</p>
         </div>
-
         <div class="schedule-card">
+          <div class="schedule-card-stripe"></div>
           <div class="clock-icon">🕐</div>
           <div id="scheduleTime">00:00:00</div>
           <div id="scheduleDate">Cargando...</div>
           <div class="schedule-info">
-            <div class="schedule-item">
-              <span class="schedule-label">Lunes a Viernes</span>
-              <span class="schedule-value">8:00 AM - 5:30 PM</span>
-            </div>
-            <div class="schedule-item">
-              <span class="schedule-label">Sábados y Domingos</span>
-              <span class="schedule-value">Cerrado</span>
-            </div>
-            <div class="schedule-item">
-              <span class="schedule-label">Feriados</span>
-              <span class="schedule-value">Cerrado</span>
-            </div>
+            <div class="schedule-item"><span class="schedule-label">Lunes a Viernes</span><span class="schedule-value">8:00 AM - 5:30 PM</span></div>
+            <div class="schedule-item"><span class="schedule-label">Sábados y Domingos</span><span class="schedule-value">Cerrado</span></div>
+            <div class="schedule-item"><span class="schedule-label">Feriados</span><span class="schedule-value">Cerrado</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- UBICACIÓN -->
-    <section id="ubicacion" class="section" style="background: linear-gradient(135deg,#f0f7ff,#e8f4fd);">
+    <section id="ubicacion" class="section ubicacion-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Ubicación</div>
           <h2 class="section-title">Red de Salud Chupaca</h2>
           <p class="section-subtitle">Dirección referencial y mapa.</p>
         </div>
-
-        <div class="map-card">
-          <iframe class="map-iframe"
-            src="https://www.google.com/maps?q=Red+de+Salud+Chupaca&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-wrapper">
+          <iframe class="map-iframe" src="https://www.google.com/maps?q=Red+de+Salud+Chupaca&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
 
-    <!-- CONTACTO -->
-    <section id="contacto" class="section">
+    <section id="contacto" class="section contacto-bg">
       <div class="container">
         <div class="section-header">
           <div class="section-kicker">Contacto</div>
           <h2 class="section-title">Canales de atención de la USPP Chupaca</h2>
           <p class="section-subtitle">Para consultas o coordinaciones, utilice los canales institucionales.</p>
         </div>
-
         <div class="contact-grid">
           <div class="contact-card">
-            <h3>Información institucional</h3>
+            <div class="contact-card-header"><div class="contact-card-icon">🏥</div><h3>Información institucional</h3></div>
             <ul class="contact-list">
               <li><strong>Dirección</strong> Jr. Petrona Apolaya N° 955 – Chupaca – Junín</li>
               <li><strong>Teléfono</strong> 991-193-863</li>
@@ -1167,43 +557,21 @@
               <li><strong>Horario</strong> Lunes a viernes, 8:00 a 17:30 h</li>
             </ul>
           </div>
-
           <div class="contact-card">
-            <h3>Envíanos un mensaje</h3>
+            <div class="contact-card-header"><div class="contact-card-icon">✉️</div><h3>Envíanos un mensaje</h3></div>
             <form onsubmit="event.preventDefault(); alert('Formulario demo (puedes conectarlo a correo/Google Forms).');">
               <div class="form-grid">
-                <div class="form-group">
-                  <label for="nombre">Nombre completo</label>
-                  <input id="nombre" type="text" placeholder="Nombres y apellidos" />
-                </div>
-                <div class="form-group">
-                  <label for="correo">Correo electrónico</label>
-                  <input id="correo" type="email" placeholder="ejemplo@correo.com" />
-                </div>
+                <div class="form-group"><label for="nombre">Nombre completo</label><input id="nombre" type="text" placeholder="Nombres y apellidos" /></div>
+                <div class="form-group"><label for="correo">Correo electrónico</label><input id="correo" type="email" placeholder="ejemplo@correo.com" /></div>
               </div>
               <div class="form-grid">
-                <div class="form-group">
-                  <label for="telefono">Teléfono</label>
-                  <input id="telefono" type="tel" placeholder="Número de contacto" />
-                </div>
-                <div class="form-group">
-                  <label for="tipo">Tipo de consulta</label>
-                  <select id="tipo">
-                    <option value="" disabled selected>Seleccione una opción</option>
-                    <option>Afiliaciones SIS</option>
-                    <option>Orientación</option>
-                    <option>Soporte</option>
-                    <option>Otro</option>
-                  </select>
+                <div class="form-group"><label for="telefono">Teléfono</label><input id="telefono" type="tel" placeholder="Número de contacto" /></div>
+                <div class="form-group"><label for="tipo">Tipo de consulta</label>
+                  <select id="tipo"><option value="" disabled selected>Seleccione una opción</option><option>Afiliaciones SIS</option><option>Orientación</option><option>Soporte</option><option>Otro</option></select>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="mensaje">Detalle</label>
-                <textarea id="mensaje" placeholder="Describa su consulta..."></textarea>
-              </div>
-              <div class="form-footer">
-                <button type="submit" class="btn-submit">Enviar mensaje ↗</button>
-              </div>
+              <div class="form-group"><label for="mensaje">Detalle</label><textarea id="mensaje" placeholder="Describa su consulta..."></textarea></div>
+              <div class="form-footer"><button type="submit" class="btn-submit">Enviar mensaje ↗</button></div>
             </form>
           </div>
         </div>
@@ -1211,33 +579,24 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
-      <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados. Pagina WEB creado por Junnior Aldair Illesca Medina</span>
+      <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.</span>
       <div class="footer-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#seguros">Seguros</a>
-        <a href="#documentos">Documentos</a>
-        <a href="pedrito_en_linea.html">Pedrito en Línea</a>
-        <a href="galeria.html">Galería</a>
-        <a href="modulos.html">Módulos</a>
+        <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a><a href="#seguros">Seguros</a>
+        <a href="#documentos">Documentos</a><a href="pedrito_en_linea.html">Pedrito en Línea</a>
+        <a href="galeria.html">Galería</a><a href="modulos.html">Módulos</a>
       </div>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Loader
     window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      loader.style.opacity = "0";
-      setTimeout(() => loader.style.display = "none", 500);
+      const l = document.getElementById("loader");
+      l.style.opacity = "0";
+      setTimeout(() => l.style.display = "none", 500);
     });
-
-    // Slider documentos
     document.addEventListener("DOMContentLoaded", () => {
       const section = document.getElementById("documentos");
       if (!section) return;
@@ -1246,89 +605,39 @@
       const btnRight = section.querySelector(".slider-btn.right");
       const dotsWrap = document.getElementById("docDots");
       const slides = slider ? Array.from(slider.querySelectorAll(".doc-slide")) : [];
-      if (!slider || !btnLeft || !btnRight || slides.length === 0 || !dotsWrap) return;
-
-      function getStep(){
-        const first = slides[0];
-        const gap = parseFloat(getComputedStyle(slider).gap || "16");
-        return first.getBoundingClientRect().width + gap;
-      }
-      function goBy(px){
-        try { slider.scrollBy({ left: px, behavior: "smooth" }); }
-        catch(e) { slider.scrollLeft += px; }
-      }
+      if (!slider || !btnLeft || !btnRight || !slides.length || !dotsWrap) return;
+      const getStep = () => slides[0].getBoundingClientRect().width + parseFloat(getComputedStyle(slider).gap || "16");
+      const goBy = px => { try { slider.scrollBy({ left: px, behavior: "smooth" }); } catch(e) { slider.scrollLeft += px; } };
       btnLeft.addEventListener("click", () => goBy(-getStep()));
       btnRight.addEventListener("click", () => goBy(getStep()));
-
-      function buildDots(){
-        dotsWrap.innerHTML = "";
-        slides.forEach((_, i) => {
-          const d = document.createElement("button");
-          d.className = "dot" + (i === 0 ? " active" : "");
-          d.type = "button";
-          d.setAttribute("aria-label", "Ir a documento " + (i+1));
-          d.addEventListener("click", () => {
-            slider.scrollTo({ left: i * getStep(), behavior: "smooth" });
-            setActiveDot(i);
-          });
-          dotsWrap.appendChild(d);
-        });
-      }
-      function setActiveDot(index){
-        Array.from(dotsWrap.querySelectorAll(".dot"))
-          .forEach((d, i) => d.classList.toggle("active", i === index));
-      }
-      buildDots();
-
+      const setActiveDot = idx => Array.from(dotsWrap.querySelectorAll(".dot")).forEach((d,i) => d.classList.toggle("active", i===idx));
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, i) => {
+        const d = document.createElement("button");
+        d.className = "dot" + (i===0?" active":""); d.type="button";
+        d.setAttribute("aria-label","Ir a documento "+(i+1));
+        d.addEventListener("click", () => { slider.scrollTo({ left: i*getStep(), behavior:"smooth" }); setActiveDot(i); });
+        dotsWrap.appendChild(d);
+      });
       let ticking = false;
-      slider.addEventListener("scroll", () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          const idx = Math.round(slider.scrollLeft / getStep());
-          setActiveDot(Math.max(0, Math.min(idx, slides.length - 1)));
-          ticking = false;
-        });
-      }, { passive: true });
-
+      slider.addEventListener("scroll", () => { if(ticking) return; ticking=true; requestAnimationFrame(() => { setActiveDot(Math.max(0,Math.min(Math.round(slider.scrollLeft/getStep()),slides.length-1))); ticking=false; }); }, {passive:true});
       let auto = setInterval(() => goBy(getStep()), 5000);
-      slider.addEventListener("mouseenter", () => { clearInterval(auto); auto = null; });
-      slider.addEventListener("mouseleave", () => { if (!auto) auto = setInterval(() => goBy(getStep()), 5000); });
+      slider.addEventListener("mouseenter", () => { clearInterval(auto); auto=null; });
+      slider.addEventListener("mouseleave", () => { if(!auto) auto=setInterval(()=>goBy(getStep()),5000); });
     });
-
-    // Click en tarjetas SIS
-    document.addEventListener("click", (e) => {
-      const card = e.target.closest(".sis-flip-card[data-href]");
-      if (!card) return;
-      const url = card.getAttribute("data-href");
-      if (url) window.open(url, "_blank", "noopener");
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      const card = e.target.closest(".sis-flip-card[data-href]");
-      if (!card) return;
-      e.preventDefault();
-      const url = card.getAttribute("data-href");
-      if (url) window.open(url, "_blank", "noopener");
-    });
-
-    // Reloj en vivo
-    function updateClock(){
+    document.addEventListener("click", e => { const c = e.target.closest(".sis-flip-card[data-href]"); if(c) window.open(c.getAttribute("data-href"),"_blank","noopener"); });
+    document.addEventListener("keydown", e => { if(e.key!=="Enter"&&e.key!==" ") return; const c=e.target.closest(".sis-flip-card[data-href]"); if(c){e.preventDefault();window.open(c.getAttribute("data-href"),"_blank","noopener");} });
+    function updateClock() {
       const now = new Date();
-      const timeFmt = new Intl.DateTimeFormat("es-PE", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
-      const dateFmt = new Intl.DateTimeFormat("es-PE", { weekday: "long", day: "2-digit", month: "long", year: "numeric" });
       const t = document.getElementById("scheduleTime");
       const d = document.getElementById("scheduleDate");
-      if (t) t.textContent = timeFmt.format(now);
-      if (d) d.textContent = dateFmt.format(now).toUpperCase();
+      if(t) t.textContent = new Intl.DateTimeFormat("es-PE",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).format(now);
+      if(d) d.textContent = new Intl.DateTimeFormat("es-PE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(now).toUpperCase();
     }
-    updateClock();
-    setInterval(updateClock, 1000);
+    updateClock(); setInterval(updateClock, 1000);
   </script>
 </body>
 </html>
-
-
 
 
 
