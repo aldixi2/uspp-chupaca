@@ -558,22 +558,46 @@
             </ul>
           </div>
           <div class="contact-card">
-            <div class="contact-card-header"><div class="contact-card-icon">✉️</div><h3>Envíanos un mensaje</h3></div>
-            <form onsubmit="event.preventDefault(); alert('Formulario demo (puedes conectarlo a correo/Google Forms).');">
-              <div class="form-grid">
-                <div class="form-group"><label for="nombre">Nombre completo</label><input id="nombre" type="text" placeholder="Nombres y apellidos" /></div>
-                <div class="form-group"><label for="correo">Correo electrónico</label><input id="correo" type="email" placeholder="ejemplo@correo.com" /></div>
-              </div>
-              <div class="form-grid">
-                <div class="form-group"><label for="telefono">Teléfono</label><input id="telefono" type="tel" placeholder="Número de contacto" /></div>
-                <div class="form-group"><label for="tipo">Tipo de consulta</label>
-                  <select id="tipo"><option value="" disabled selected>Seleccione una opción</option><option>Afiliaciones SIS</option><option>Orientación</option><option>Soporte</option><option>Otro</option></select>
-                </div>
-              </div>
-              <div class="form-group"><label for="mensaje">Detalle</label><textarea id="mensaje" placeholder="Describa su consulta..."></textarea></div>
-              <div class="form-footer"><button type="submit" class="btn-submit">Enviar mensaje ↗</button></div>
-            </form>
-          </div>
+  <div class="contact-card-header"><div class="contact-card-icon">✉️</div><h3>Envíanos un mensaje</h3></div>
+  <form action="https://formspree.io/f/mjgpbngb" method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" name="nombre" type="text" placeholder="Nombres y apellidos" required />
+      </div>
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="email" type="email" placeholder="ejemplo@correo.com" required />
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input id="telefono" name="telefono" type="tel" placeholder="Número de contacto" />
+      </div>
+      <div class="form-group">
+        <label for="tipo">Tipo de consulta</label>
+        <select id="tipo" name="tipo" required>
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option>Afiliaciones SIS</option>
+          <option>Orientación</option>
+          <option>Soporte</option>
+          <option>Otro</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="mensaje">Detalle</label>
+      <textarea id="mensaje" name="message" placeholder="Describa su consulta..." required></textarea>
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn-submit">Enviar mensaje ↗</button>
+    </div>
+  </form>
+</div>
         </div>
       </div>
     </section>
@@ -581,7 +605,7 @@
 
   <footer>
     <div class="container footer-inner">
-      <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.Pagina WEB creado por Junnior Aldair Illesca Medina</span>
+      <span>&copy; <span id="year"></span> USPP – Red de Salud Chupaca. Todos los derechos reservados.</span>
       <div class="footer-links">
         <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a><a href="#seguros">Seguros</a>
         <a href="#documentos">Documentos</a><a href="pedrito_en_linea.html">Pedrito en Línea</a>
