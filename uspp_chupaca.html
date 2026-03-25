@@ -5,257 +5,396 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>USPP - Red de Salud Chupaca</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg:       #f2f6fc;
-      --bg2:      #e6eef8;
-      --surface:  #ffffff;
-      --navy:     #0b2d5e;
-      --blue:     #1565c0;
-      --sky:      #0ea5e9;
-      --teal:     #0d9488;
-      --amber:    #f59e0b;
-      --rose:     #e11d48;
-      --mint:     #10b981;
-      --lavender: #6366f1;
-      --text:     #0f1f3d;
-      --muted:    #4b6280;
-      --border:   #cddaee;
-      --shadow:   0 4px 24px rgba(11,45,94,.10);
+      --bg:#f2f6fc; --bg2:#e6eef8; --surface:#ffffff;
+      --navy:#0b2d5e; --blue:#1565c0; --sky:#0ea5e9;
+      --teal:#0d9488; --amber:#f59e0b; --rose:#e11d48;
+      --mint:#10b981; --lavender:#6366f1;
+      --text:#0f1f3d; --muted:#4b6280; --border:#cddaee;
+      --shadow:0 4px 24px rgba(11,45,94,.10);
       --shadow-md:0 10px 40px rgba(11,45,94,.15);
       --shadow-lg:0 20px 60px rgba(11,45,94,.2);
-      --r:        18px;
+      --r:18px;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; color: inherit; }
-    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
 
     /* LOADER */
-    #loader {
-      position: fixed; inset: 0;
-      background: linear-gradient(135deg, #0b2d5e 0%, #1565c0 60%, #0ea5e9 100%);
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      z-index: 99999; gap: 1.4rem;
-      transition: opacity .5s ease;
-    }
-    .loader-logo-img {
-      width: 96px; height: 96px;
-      background: rgba(255,255,255,.15); border-radius: 22px;
-      border: 2px solid rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .loader-logo-img img { width: 78%; height: 78%; object-fit: contain; }
-    .loader-bar { width: 180px; height: 3px; background: rgba(255,255,255,.2); border-radius: 999px; overflow: hidden; }
-    .loader-bar-fill { height: 100%; width: 0; background: linear-gradient(90deg,#fff,#7dd3fc); border-radius: 999px; animation: loadFill 1.5s ease forwards; }
-    @keyframes loadFill { to { width: 100%; } }
-    .loader-label { font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+    #loader{position:fixed;inset:0;background:linear-gradient(135deg,#0b2d5e 0%,#1565c0 60%,#0ea5e9 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99999;gap:1.4rem;transition:opacity .5s ease}
+    .loader-logo-img{width:96px;height:96px;background:rgba(255,255,255,.15);border-radius:22px;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center}
+    .loader-logo-img img{width:78%;height:78%;object-fit:contain}
+    .loader-bar{width:180px;height:3px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden}
+    .loader-bar-fill{height:100%;width:0;background:linear-gradient(90deg,#fff,#7dd3fc);border-radius:999px;animation:loadFill 1.5s ease forwards}
+    @keyframes loadFill{to{width:100%}}
+    .loader-label{font-size:.74rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 
     /* HEADER */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.93);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 12px rgba(11,45,94,.07);
-    }
-    .navbar { display: flex; align-items: center; justify-content: space-between; padding: .7rem 0; gap: 1rem; }
-    .logo { display: flex; align-items: center; gap: .7rem; }
-    .logo-img { height: 46px; width: auto; object-fit: contain; }
-    .logo-sep { width: 1px; height: 32px; background: var(--border); }
-    .logo-title { font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--navy); }
-    .logo-subtitle { font-size: .7rem; color: var(--muted); font-weight: 500; }
-    .nav-links { display: flex; align-items: center; gap: 1.3rem; margin-left: auto; }
-    .nav-links a { font-size: .83rem; font-weight: 600; color: var(--muted); position: relative; padding-bottom: 2px; transition: color .15s; }
-    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; border-radius: 999px; background: var(--sky); transition: width .18s; }
-    .nav-links a:hover { color: var(--navy); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta { padding: .48rem 1rem; border-radius: 999px; background: var(--navy); color: white; font-size: .8rem; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 4px 14px rgba(11,45,94,.3); transition: background .15s, transform .14s; white-space: nowrap; }
-    .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 12px rgba(11,45,94,.07)}
+    .navbar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;gap:1rem}
+    .logo{display:flex;align-items:center;gap:.7rem}
+    .logo-img{height:46px;width:auto;object-fit:contain}
+    .logo-sep{width:1px;height:32px;background:var(--border)}
+    .logo-title{font-family:'Sora',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--navy)}
+    .logo-subtitle{font-size:.7rem;color:var(--muted);font-weight:500}
+    .nav-links{display:flex;align-items:center;gap:1.3rem;margin-left:auto}
+    .nav-links a{font-size:.83rem;font-weight:600;color:var(--muted);position:relative;padding-bottom:2px;transition:color .15s}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;border-radius:999px;background:var(--sky);transition:width .18s}
+    .nav-links a:hover{color:var(--navy)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{padding:.48rem 1rem;border-radius:999px;background:var(--navy);color:white;font-size:.8rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 4px 14px rgba(11,45,94,.3);transition:background .15s,transform .14s;white-space:nowrap}
+    .nav-cta:hover{background:var(--blue);transform:translateY(-1px)}
 
     /* HERO */
-    .hero {
-      position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #0b2d5e 0%, #1565c0 50%, #0284c7 100%);
-      padding: 3.5rem 0 3rem;
-    }
-    .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; animation: blobFloat ease-in-out infinite alternate; }
-    .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(14,165,233,.35), transparent 70%); top: -120px; right: -80px; animation-duration: 9s; }
-    .hero-blob-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(16,185,129,.2), transparent 70%); bottom: -80px; left: 10%; animation-duration: 12s; }
-    .hero-blob-3 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(245,158,11,.15), transparent 70%); top: 30%; left: 40%; animation-duration: 7s; }
-    @keyframes blobFloat { from { transform: translateY(0) scale(1); } to { transform: translateY(-20px) scale(1.06); } }
-    .hero-grid-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
-    .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr .8fr; gap: 2.5rem; align-items: center; }
-    .hero-kicker { display: inline-flex; align-items: center; gap: .5rem; padding: .25rem .7rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); border-radius: 999px; font-size: .72rem; color: rgba(255,255,255,.9); margin-bottom: 1rem; font-weight: 600; letter-spacing: .04em; }
-    .hero-kicker-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 5px rgba(74,222,128,.25); flex-shrink: 0; }
-    .hero-title { font-family: 'Sora', sans-serif; font-size: clamp(1.9rem, 3vw, 2.65rem); color: white; line-height: 1.18; margin-bottom: .8rem; }
-    .hero-highlight { color: #7dd3fc; }
-    .hero-text { font-size: .94rem; color: rgba(255,255,255,.76); max-width: 34rem; margin-bottom: 1.5rem; line-height: 1.7; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 1.5rem; }
-    .btn-primary { padding: .7rem 1.5rem; border-radius: 999px; background: white; color: var(--navy); font-weight: 800; font-size: .88rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 6px 22px rgba(0,0,0,.18); transition: transform .15s, box-shadow .15s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.22); }
-    .btn-ghost { padding: .68rem 1.3rem; border-radius: 999px; border: 2px solid rgba(255,255,255,.4); background: rgba(255,255,255,.1); color: white; font-size: .88rem; font-weight: 600; display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; backdrop-filter: blur(8px); transition: background .15s, transform .15s; }
-    .btn-ghost:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
-    .hero-notice { display: flex; align-items: flex-start; gap: .85rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(12px); border-radius: 14px; padding: 1rem 1.2rem; }
-    .hero-notice-icon { font-size: 1.8rem; flex-shrink: 0; }
-    .hero-notice-title { font-size: .88rem; font-weight: 800; color: #bae6fd; margin-bottom: .2rem; }
-    .hero-notice-text { font-size: .78rem; color: rgba(255,255,255,.7); line-height: 1.55; }
-    .hero-panel { background: white; border-radius: 22px; padding: 1.6rem; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-    .hero-panel-stripe { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--sky), var(--mint), var(--amber)); }
-    .hero-panel-tag { font-size: .67rem; text-transform: uppercase; letter-spacing: .16em; color: var(--sky); font-weight: 700; margin-bottom: .2rem; }
-    .hero-panel-title { font-size: .98rem; font-weight: 800; color: var(--navy); margin-bottom: 1rem; }
-    .hero-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .9rem; }
-    .hero-panel-item { background: var(--bg); border-radius: 11px; padding: .6rem .75rem; border: 1px solid var(--border); }
-    .hero-panel-label { font-size: .67rem; color: var(--muted); font-weight: 500; margin-bottom: .1rem; }
-    .hero-panel-value { font-size: .84rem; font-weight: 700; color: var(--text); }
-    .hero-panel-footer { padding-top: .75rem; border-top: 1px solid var(--border); font-size: .74rem; color: var(--muted); line-height: 1.5; }
-    .firma-nombre { font-weight: 800; color: var(--blue); display: block; margin-top: .3rem; }
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0b2d5e 0%,#1565c0 50%,#0284c7 100%);padding:3.5rem 0 3rem}
+    .hero-blob{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:blobFloat ease-in-out infinite alternate}
+    .hero-blob-1{width:500px;height:500px;background:radial-gradient(circle,rgba(14,165,233,.35),transparent 70%);top:-120px;right:-80px;animation-duration:9s}
+    .hero-blob-2{width:300px;height:300px;background:radial-gradient(circle,rgba(16,185,129,.2),transparent 70%);bottom:-80px;left:10%;animation-duration:12s}
+    .hero-blob-3{width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,.15),transparent 70%);top:30%;left:40%;animation-duration:7s}
+    @keyframes blobFloat{from{transform:translateY(0) scale(1)}to{transform:translateY(-20px) scale(1.06)}}
+    .hero-grid-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+    .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;align-items:center}
+    .hero-kicker{display:inline-flex;align-items:center;gap:.5rem;padding:.25rem .7rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;font-size:.72rem;color:rgba(255,255,255,.9);margin-bottom:1rem;font-weight:600;letter-spacing:.04em}
+    .hero-kicker-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 5px rgba(74,222,128,.25);flex-shrink:0}
+    .hero-title{font-family:'Sora',sans-serif;font-size:clamp(1.9rem,3vw,2.65rem);color:white;line-height:1.18;margin-bottom:.8rem}
+    .hero-highlight{color:#7dd3fc}
+    .hero-text{font-size:.94rem;color:rgba(255,255,255,.76);max-width:34rem;margin-bottom:1.5rem;line-height:1.7}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.5rem}
+    .btn-primary{padding:.7rem 1.5rem;border-radius:999px;background:white;color:var(--navy);font-weight:800;font-size:.88rem;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 6px 22px rgba(0,0,0,.18);transition:transform .15s,box-shadow .15s}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .btn-ghost{padding:.68rem 1.3rem;border-radius:999px;border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:white;font-size:.88rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;backdrop-filter:blur(8px);transition:background .15s,transform .15s}
+    .btn-ghost:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .hero-notice{display:flex;align-items:flex-start;gap:.85rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);border-radius:14px;padding:1rem 1.2rem}
+    .hero-notice-icon{font-size:1.8rem;flex-shrink:0}
+    .hero-notice-title{font-size:.88rem;font-weight:800;color:#bae6fd;margin-bottom:.2rem}
+    .hero-notice-text{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.55}
+    .hero-panel{background:white;border-radius:22px;padding:1.6rem;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+    .hero-panel-stripe{position:absolute;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--sky),var(--mint),var(--amber))}
+    .hero-panel-tag{font-size:.67rem;text-transform:uppercase;letter-spacing:.16em;color:var(--sky);font-weight:700;margin-bottom:.2rem}
+    .hero-panel-title{font-size:.98rem;font-weight:800;color:var(--navy);margin-bottom:1rem}
+    .hero-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.9rem}
+    .hero-panel-item{background:var(--bg);border-radius:11px;padding:.6rem .75rem;border:1px solid var(--border)}
+    .hero-panel-label{font-size:.67rem;color:var(--muted);font-weight:500;margin-bottom:.1rem}
+    .hero-panel-value{font-size:.84rem;font-weight:700;color:var(--text)}
+    .hero-panel-footer{padding-top:.75rem;border-top:1px solid var(--border);font-size:.74rem;color:var(--muted);line-height:1.5}
+    .firma-nombre{font-weight:800;color:var(--blue);display:block;margin-top:.3rem}
 
     /* SECTIONS */
-    .section { padding: 3.5rem 0; }
-    .section-header { text-align: center; margin-bottom: 2.5rem; }
-    .section-kicker { display: inline-block; padding: .22rem .72rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; font-size: .69rem; text-transform: uppercase; letter-spacing: .14em; color: var(--blue); font-weight: 700; margin-bottom: .6rem; box-shadow: var(--shadow); }
-    .section-title { font-family: 'Sora', sans-serif; font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--navy); margin-bottom: .5rem; }
-    .section-subtitle { font-size: .9rem; color: var(--muted); max-width: 38rem; margin: 0 auto; }
-
-    /* section backgrounds */
-    .nosotros-bg   { background: linear-gradient(160deg, #dbeafe 0%, #e0f2fe 40%, #ccfbf1 100%); }
-    .seguros-bg    { background: linear-gradient(160deg, #fef3c7 0%, #fde68a 30%, #fce7f3 100%); }
-    .documentos-bg { background: linear-gradient(160deg, #ede9fe 0%, #dbeafe 60%, #e0f7fa 100%); }
-    .horario-bg    { background: linear-gradient(160deg, #ccfbf1 0%, #d1fae5 50%, #dbeafe 100%); }
-    .ubicacion-bg  { background: linear-gradient(160deg, #fce7f3 0%, #ede9fe 60%, #dbeafe 100%); }
-    .contacto-bg   { background: linear-gradient(160deg, #e0f2fe 0%, #fef3c7 100%); }
+    .section{padding:3.5rem 0}
+    .section-header{text-align:center;margin-bottom:2.5rem}
+    .section-kicker{display:inline-block;padding:.22rem .72rem;background:var(--surface);border:1px solid var(--border);border-radius:999px;font-size:.69rem;text-transform:uppercase;letter-spacing:.14em;color:var(--blue);font-weight:700;margin-bottom:.6rem;box-shadow:var(--shadow)}
+    .section-title{font-family:'Sora',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);color:var(--navy);margin-bottom:.5rem}
+    .section-subtitle{font-size:.9rem;color:var(--muted);max-width:38rem;margin:0 auto}
+    .nosotros-bg{background:linear-gradient(160deg,#dbeafe 0%,#e0f2fe 40%,#ccfbf1 100%)}
+    .seguros-bg{background:linear-gradient(160deg,#fef3c7 0%,#fde68a 30%,#fce7f3 100%)}
+    .documentos-bg{background:linear-gradient(160deg,#ede9fe 0%,#dbeafe 60%,#e0f7fa 100%)}
+    .horario-bg{background:linear-gradient(160deg,#ccfbf1 0%,#d1fae5 50%,#dbeafe 100%)}
+    .ubicacion-bg{background:linear-gradient(160deg,#fce7f3 0%,#ede9fe 60%,#dbeafe 100%)}
+    .contacto-bg{background:linear-gradient(160deg,#e0f2fe 0%,#fef3c7 100%)}
 
     /* INFO CARDS */
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 1.4rem; }
-    .info-card { background: var(--surface); border-radius: 20px; padding: 1.8rem 1.6rem; border: 1px solid var(--border); box-shadow: var(--shadow); position: relative; overflow: hidden; transition: transform .22s, box-shadow .22s; }
-    .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-    .info-card-icon { width: 54px; height: 54px; border-radius: 14px; background: linear-gradient(135deg, #dbeafe, #e0f2fe); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(21,101,192,.1); }
-    .info-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: .6rem; }
-    .info-card p { font-size: .86rem; color: var(--muted); line-height: 1.65; margin-bottom: .8rem; }
-    .info-card ul { list-style: none; }
-    .info-card li { padding: .45rem 0; font-size: .84rem; color: var(--muted); border-bottom: 1px solid var(--bg2); display: flex; align-items: center; gap: .5rem; }
-    .info-card li:last-child { border: none; }
-    .info-card li::before { content: "→"; color: var(--sky); font-weight: 800; }
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:1.4rem}
+    .info-card{background:var(--surface);border-radius:20px;padding:1.8rem 1.6rem;border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s}
+    .info-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+    .info-card-icon{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,#dbeafe,#e0f2fe);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:1rem;box-shadow:0 4px 12px rgba(21,101,192,.1)}
+    .info-card h3{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.6rem}
+    .info-card p{font-size:.86rem;color:var(--muted);line-height:1.65;margin-bottom:.8rem}
+    .info-card ul{list-style:none}
+    .info-card li{padding:.45rem 0;font-size:.84rem;color:var(--muted);border-bottom:1px solid var(--bg2);display:flex;align-items:center;gap:.5rem}
+    .info-card li:last-child{border:none}
+    .info-card li::before{content:"→";color:var(--sky);font-weight:800}
 
     /* SIS FLIP CARDS */
-    .sis-cards-wrapper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.1rem; margin-top: 2rem; }
-    .sis-flip-card { perspective: 1000px; height: 370px; }
-    .sis-flip-inner { width: 100%; height: 100%; transition: transform .6s cubic-bezier(.4,0,.2,1); transform-style: preserve-3d; position: relative; }
-    .sis-flip-card:hover .sis-flip-inner, .sis-flip-card:focus-within .sis-flip-inner { transform: rotateY(180deg); }
-    .sis-flip-front, .sis-flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-md); }
-    .sis-flip-front { background: var(--surface); }
-    .sis-flip-back { transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 1.5rem; }
-    .sis-img { width: 100%; height: 175px; object-fit: cover; display: block; }
-    .sis-body { padding: .9rem 1rem; }
-    .sis-badge { display: inline-block; padding: .18rem .5rem; border-radius: 999px; font-size: .65rem; font-weight: 700; text-transform: uppercase; margin-bottom: .4rem; }
-    [data-variant="gratuito"] .sis-badge    { background: #dcfce7; color: #166534; }
-    [data-variant="paratodos"] .sis-badge   { background: #dbeafe; color: #1e3a8a; }
-    [data-variant="independiente"] .sis-badge { background: #ede9fe; color: #4c1d95; }
-    [data-variant="microempresas"] .sis-badge { background: #ffedd5; color: #7c2d12; }
-    [data-variant="emprendedor"] .sis-badge  { background: #e0f2fe; color: #0c4a6e; }
-    .sis-title { font-size: .9rem; font-weight: 800; color: var(--text); margin-bottom: .3rem; }
-    .sis-desc { font-size: .77rem; color: var(--muted); line-height: 1.5; }
-    .sis-flip-back h4 { font-size: .95rem; color: white; margin-bottom: .8rem; font-weight: 800; }
-    .sis-flip-back ul { list-style: none; }
-    .sis-flip-back li { padding: .38rem 0; color: rgba(255,255,255,.85); font-size: .8rem; display: flex; align-items: center; gap: .4rem; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .sis-flip-back li:last-child { border: none; }
-    .sis-flip-back li::before { content: "✓"; color: #6ee7b7; font-weight: 800; }
-    .sis-ribbon { position: absolute; top: 16px; left: -60px; width: 220px; text-align: center; padding: 5px 0; font-size: .66rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: white; transform: rotate(-35deg); z-index: 10; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
-    [data-variant="gratuito"] .sis-ribbon    { background: linear-gradient(135deg,#22c55e,#15803d); }
-    [data-variant="paratodos"] .sis-ribbon   { background: linear-gradient(135deg,#3b82f6,#1d4ed8); }
-    [data-variant="independiente"] .sis-ribbon { background: linear-gradient(135deg,#8b5cf6,#6d28d9); }
-    [data-variant="microempresas"] .sis-ribbon { background: linear-gradient(135deg,#f97316,#c2410c); }
-    [data-variant="emprendedor"] .sis-ribbon  { background: linear-gradient(135deg,#0ea5e9,#0369a1); }
+    .sis-cards-wrapper{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1rem;margin-top:2rem}
+    .sis-flip-card{perspective:1000px;height:370px}
+    .sis-flip-inner{width:100%;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;position:relative}
+    .sis-flip-card:hover .sis-flip-inner,.sis-flip-card:focus-within .sis-flip-inner{transform:rotateY(180deg)}
+    .sis-flip-front,.sis-flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-md)}
+    .sis-flip-front{background:var(--surface)}
+    .sis-flip-back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;padding:1.5rem}
+    .sis-img{width:100%;height:175px;object-fit:cover;display:block}
+    .sis-body{padding:.9rem 1rem}
+    .sis-badge{display:inline-block;padding:.18rem .5rem;border-radius:999px;font-size:.65rem;font-weight:700;text-transform:uppercase;margin-bottom:.4rem}
+    [data-variant="gratuito"] .sis-badge{background:#dcfce7;color:#166534}
+    [data-variant="paratodos"] .sis-badge{background:#dbeafe;color:#1e3a8a}
+    [data-variant="independiente"] .sis-badge{background:#ede9fe;color:#4c1d95}
+    [data-variant="microempresas"] .sis-badge{background:#ffedd5;color:#7c2d12}
+    [data-variant="emprendedor"] .sis-badge{background:#e0f2fe;color:#0c4a6e}
+    .sis-title{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.3rem}
+    .sis-desc{font-size:.77rem;color:var(--muted);line-height:1.5}
+    .sis-flip-back h4{font-size:.95rem;color:white;margin-bottom:.8rem;font-weight:800}
+    .sis-flip-back ul{list-style:none}
+    .sis-flip-back li{padding:.38rem 0;color:rgba(255,255,255,.85);font-size:.8rem;display:flex;align-items:center;gap:.4rem;border-bottom:1px solid rgba(255,255,255,.1)}
+    .sis-flip-back li:last-child{border:none}
+    .sis-flip-back li::before{content:"✓";color:#6ee7b7;font-weight:800}
+    .sis-ribbon{position:absolute;top:16px;left:-60px;width:220px;text-align:center;padding:5px 0;font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:white;transform:rotate(-35deg);z-index:10;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+    [data-variant="gratuito"] .sis-ribbon{background:linear-gradient(135deg,#22c55e,#15803d)}
+    [data-variant="paratodos"] .sis-ribbon{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+    [data-variant="independiente"] .sis-ribbon{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+    [data-variant="microempresas"] .sis-ribbon{background:linear-gradient(135deg,#f97316,#c2410c)}
+    [data-variant="emprendedor"] .sis-ribbon{background:linear-gradient(135deg,#0ea5e9,#0369a1)}
 
     /* DOCUMENTOS */
-    .doc-section { background: rgba(255,255,255,.75); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.8); border-radius: 24px; padding: 2rem 1.5rem; box-shadow: var(--shadow-md); }
-    .doc-slider-wrap { position: relative; margin-top: 1.8rem; }
-    .doc-slider { display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; padding-bottom: .8rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; scroll-snap-type: x mandatory; }
-    .doc-slider::-webkit-scrollbar { height: 5px; }
-    .doc-slider::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
-    .doc-slide { min-width: 265px; height: 255px; background: var(--surface); border-radius: 18px; padding: 1.3rem 1.2rem; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s, border-color .2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; scroll-snap-align: start; }
-    .doc-slide:hover { transform: translateY(-5px); border-color: #93c5fd; box-shadow: var(--shadow-md); }
-    .doc-icon { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(135deg, var(--blue), var(--sky)); display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 800; color: white; margin-bottom: .75rem; box-shadow: 0 6px 14px rgba(21,101,192,.25); }
-    .doc-meta { font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
-    .doc-title { font-size: .88rem; font-weight: 800; color: var(--text); margin-bottom: .4rem; line-height: 1.3; }
-    .doc-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-    .doc-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
-    .doc-tag { display: inline-block; padding: .15rem .4rem; border-radius: 999px; background: #dbeafe; color: #1e3a8a; font-size: .64rem; font-weight: 700; }
-    .doc-linkhint { display: flex; align-items: center; justify-content: space-between; padding-top: .55rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--blue); font-weight: 700; }
-    .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--blue); font-size: 1.2rem; cursor: pointer; transition: all .15s; z-index: 2; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
-    .slider-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
-    .slider-btn.left { left: -19px; }
-    .slider-btn.right { right: -19px; }
-    .dots { display: flex; justify-content: center; gap: .5rem; margin-top: 1.2rem; }
-    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--border); border: none; cursor: pointer; transition: all .2s; }
-    .dot.active, .dot:hover { background: var(--blue); transform: scale(1.4); }
+    .doc-section{background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);border-radius:24px;padding:2rem 1.5rem;box-shadow:var(--shadow-md)}
+    .doc-slider-wrap{position:relative;margin-top:1.8rem}
+    .doc-slider{display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;padding-bottom:.8rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent;scroll-snap-type:x mandatory}
+    .doc-slider::-webkit-scrollbar{height:5px}
+    .doc-slider::-webkit-scrollbar-thumb{background:var(--border);border-radius:999px}
+    .doc-slide{min-width:265px;height:255px;background:var(--surface);border-radius:18px;padding:1.3rem 1.2rem;border:1px solid var(--border);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;scroll-snap-align:start}
+    .doc-slide:hover{transform:translateY(-5px);border-color:#93c5fd;box-shadow:var(--shadow-md)}
+    .doc-icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--sky));display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:white;margin-bottom:.75rem;box-shadow:0 6px 14px rgba(21,101,192,.25)}
+    .doc-meta{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem}
+    .doc-title{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:.4rem;line-height:1.3}
+    .doc-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+    .doc-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.4rem}
+    .doc-tag{display:inline-block;padding:.15rem .4rem;border-radius:999px;background:#dbeafe;color:#1e3a8a;font-size:.64rem;font-weight:700}
+    .doc-linkhint{display:flex;align-items:center;justify-content:space-between;padding-top:.55rem;border-top:1px solid var(--border);font-size:.75rem;color:var(--blue);font-weight:700}
+    .slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--blue);font-size:1.2rem;cursor:pointer;transition:all .15s;z-index:2;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+    .slider-btn:hover{background:var(--blue);color:white;border-color:var(--blue)}
+    .slider-btn.left{left:-19px}
+    .slider-btn.right{right:-19px}
+    .dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.2rem}
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--border);border:none;cursor:pointer;transition:all .2s}
+    .dot.active,.dot:hover{background:var(--blue);transform:scale(1.4)}
 
     /* HORARIO */
-    .schedule-card { background: var(--surface); border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); text-align: center; max-width: 580px; margin: 0 auto; position: relative; overflow: hidden; }
-    .schedule-card-stripe { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--teal), var(--sky), var(--lavender)); }
-    .clock-icon { font-size: 2.8rem; margin-bottom: .7rem; }
-    #scheduleTime { font-family: 'Sora', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--navy); margin-bottom: .25rem; }
-    #scheduleDate { font-size: .78rem; color: var(--muted); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
-    .schedule-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .8rem; background: var(--bg); border-radius: 14px; padding: 1.2rem; border: 1px solid var(--border); }
-    .schedule-item { text-align: left; }
-    .schedule-label { font-size: .73rem; color: var(--muted); font-weight: 600; margin-bottom: .15rem; }
-    .schedule-value { font-size: .88rem; color: var(--text); font-weight: 800; }
+    .schedule-card{background:var(--surface);border-radius:24px;padding:2.5rem;box-shadow:var(--shadow-md);text-align:center;max-width:580px;margin:0 auto;position:relative;overflow:hidden}
+    .schedule-card-stripe{position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--teal),var(--sky),var(--lavender))}
+    .clock-icon{font-size:2.8rem;margin-bottom:.7rem}
+    #scheduleTime{font-family:'Sora',sans-serif;font-size:2.5rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+    #scheduleDate{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+    .schedule-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.8rem;background:var(--bg);border-radius:14px;padding:1.2rem;border:1px solid var(--border)}
+    .schedule-item{text-align:left}
+    .schedule-label{font-size:.73rem;color:var(--muted);font-weight:600;margin-bottom:.15rem}
+    .schedule-value{font-size:.88rem;color:var(--text);font-weight:800}
 
     /* MAPA */
-    .map-wrapper { border-radius: 24px; overflow: hidden; border: 4px solid white; box-shadow: var(--shadow-lg); height: 430px; }
-    .map-iframe { width: 100%; height: 100%; border: none; display: block; }
+    .map-wrapper{border-radius:24px;overflow:hidden;border:4px solid white;box-shadow:var(--shadow-lg);height:430px}
+    .map-iframe{width:100%;height:100%;border:none;display:block}
 
     /* CONTACTO */
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,320px),1fr)); gap: 1.5rem; }
-    .contact-card { background: var(--surface); border-radius: 20px; padding: 1.8rem 1.6rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .contact-card-header { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 2px solid var(--bg2); }
-    .contact-card-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg,#dbeafe,#e0f2fe); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-    .contact-card h3 { font-size: .98rem; font-weight: 800; color: var(--navy); }
-    .contact-list { list-style: none; }
-    .contact-list li { padding: .58rem 0; color: var(--muted); border-bottom: 1px solid var(--bg2); font-size: .84rem; display: flex; gap: .5rem; align-items: flex-start; }
-    .contact-list li:last-child { border: none; }
-    .contact-list strong { color: var(--text); font-weight: 700; min-width: 70px; display: inline-block; }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: .85rem; margin-bottom: .85rem; }
-    .form-group { display: flex; flex-direction: column; gap: .28rem; }
-    .form-group label { font-size: .76rem; color: var(--muted); font-weight: 700; }
-    .form-group input, .form-group select, .form-group textarea { padding: .62rem .85rem; border-radius: 11px; border: 1.5px solid var(--border); background: var(--bg); color: var(--text); font-size: .84rem; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--sky); background: var(--surface); box-shadow: 0 0 0 3px rgba(14,165,233,.12); }
-    .form-group textarea { resize: vertical; min-height: 95px; }
-    .form-footer { display: flex; justify-content: flex-end; margin-top: .3rem; }
-    .btn-submit { padding: .65rem 1.4rem; border-radius: 999px; background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; font-size: .86rem; font-weight: 800; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; box-shadow: 0 4px 16px rgba(11,45,94,.28); transition: transform .14s, box-shadow .14s; }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(11,45,94,.35); }
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.5rem}
+    .contact-card{background:var(--surface);border-radius:20px;padding:1.8rem 1.6rem;border:1px solid var(--border);box-shadow:var(--shadow)}
+    .contact-card-header{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:2px solid var(--bg2)}
+    .contact-card-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#e0f2fe);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .contact-card h3{font-size:.98rem;font-weight:800;color:var(--navy)}
+    .contact-list{list-style:none}
+    .contact-list li{padding:.58rem 0;color:var(--muted);border-bottom:1px solid var(--bg2);font-size:.84rem;display:flex;gap:.5rem;align-items:flex-start}
+    .contact-list li:last-child{border:none}
+    .contact-list strong{color:var(--text);font-weight:700;min-width:70px;display:inline-block}
+    .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.85rem;margin-bottom:.85rem}
+    .form-group{display:flex;flex-direction:column;gap:.28rem}
+    .form-group label{font-size:.76rem;color:var(--muted);font-weight:700}
+    .form-group input,.form-group select,.form-group textarea{padding:.62rem .85rem;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:.84rem;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--sky);background:var(--surface);box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+    .form-group textarea{resize:vertical;min-height:95px}
+    .form-footer{display:flex;justify-content:flex-end;margin-top:.3rem}
+    .btn-submit{padding:.65rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;font-size:.86rem;font-weight:800;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 4px 16px rgba(11,45,94,.28);transition:transform .14s,box-shadow .14s}
+    .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(11,45,94,.35)}
 
     /* FOOTER */
-    footer { background: linear-gradient(135deg, var(--navy), #0e3a7d); padding: 1.5rem 0; }
-    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .8rem; font-size: .78rem; color: rgba(255,255,255,.45); }
-    .footer-links { display: flex; flex-wrap: wrap; gap: .8rem; }
-    .footer-links a { color: rgba(255,255,255,.45); transition: color .15s; }
-    .footer-links a:hover { color: #7dd3fc; }
+    footer{background:linear-gradient(135deg,var(--navy),#0e3a7d);padding:1.5rem 0}
+    .footer-inner{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;font-size:.78rem;color:rgba(255,255,255,.45)}
+    .footer-links{display:flex;flex-wrap:wrap;gap:.8rem}
+    .footer-links a{color:rgba(255,255,255,.45);transition:color .15s}
+    .footer-links a:hover{color:#7dd3fc}
+
+    /* ===== MODAL ANUNCIO ===== */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:99998;
+      background:rgba(11,45,94,.72);
+      backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;
+      padding:1rem;
+      opacity:0;pointer-events:none;
+      transition:opacity .35s ease;
+    }
+    .modal-overlay.show{opacity:1;pointer-events:auto}
+    .modal-box{
+      background:white;border-radius:24px;
+      width:min(720px,100%);
+      max-height:90vh;overflow-y:auto;
+      box-shadow:0 30px 80px rgba(11,45,94,.35);
+      position:relative;
+      transform:translateY(20px) scale(.97);
+      transition:transform .35s ease;
+      scrollbar-width:thin;scrollbar-color:#cddaee transparent;
+    }
+    .modal-overlay.show .modal-box{transform:translateY(0) scale(1)}
+    .modal-header{
+      padding:1.4rem 1.6rem 1rem;
+      border-bottom:1px solid #e6eef8;
+      position:sticky;top:0;background:white;
+      border-radius:24px 24px 0 0;z-index:2;
+      display:flex;align-items:flex-start;gap:.8rem;
+    }
+    .modal-header-icon{
+      width:44px;height:44px;border-radius:12px;
+      background:linear-gradient(135deg,#fff3cd,#fde68a);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.4rem;flex-shrink:0;
+      box-shadow:0 4px 12px rgba(245,158,11,.2);
+    }
+    .modal-header-text{flex:1}
+    .modal-badge{
+      display:inline-flex;align-items:center;gap:.3rem;
+      padding:.18rem .55rem;border-radius:999px;
+      background:#fff3cd;color:#92400e;
+      font-size:.66rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.08em;
+      margin-bottom:.3rem;border:1px solid #fde68a;
+    }
+    .modal-title{
+      font-family:'Sora',sans-serif;
+      font-size:1.05rem;font-weight:800;
+      color:var(--navy);line-height:1.3;
+    }
+    .modal-close{
+      width:36px;height:36px;border-radius:50%;
+      border:1px solid #e6eef8;background:#f2f6fc;
+      color:var(--muted);cursor:pointer;font-size:1rem;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;transition:background .15s,color .15s;
+    }
+    .modal-close:hover{background:#fee2e2;color:#dc2626}
+    .modal-body{padding:1.2rem 1.6rem 1.6rem}
+    .modal-alert{
+      display:flex;gap:.7rem;align-items:flex-start;
+      background:linear-gradient(135deg,#fffbeb,#fef3c7);
+      border:1px solid #fde68a;border-radius:14px;
+      padding:.9rem 1rem;margin-bottom:1.2rem;
+    }
+    .modal-alert-icon{font-size:1.3rem;flex-shrink:0;margin-top:.05rem}
+    .modal-alert strong{display:block;font-size:.85rem;font-weight:800;color:#92400e;margin-bottom:.2rem}
+    .modal-alert p{font-size:.8rem;color:#78350f;line-height:1.55}
+    .modal-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.1rem}
+    .modal-chip{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .65rem;border-radius:999px;font-size:.74rem;font-weight:700;border:1px solid}
+    .mc-blue{background:#dbeafe;color:#1e3a8a;border-color:#bfdbfe}
+    .mc-green{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+    .mc-amber{background:#fef3c7;color:#92400e;border-color:#fde68a}
+    .mc-red{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+    .modal-video-wrap{
+      border-radius:16px;overflow:hidden;
+      box-shadow:0 8px 28px rgba(11,45,94,.15);
+      margin-bottom:1.2rem;
+      position:relative;
+      padding-top:56.25%;
+      background:#0f1f3d;
+    }
+    .modal-video-wrap video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  background:#000;
+}
+    .modal-details{margin-bottom:1.2rem}
+    .modal-details-title{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.6rem}
+    .modal-detail-item{display:flex;align-items:flex-start;gap:.65rem;padding:.6rem .75rem;border-radius:12px;background:#f2f6fc;border:1px solid #e6eef8;margin-bottom:.45rem}
+    .modal-detail-item:last-child{margin-bottom:0}
+    .mdi-num{width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+    .mdi-text b{display:block;font-size:.83rem;font-weight:700;color:var(--navy);line-height:1.3}
+    .mdi-text span{font-size:.78rem;color:var(--muted)}
+    .modal-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;padding-top:1rem;border-top:1px solid #e6eef8}
+    .modal-footer-note{font-size:.74rem;color:var(--muted)}
+    .modal-footer-note strong{color:var(--navy)}
+    .modal-btn-ok{padding:.6rem 1.3rem;border-radius:999px;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;font-size:.84rem;font-weight:800;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 4px 14px rgba(11,45,94,.3);transition:transform .14s,box-shadow .14s}
+    .modal-btn-ok:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(11,45,94,.35)}
 
     /* RESPONSIVE */
-    @media (max-width: 1200px) { .sis-cards-wrapper { grid-template-columns: repeat(3,1fr); } }
-    @media (max-width: 980px) { .hero-inner { grid-template-columns: 1fr; gap: 1.5rem; } .nav-links { display: none; } .sis-cards-wrapper { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 640px) { .container { padding: 0 1rem; } .section { padding: 2.2rem 0; } .hero { padding: 2rem 0 1.6rem; } .sis-cards-wrapper { grid-template-columns: 1fr; } .slider-btn { display: none; } .doc-slide { min-width: 83%; height: 265px; } }
+    @media(max-width:1200px){.sis-cards-wrapper{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr;gap:1.5rem}.nav-links{display:none}.sis-cards-wrapper{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.container{padding:0 1rem}.section{padding:2.2rem 0}.hero{padding:2rem 0 1.6rem}.sis-cards-wrapper{grid-template-columns:1fr}.slider-btn{display:none}.doc-slide{min-width:83%;height:265px}}
   </style>
 </head>
 <body>
 
+  <!-- LOADER -->
   <div id="loader">
     <div class="loader-logo-img"><img src="assets/logoUSPP.png" alt="Logo USPP" /></div>
     <div class="loader-label">Red de Salud Chupaca</div>
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
   </div>
 
+  <!-- ===== MODAL ANUNCIO: CÓDIGOS MODULARES RG 002-2026 ===== -->
+  <div class="modal-overlay" id="announcementModal" role="dialog" aria-modal="true" aria-label="Anuncio importante">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-header-icon">📢</div>
+        <div class="modal-header-text">
+          <div class="modal-badge">⚡ Actualización normativa</div>
+          <div class="modal-title">Cambio de Códigos Modulares por Curso de Vida en el FUA</div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-alert">
+          <div class="modal-alert-icon">⚠️</div>
+          <div>
+            <strong>Resolución Gerencial N.° 002-2026-SIS/GREP — Vigente</strong>
+            <p>Se aprobó la actualización de los <strong>códigos modulares por Curso de Vida</strong> aplicables al registro en el Formato Único de Atención (FUA). Es obligatorio aplicar los nuevos códigos.</p>
+          </div>
+        </div>
+        <div class="modal-chips">
+          <span class="modal-chip mc-blue">📋 RG N.° 002-2026-SIS/GREP</span>
+          <span class="modal-chip mc-green">✅ Vigente</span>
+          <span class="modal-chip mc-amber">📝 FUA</span>
+          <span class="modal-chip mc-red">🔴 Aplicación obligatoria</span>
+        </div>
+        <!-- VIDEO YOUTUBE -->
+        <div class="modal-video-wrap">
+  <video controls playsinline preload="metadata"
+    style="position:absolute;inset:0;width:100%;height:100%;border:none;background:#000;">
+    <source src="assets/videos/codigos-modulares.mp4" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+</div>
+        <!-- PUNTOS CLAVE -->
+        <div class="modal-details">
+          <div class="modal-details-title">📌 Puntos clave a tener en cuenta</div>
+          <div class="modal-detail-item">
+            <div class="mdi-num">1</div>
+            <div class="mdi-text">
+              <b>Nuevos códigos modulares por Curso de Vida</b>
+              <span>Los códigos fueron reorganizados según las etapas de vida del paciente: niño, adolescente, adulto y adulto mayor. Revisar el listado actualizado.</span>
+            </div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="mdi-num">2</div>
+            <div class="mdi-text">
+              <b>Aplicación en el registro del FUA</b>
+              <span>El código modular correcto debe consignarse en el campo correspondiente del FUA al momento del registro, según el grupo etario del paciente.</span>
+            </div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="mdi-num">3</div>
+            <div class="mdi-text">
+              <b>Evita inconsistencias y rechazos</b>
+              <span>El uso de códigos incorrectos genera inconsistencias en la valorización. Coordina con tu punto de digitación para aplicar los cambios correctamente.</span>
+            </div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="mdi-num">4</div>
+            <div class="mdi-text">
+              <b>Soporte y consultas</b>
+              <span>Para dudas, comunícate con la USPP Chupaca: <strong>usppsaludchupaca@gmail.com</strong> o al 991-193-863.</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="modal-footer-note">Fuente: <strong>RG N.° 002-2026-SIS/GREP</strong> · USPP Red Chupaca</div>
+          <button class="modal-btn-ok" id="modalOk">Entendido ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
   <header>
     <div class="container navbar">
       <a href="#inicio" class="logo">
@@ -277,6 +416,7 @@
 
   <main id="inicio">
 
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-blob hero-blob-1"></div>
       <div class="hero-blob hero-blob-2"></div>
@@ -316,6 +456,7 @@
       </div>
     </section>
 
+    <!-- NOSOTROS -->
     <section id="nosotros" class="section nosotros-bg">
       <div class="container">
         <div class="section-header">
@@ -324,31 +465,14 @@
           <p class="section-subtitle">Somos el área responsable de gestionar el aseguramiento universal en salud, garantizando que la población acceda a servicios de calidad.</p>
         </div>
         <div class="info-grid">
-          <div class="info-card">
-            <div class="info-card-icon">🎯</div>
-            <h3>Misión</h3>
-            <p>Gestionar y coordinar el aseguramiento universal en salud a través del SIS, garantizando el acceso oportuno de la población a servicios de salud de calidad, mediante procesos eficientes de afiliación, producción y seguimiento.</p>
-          </div>
-          <div class="info-card">
-            <div class="info-card-icon">🔭</div>
-            <h3>Visión</h3>
-            <p>Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al bienestar de la población de Chupaca.</p>
-          </div>
-          <div class="info-card">
-            <div class="info-card-icon">⚙️</div>
-            <h3>Funciones principales</h3>
-            <ul>
-              <li>Gestión de afiliaciones al SIS</li>
-              <li>Supervisión de producción de FUAs</li>
-              <li>Control de consistencias y calidad</li>
-              <li>Soporte técnico a establecimientos</li>
-              <li>Monitoreo de indicadores</li>
-            </ul>
-          </div>
+          <div class="info-card"><div class="info-card-icon">🎯</div><h3>Misión</h3><p>Gestionar y coordinar el aseguramiento universal en salud a través del SIS, garantizando el acceso oportuno de la población a servicios de salud de calidad, mediante procesos eficientes de afiliación, producción y seguimiento.</p></div>
+          <div class="info-card"><div class="info-card-icon">🔭</div><h3>Visión</h3><p>Ser una unidad modelo en la gestión del aseguramiento en salud, reconocida por su eficiencia, transparencia e innovación, contribuyendo a la cobertura universal y al bienestar de la población de Chupaca.</p></div>
+          <div class="info-card"><div class="info-card-icon">⚙️</div><h3>Funciones principales</h3><ul><li>Gestión de afiliaciones al SIS</li><li>Supervisión de producción de FUAs</li><li>Control de consistencias y calidad</li><li>Soporte técnico a establecimientos</li><li>Monitoreo de indicadores</li></ul></div>
         </div>
       </div>
     </section>
 
+    <!-- SEGUROS -->
     <section id="seguros" class="section seguros-bg">
       <div class="container">
         <div class="section-header">
@@ -357,40 +481,10 @@
           <p class="section-subtitle">Información sobre el proceso de afiliación, beneficios y requisitos del SIS</p>
         </div>
         <div class="info-grid">
-          <div class="info-card">
-            <div class="info-card-icon">👥</div>
-            <h3>¿Quiénes pueden afiliarse?</h3>
-            <p>El SIS está dirigido a personas en situación de pobreza, pobreza extrema y poblaciones vulnerables.</p>
-            <ul>
-              <li>Gestantes y niños menores de 5 años</li>
-              <li>Personas en pobreza y extrema pobreza</li>
-              <li>Adultos mayores sin pensión</li>
-              <li>Personas con discapacidad</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <div class="info-card-icon">📄</div>
-            <h3>Requisitos</h3>
-            <p>Documentos necesarios para realizar tu afiliación al SIS.</p>
-            <ul>
-              <li>DNI o CARNET DE EXTRANJERIA</li>
-              <li>No contar con otro tipo de SEGURO</li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <div class="info-card-icon">✅</div>
-            <h3>Beneficios</h3>
-            <p>Cobertura integral para atenciones de salud preventivas, promocionales, recuperativas y de rehabilitación.</p>
-            <ul>
-              <li>Consultas médicas gratuitas</li>
-              <li>Medicamentos cubiertos</li>
-              <li>Exámenes de laboratorio</li>
-              <li>Atención de emergencias</li>
-              <li>Hospitalización cuando sea necesaria</li>
-            </ul>
-          </div>
+          <div class="info-card"><div class="info-card-icon">👥</div><h3>¿Quiénes pueden afiliarse?</h3><p>El SIS está dirigido a personas en situación de pobreza, pobreza extrema y poblaciones vulnerables.</p><ul><li>Gestantes y niños menores de 5 años</li><li>Personas en pobreza y extrema pobreza</li><li>Adultos mayores sin pensión</li><li>Personas con discapacidad</li></ul></div>
+          <div class="info-card"><div class="info-card-icon">📄</div><h3>Requisitos</h3><p>Documentos necesarios para realizar tu afiliación al SIS.</p><ul><li>DNI o CARNET DE EXTRANJERIA</li><li>No contar con otro tipo de SEGURO</li></ul></div>
+          <div class="info-card"><div class="info-card-icon">✅</div><h3>Beneficios</h3><p>Cobertura integral para atenciones de salud preventivas, promocionales, recuperativas y de rehabilitación.</p><ul><li>Consultas médicas gratuitas</li><li>Medicamentos cubiertos</li><li>Exámenes de laboratorio</li><li>Atención de emergencias</li><li>Hospitalización cuando sea necesaria</li></ul></div>
         </div>
-
         <div style="margin-top:3rem">
           <div class="section-header">
             <h3 class="section-title" style="font-size:1.4rem">Tipos de Seguro SIS</h3>
@@ -399,67 +493,32 @@
           <div class="sis-cards-wrapper">
             <div class="sis-flip-card" data-href="https://www.gob.pe/10337-verificar-si-estas-afiliado-al-sis" role="link" tabindex="0">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front" data-variant="gratuito">
-                  <div class="sis-ribbon">SIS GRATUITO</div>
-                  <img src="assets/SIS_gratuito.jpg" alt="SIS Gratuito" class="sis-img">
-                  <div class="sis-body"><div class="sis-badge">Gratuito</div><div class="sis-title">SIS Gratuito</div><div class="sis-desc">Para personas en situación de pobreza y extrema pobreza sin capacidad de pago.</div></div>
-                </div>
-                <div class="sis-flip-back" style="background:linear-gradient(135deg,#065f46,#047857)">
-                  <h4>✓ Cobertura SIS Gratuito</h4>
-                  <ul><li>Sin costo alguno</li><li>Atención preventiva</li><li>Consultas especializadas</li><li>Medicamentos incluidos</li><li>Hospitalizaciones cubiertas</li></ul>
-                </div>
+                <div class="sis-flip-front" data-variant="gratuito"><div class="sis-ribbon">SIS GRATUITO</div><img src="assets/SIS_gratuito.jpg" alt="SIS Gratuito" class="sis-img"><div class="sis-body"><div class="sis-badge">Gratuito</div><div class="sis-title">SIS Gratuito</div><div class="sis-desc">Para personas en situación de pobreza y extrema pobreza sin capacidad de pago.</div></div></div>
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#065f46,#047857)"><h4>✓ Cobertura SIS Gratuito</h4><ul><li>Sin costo alguno</li><li>Atención preventiva</li><li>Consultas especializadas</li><li>Medicamentos incluidos</li><li>Hospitalizaciones cubiertas</li></ul></div>
               </div>
             </div>
             <div class="sis-flip-card" data-href="https://www.gob.pe/8970-afiliarte-al-sis-para-todos" role="link" tabindex="0">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front" data-variant="paratodos">
-                  <div class="sis-ribbon">SIS PARA TODOS</div>
-                  <img src="assets/SIS_Paratodos.jpg" alt="SIS Para Todos" class="sis-img">
-                  <div class="sis-body"><div class="sis-badge">Para Todos</div><div class="sis-title">SIS Para Todos</div><div class="sis-desc">Para peruanos y extranjeros residentes que no cuentan con otro seguro de salud.</div></div>
-                </div>
-                <div class="sis-flip-back" style="background:linear-gradient(135deg,#1e3a8a,#1565c0)">
-                  <h4>✓ Beneficios SIS Para Todos</h4>
-                  <ul><li>Acceso universal</li><li>Sin límite de edad</li><li>Cobertura integral</li><li>Afiliación rápida</li><li>Atención oportuna</li></ul>
-                </div>
+                <div class="sis-flip-front" data-variant="paratodos"><div class="sis-ribbon">SIS PARA TODOS</div><img src="assets/SIS_Paratodos.jpg" alt="SIS Para Todos" class="sis-img"><div class="sis-body"><div class="sis-badge">Para Todos</div><div class="sis-title">SIS Para Todos</div><div class="sis-desc">Para peruanos y extranjeros residentes que no cuentan con otro seguro de salud.</div></div></div>
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#1e3a8a,#1565c0)"><h4>✓ Beneficios SIS Para Todos</h4><ul><li>Acceso universal</li><li>Sin límite de edad</li><li>Cobertura integral</li><li>Afiliación rápida</li><li>Atención oportuna</li></ul></div>
               </div>
             </div>
             <div class="sis-flip-card" data-href="https://www.gob.pe/172-sis-independiente" role="link" tabindex="0">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front" data-variant="independiente">
-                  <div class="sis-ribbon">SIS INDEPENDIENTE</div>
-                  <img src="assets/SIS_Independiente.jpg" alt="SIS Independiente" class="sis-img">
-                  <div class="sis-body"><div class="sis-badge">Independiente</div><div class="sis-title">SIS Independiente</div><div class="sis-desc">Para trabajadores independientes con aportes mensuales accesibles.</div></div>
-                </div>
-                <div class="sis-flip-back" style="background:linear-gradient(135deg,#4c1d95,#6d28d9)">
-                  <h4>✓ SIS Independiente</h4>
-                  <ul><li>Aporte mensual bajo</li><li>Flexibilidad laboral</li><li>Cobertura familiar opcional</li><li>Atención inmediata</li><li>Red nacional</li></ul>
-                </div>
+                <div class="sis-flip-front" data-variant="independiente"><div class="sis-ribbon">SIS INDEPENDIENTE</div><img src="assets/SIS_Independiente.jpg" alt="SIS Independiente" class="sis-img"><div class="sis-body"><div class="sis-badge">Independiente</div><div class="sis-title">SIS Independiente</div><div class="sis-desc">Para trabajadores independientes con aportes mensuales accesibles.</div></div></div>
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#4c1d95,#6d28d9)"><h4>✓ SIS Independiente</h4><ul><li>Aporte mensual bajo</li><li>Flexibilidad laboral</li><li>Cobertura familiar opcional</li><li>Atención inmediata</li><li>Red nacional</li></ul></div>
               </div>
             </div>
             <div class="sis-flip-card" data-href="https://www.gob.pe/180-sis-microempresas" role="link" tabindex="0">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front" data-variant="microempresas">
-                  <div class="sis-ribbon">SIS MICROEMPRESAS</div>
-                  <img src="assets/SIS_Microempresas.jpg" alt="SIS Microempresas" class="sis-img">
-                  <div class="sis-body"><div class="sis-badge">Microempresas</div><div class="sis-title">SIS Microempresas</div><div class="sis-desc">Para trabajadores y conductores de microempresas hasta 10 trabajadores.</div></div>
-                </div>
-                <div class="sis-flip-back" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">
-                  <h4>✓ SIS Microempresas</h4>
-                  <ul><li>Hasta 10 trabajadores</li><li>Cobertura grupal</li><li>Aportes compartidos</li><li>Incluye empleador</li><li>Gestión simplificada</li></ul>
-                </div>
+                <div class="sis-flip-front" data-variant="microempresas"><div class="sis-ribbon">SIS MICROEMPRESAS</div><img src="assets/SIS_Microempresas.jpg" alt="SIS Microempresas" class="sis-img"><div class="sis-body"><div class="sis-badge">Microempresas</div><div class="sis-title">SIS Microempresas</div><div class="sis-desc">Para trabajadores y conductores de microempresas hasta 10 trabajadores.</div></div></div>
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#7c2d12,#c2410c)"><h4>✓ SIS Microempresas</h4><ul><li>Hasta 10 trabajadores</li><li>Cobertura grupal</li><li>Aportes compartidos</li><li>Incluye empleador</li><li>Gestión simplificada</li></ul></div>
               </div>
             </div>
             <div class="sis-flip-card" data-href="https://www.gob.pe/152-sis-emprendedor" role="link" tabindex="0">
               <div class="sis-flip-inner">
-                <div class="sis-flip-front" data-variant="emprendedor">
-                  <div class="sis-ribbon">SIS EMPRENDEDOR</div>
-                  <img src="assets/SIS_Emprendedor.jpg" alt="SIS Emprendedor" class="sis-img">
-                  <div class="sis-body"><div class="sis-badge">Emprendedor</div><div class="sis-title">SIS Emprendedor</div><div class="sis-desc">Para emprendedores que desarrollan actividades económicas por cuenta propia.</div></div>
-                </div>
-                <div class="sis-flip-back" style="background:linear-gradient(135deg,#0c4a6e,#0369a1)">
-                  <h4>✓ SIS Emprendedor</h4>
-                  <ul><li>Ideal para emprendedores</li><li>Aporte individual</li><li>Cobertura completa</li><li>Trámite ágil</li><li>Apoyo al negocio</li></ul>
-                </div>
+                <div class="sis-flip-front" data-variant="emprendedor"><div class="sis-ribbon">SIS EMPRENDEDOR</div><img src="assets/SIS_Emprendedor.jpg" alt="SIS Emprendedor" class="sis-img"><div class="sis-body"><div class="sis-badge">Emprendedor</div><div class="sis-title">SIS Emprendedor</div><div class="sis-desc">Para emprendedores que desarrollan actividades económicas por cuenta propia.</div></div></div>
+                <div class="sis-flip-back" style="background:linear-gradient(135deg,#0c4a6e,#0369a1)"><h4>✓ SIS Emprendedor</h4><ul><li>Ideal para emprendedores</li><li>Aporte individual</li><li>Cobertura completa</li><li>Trámite ágil</li><li>Apoyo al negocio</li></ul></div>
               </div>
             </div>
           </div>
@@ -467,6 +526,7 @@
       </div>
     </section>
 
+    <!-- DOCUMENTOS -->
     <section id="documentos" class="section documentos-bg">
       <div class="container">
         <div class="section-header">
@@ -478,104 +538,14 @@
           <div class="doc-slider-wrap">
             <button class="slider-btn left" type="button" aria-label="Anterior">‹</button>
             <div class="doc-slider">
-  <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">RJ</div>
-      <div class="doc-meta">Normativa • Afiliación</div>
-      <div class="doc-title">Resolución Jefatural 112-2020-SIS</div>
-      <div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">SIS</span>
-        <span class="doc-tag">Afiliación</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
-  </a>
-
-  <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">RJ</div>
-      <div class="doc-meta">Normativa • Convenios</div>
-      <div class="doc-title">RJ N.° 199-2022-SIS/J</div>
-      <div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">Convenios</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
-  </a>
-
-  <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">RJ</div>
-      <div class="doc-meta">Directiva • 2024 • FUA</div>
-      <div class="doc-title">RJ N.° 000178-2024-SIS/J</div>
-      <div class="doc-desc">Directiva para el registro de prestaciones SIS en el FUA.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">FUA</span>
-        <span class="doc-tag">Directiva</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
-  </a>
-
-  <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">RJ</div>
-      <div class="doc-meta">Tarifario • 2025</div>
-      <div class="doc-title">RJ N.° 000124-2025-SIS/J</div>
-      <div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">Tarifario</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
-  </a>
-
-  <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">RJ</div>
-      <div class="doc-meta">Normativa • Convenios • 2025</div>
-      <div class="doc-title">RJ N.° 115-2025-SIS/J</div>
-      <div class="doc-desc">Operativización de convenios SIS y actores involucrados para el periodo 2025.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">Convenios</span>
-        <span class="doc-tag">2025</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div>
-  </a>
-
-  <a href="https://www.gob.pe/institucion/fissal/informes-publicaciones/6724460-convenio-entre-sis-fissal-y-el-gobierno-regional-de-junin-periodo-2025-2027" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">CV</div>
-      <div class="doc-meta">Convenio • FISSAL • 2025–2027</div>
-      <div class="doc-title">Convenio SIS/FISSAL/GORE Junín 2025–2027</div>
-      <div class="doc-desc">Convenio entre SIS, FISSAL y el Gobierno Regional de Junín para el periodo 2025–2027.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">Convenio</span>
-        <span class="doc-tag">FISSAL</span>
-        <span class="doc-tag">Junín</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver convenio</span><span>↗</span></div>
-  </a>
-
-  <a href="https://cdn.www.gob.pe/uploads/document/file/9585510/6724460-segunda-adenda-gore-junin.pdf?v=1773235453" target="_blank" rel="noopener" class="doc-slide">
-    <div>
-      <div class="doc-icon">AD</div>
-      <div class="doc-meta">Adenda • 2026 • PDF</div>
-      <div class="doc-title">Segunda Adenda GORE Junín 2026</div>
-      <div class="doc-desc">Adenda vinculada al convenio SIS/FISSAL/GORE Junín para la continuidad operativa en 2026.</div>
-      <div class="doc-tags">
-        <span class="doc-tag">Adenda</span>
-        <span class="doc-tag">2026</span>
-        <span class="doc-tag">PDF</span>
-      </div>
-    </div>
-    <div class="doc-linkhint"><span>Ver adenda</span><span>↗</span></div>
-  </a>
-</div>
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/1201480-112-2020-sis" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Afiliación</div><div class="doc-title">Resolución Jefatural 112-2020-SIS</div><div class="doc-desc">Lineamientos para afiliación y gestión del aseguramiento SIS.</div><div class="doc-tags"><span class="doc-tag">SIS</span><span class="doc-tag">Afiliación</span></div></div><div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div></a>
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/3597771-199-2022-sis-j" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Convenios</div><div class="doc-title">RJ N.° 199-2022-SIS/J</div><div class="doc-desc">Operativización de convenios SIS y actores involucrados.</div><div class="doc-tags"><span class="doc-tag">Convenios</span></div></div><div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div></a>
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/6245149-000178-2024-sis-j" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">RJ</div><div class="doc-meta">Directiva • 2024 • FUA</div><div class="doc-title">RJ N.° 000178-2024-SIS/J</div><div class="doc-desc">Directiva para el registro de prestaciones SIS en el FUA.</div><div class="doc-tags"><span class="doc-tag">FUA</span><span class="doc-tag">Directiva</span></div></div><div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div></a>
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7270174-000124-2025-sis-j" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">RJ</div><div class="doc-meta">Tarifario • 2025</div><div class="doc-title">RJ N.° 000124-2025-SIS/J</div><div class="doc-desc">Tarifario de Procedimientos Médicos y Sanitarios del SIS 2025.</div><div class="doc-tags"><span class="doc-tag">Tarifario</span></div></div><div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div></a>
+              <a href="https://www.gob.pe/institucion/sis/normas-legales/7127644-000115-2025-sis-j" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">RJ</div><div class="doc-meta">Normativa • Convenios • 2025</div><div class="doc-title">RJ N.° 115-2025-SIS/J</div><div class="doc-desc">Operativización de convenios SIS y actores involucrados para el periodo 2025.</div><div class="doc-tags"><span class="doc-tag">Convenios</span><span class="doc-tag">2025</span></div></div><div class="doc-linkhint"><span>Ver documento</span><span>↗</span></div></a>
+              <a href="https://www.gob.pe/institucion/fissal/informes-publicaciones/6724460-convenio-entre-sis-fissal-y-el-gobierno-regional-de-junin-periodo-2025-2027" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">CV</div><div class="doc-meta">Convenio • FISSAL • 2025–2027</div><div class="doc-title">Convenio SIS/FISSAL/GORE Junín 2025–2027</div><div class="doc-desc">Convenio entre SIS, FISSAL y el Gobierno Regional de Junín para el periodo 2025–2027.</div><div class="doc-tags"><span class="doc-tag">Convenio</span><span class="doc-tag">FISSAL</span><span class="doc-tag">Junín</span></div></div><div class="doc-linkhint"><span>Ver convenio</span><span>↗</span></div></a>
+              <a href="https://cdn.www.gob.pe/uploads/document/file/9585510/6724460-segunda-adenda-gore-junin.pdf?v=1773235453" target="_blank" rel="noopener" class="doc-slide"><div><div class="doc-icon">AD</div><div class="doc-meta">Adenda • 2026 • PDF</div><div class="doc-title">Segunda Adenda GORE Junín 2026</div><div class="doc-desc">Adenda vinculada al convenio SIS/FISSAL/GORE Junín para la continuidad operativa en 2026.</div><div class="doc-tags"><span class="doc-tag">Adenda</span><span class="doc-tag">2026</span><span class="doc-tag">PDF</span></div></div><div class="doc-linkhint"><span>Ver adenda</span><span>↗</span></div></a>
+            </div>
             <button class="slider-btn right" type="button" aria-label="Siguiente">›</button>
           </div>
           <div class="dots" id="docDots"></div>
@@ -583,6 +553,7 @@
       </div>
     </section>
 
+    <!-- HORARIO -->
     <section id="horario" class="section horario-bg">
       <div class="container">
         <div class="section-header">
@@ -604,6 +575,7 @@
       </div>
     </section>
 
+    <!-- UBICACIÓN -->
     <section id="ubicacion" class="section ubicacion-bg">
       <div class="container">
         <div class="section-header">
@@ -617,6 +589,7 @@
       </div>
     </section>
 
+    <!-- CONTACTO -->
     <section id="contacto" class="section contacto-bg">
       <div class="container">
         <div class="section-header">
@@ -628,53 +601,32 @@
           <div class="contact-card">
             <div class="contact-card-header"><div class="contact-card-icon">🏥</div><h3>Información institucional</h3></div>
             <ul class="contact-list">
-              <li><strong>Dirección</strong> Jr. Petrona Apolaya N° 955 – Chupaca – Junín</li>
-              <li><strong>Teléfono</strong> 991-193-863</li>
-              <li><strong>Correo</strong> usppsaludchupaca@gmail.com</li>
-              <li><strong>Horario</strong> Lunes a viernes, 8:00 a 17:30 h</li>
+              <li><strong>Dirección</strong>Jr. Petrona Apolaya N° 955 – Chupaca – Junín</li>
+              <li><strong>Teléfono</strong>991-193-863</li>
+              <li><strong>Correo</strong>usppsaludchupaca@gmail.com</li>
+              <li><strong>Horario</strong>Lunes a viernes, 8:00 a 17:30 h</li>
             </ul>
           </div>
           <div class="contact-card">
-  <div class="contact-card-header"><div class="contact-card-icon">✉️</div><h3>Envíanos un mensaje</h3></div>
-  <form action="https://formspree.io/f/mjgpbngb" method="POST">
-    <div class="form-grid">
-      <div class="form-group">
-        <label for="nombre">Nombre completo</label>
-        <input id="nombre" name="nombre" type="text" placeholder="Nombres y apellidos" required />
-      </div>
-      <div class="form-group">
-        <label for="correo">Correo electrónico</label>
-        <input id="correo" name="email" type="email" placeholder="ejemplo@correo.com" required />
-      </div>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label for="telefono">Teléfono</label>
-        <input id="telefono" name="telefono" type="tel" placeholder="Número de contacto" />
-      </div>
-      <div class="form-group">
-        <label for="tipo">Tipo de consulta</label>
-        <select id="tipo" name="tipo" required>
-          <option value="" disabled selected>Seleccione una opción</option>
-          <option>Afiliaciones SIS</option>
-          <option>Orientación</option>
-          <option>Soporte</option>
-          <option>Otro</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="mensaje">Detalle</label>
-      <textarea id="mensaje" name="message" placeholder="Describa su consulta..." required></textarea>
-    </div>
-
-    <div class="form-footer">
-      <button type="submit" class="btn-submit">Enviar mensaje ↗</button>
-    </div>
-  </form>
-</div>
+            <div class="contact-card-header"><div class="contact-card-icon">✉️</div><h3>Envíanos un mensaje</h3></div>
+            <form action="https://formspree.io/f/mjgpbngb" method="POST">
+              <div class="form-grid">
+                <div class="form-group"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre" type="text" placeholder="Nombres y apellidos" required /></div>
+                <div class="form-group"><label for="correo">Correo electrónico</label><input id="correo" name="email" type="email" placeholder="ejemplo@correo.com" required /></div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel" placeholder="Número de contacto" /></div>
+                <div class="form-group"><label for="tipo">Tipo de consulta</label>
+                  <select id="tipo" name="tipo" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option>Afiliaciones SIS</option><option>Orientación</option><option>Soporte</option><option>Otro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group"><label for="mensaje">Detalle</label><textarea id="mensaje" name="message" placeholder="Describa su consulta..." required></textarea></div>
+              <div class="form-footer"><button type="submit" class="btn-submit">Enviar mensaje ↗</button></div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -693,11 +645,49 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Loader
     window.addEventListener("load", () => {
       const l = document.getElementById("loader");
       l.style.opacity = "0";
       setTimeout(() => l.style.display = "none", 500);
     });
+
+    // ===== MODAL ANUNCIO =====
+    (function initModal() {
+      const overlay = document.getElementById("announcementModal");
+      const btnClose = document.getElementById("modalClose");
+      const btnOk    = document.getElementById("modalOk");
+      if (!overlay) return;
+
+      // Mostrar 800ms después de cargar
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          overlay.classList.add("show");
+          document.body.style.overflow = "hidden";
+        }, 800);
+      });
+
+      function closeModal() {
+  overlay.classList.remove("show");
+  document.body.style.overflow = "";
+
+  const video = overlay.querySelector("video");
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+  }
+}
+
+      btnClose.addEventListener("click", closeModal);
+      btnOk.addEventListener("click", closeModal);
+      overlay.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && overlay.classList.contains("show")) closeModal();
+      });
+    })();
+
+    // Slider documentos
     document.addEventListener("DOMContentLoaded", () => {
       const section = document.getElementById("documentos");
       if (!section) return;
@@ -726,8 +716,12 @@
       slider.addEventListener("mouseenter", () => { clearInterval(auto); auto=null; });
       slider.addEventListener("mouseleave", () => { if(!auto) auto=setInterval(()=>goBy(getStep()),5000); });
     });
+
+    // SIS card clicks
     document.addEventListener("click", e => { const c = e.target.closest(".sis-flip-card[data-href]"); if(c) window.open(c.getAttribute("data-href"),"_blank","noopener"); });
     document.addEventListener("keydown", e => { if(e.key!=="Enter"&&e.key!==" ") return; const c=e.target.closest(".sis-flip-card[data-href]"); if(c){e.preventDefault();window.open(c.getAttribute("data-href"),"_blank","noopener");} });
+
+    // Reloj
     function updateClock() {
       const now = new Date();
       const t = document.getElementById("scheduleTime");
@@ -735,9 +729,9 @@
       if(t) t.textContent = new Intl.DateTimeFormat("es-PE",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).format(now);
       if(d) d.textContent = new Intl.DateTimeFormat("es-PE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"}).format(now).toUpperCase();
     }
-    updateClock(); setInterval(updateClock, 1000);
+    updateClock();
+    setInterval(updateClock, 1000);
   </script>
 </body>
 </html>
-
 
